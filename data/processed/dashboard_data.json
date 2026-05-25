@@ -1,0 +1,1841 @@
+{
+  "fintech": {
+    "countries": [
+      {
+        "country": "Brazil",
+        "investment": "$900M-1.1B",
+        "share": "32-35%",
+        "fintechs": "850-920",
+        "deals": "110-135",
+        "unicorns": "8-10",
+        "growth": "+7.9%"
+      },
+      {
+        "country": "Mexico",
+        "investment": "$750M-950M",
+        "share": "26-30%",
+        "fintechs": "730-800",
+        "deals": "85-105",
+        "unicorns": "5-7",
+        "growth": "+2.8%"
+      },
+      {
+        "country": "Colombia",
+        "investment": "$280M-380M",
+        "share": "10-12%",
+        "fintechs": "480-530",
+        "deals": "40-55",
+        "unicorns": "2-3",
+        "growth": "+36.3%"
+      },
+      {
+        "country": "Argentina",
+        "investment": "$250M-320M",
+        "share": "9-11%",
+        "fintechs": "370-410",
+        "deals": "35-45",
+        "unicorns": "2-3",
+        "growth": "-5.2%"
+      },
+      {
+        "country": "Chile",
+        "investment": "$180M-240M",
+        "share": "6-8%",
+        "fintechs": "360-400",
+        "deals": "25-35",
+        "unicorns": "1-2",
+        "growth": "+12.4%"
+      },
+      {
+        "country": "Peru",
+        "investment": "$85M-120M",
+        "share": "3-4%",
+        "fintechs": "150-180",
+        "deals": "12-18",
+        "unicorns": "0-1",
+        "growth": "+8.7%"
+      },
+      {
+        "country": "Uruguay",
+        "investment": "$45M-70M",
+        "share": "2-3%",
+        "fintechs": "60-80",
+        "deals": "6-10",
+        "unicorns": "0-1",
+        "growth": "+15.3%"
+      },
+      {
+        "country": "Central America",
+        "investment": "$90M-130M",
+        "share": "3-4%",
+        "fintechs": "180-220",
+        "deals": "15-22",
+        "unicorns": "0-1",
+        "growth": "+18.6%"
+      },
+      {
+        "country": "Other LATAM",
+        "investment": "$70M-100M",
+        "share": "2-3%",
+        "fintechs": "120-150",
+        "deals": "10-15",
+        "unicorns": "0",
+        "growth": "Variable"
+      }
+    ],
+    "latam_subsectors": [
+      {
+        "subsector": "Payments & Digital Wallets",
+        "investment": "$800M-1.0B",
+        "pct": "28-32%",
+        "startups": "750-850",
+        "leaders": "Brazil, Mexico, Colombia"
+      },
+      {
+        "subsector": "Digital Banking & Neobanks",
+        "investment": "$600M-750M",
+        "pct": "20-24%",
+        "startups": "400-450",
+        "leaders": "Brazil, Argentina, Mexico"
+      },
+      {
+        "subsector": "Digital Lending & Credit",
+        "investment": "$400M-550M",
+        "pct": "13-17%",
+        "startups": "550-650",
+        "leaders": "Brazil, Mexico, Colombia"
+      },
+      {
+        "subsector": "Open Banking & BaaS",
+        "investment": "$250M-350M",
+        "pct": "8-11%",
+        "startups": "200-250",
+        "leaders": "Brazil, Mexico"
+      },
+      {
+        "subsector": "Insurtech",
+        "investment": "$150M-200M",
+        "pct": "5-6%",
+        "startups": "180-220",
+        "leaders": "Brazil, Chile, Mexico"
+      },
+      {
+        "subsector": "B2B Finance & Treasury",
+        "investment": "$300M-400M",
+        "pct": "10-12%",
+        "startups": "280-340",
+        "leaders": "Brazil, Mexico, Colombia"
+      },
+      {
+        "subsector": "Remittances & Cross-border",
+        "investment": "$200M-280M",
+        "pct": "7-9%",
+        "startups": "150-200",
+        "leaders": "Mexico, Central America"
+      },
+      {
+        "subsector": "Wealth Management",
+        "investment": "$120M-180M",
+        "pct": "4-5%",
+        "startups": "120-160",
+        "leaders": "Brazil, Chile"
+      },
+      {
+        "subsector": "RegTech & Compliance",
+        "investment": "$80M-120M",
+        "pct": "3-4%",
+        "startups": "90-120",
+        "leaders": "Brazil, Colombia"
+      },
+      {
+        "subsector": "Crypto & Stablecoins",
+        "investment": "$180M-250M",
+        "pct": "6-8%",
+        "startups": "300-380",
+        "leaders": "Argentina, Brazil"
+      },
+      {
+        "subsector": "PFM & Financial Inclusion",
+        "investment": "$90M-130M",
+        "pct": "3-4%",
+        "startups": "220-280",
+        "leaders": "Brazil, Mexico, Colombia"
+      },
+      {
+        "subsector": "Buy Now Pay Later (BNPL)",
+        "investment": "$70M-100M",
+        "pct": "2-3%",
+        "startups": "80-110",
+        "leaders": "Mexico, Brazil"
+      },
+      {
+        "subsector": "Alternative Credit Scoring",
+        "investment": "$110M-150M",
+        "pct": "4-5%",
+        "startups": "160-200",
+        "leaders": "Colombia, Mexico, Brazil"
+      },
+      {
+        "subsector": "Embedded Finance",
+        "investment": "$150M-220M",
+        "pct": "5-7%",
+        "startups": "140-180",
+        "leaders": "Brazil, Mexico"
+      }
+    ],
+    "usa_subsectors": [
+      {
+        "subsector": "Payments & Payment Infrastructure",
+        "investment": "$31.0B",
+        "pct": "3.24",
+        "startups": "3,200-3,500",
+        "trend": "↑ B2B payments, cross-border"
+      },
+      {
+        "subsector": "Digital Lending",
+        "investment": "$4.9B",
+        "pct": "0.51",
+        "startups": "1,800-2,100",
+        "trend": "↓ Tighter underwriting"
+      },
+      {
+        "subsector": "Digital Banking & Neobanks",
+        "investment": "$4.2B",
+        "pct": "0.44",
+        "startups": "1,500-1,700",
+        "trend": "→ Consolidation phase"
+      },
+      {
+        "subsector": "Insurtech",
+        "investment": "$4.5B",
+        "pct": "0.47",
+        "startups": "1,500 (25 unicorns)",
+        "trend": "→ Stable growth"
+      },
+      {
+        "subsector": "Wealth Management & Investment",
+        "investment": "$3.8B",
+        "pct": "0.4",
+        "startups": "1,200-1,400",
+        "trend": "↑ AI-driven wealth"
+      },
+      {
+        "subsector": "Digital Assets & Crypto",
+        "investment": "$8.5B",
+        "pct": "0.89",
+        "startups": "2,500-2,800",
+        "trend": "↑ Institutional adoption"
+      },
+      {
+        "subsector": "RegTech & Compliance",
+        "investment": "$2.1B",
+        "pct": "0.22",
+        "startups": "800-1,000",
+        "trend": "↑ AI compliance tools"
+      },
+      {
+        "subsector": "B2B Finance & Treasury",
+        "investment": "$5.3B",
+        "pct": "0.55",
+        "startups": "1,100-1,300",
+        "trend": "↑↑ Strong growth"
+      },
+      {
+        "subsector": "Capital Markets & Trading",
+        "investment": "$2.8B",
+        "pct": "0.29",
+        "startups": "600-750",
+        "trend": "→ Blockchain integration"
+      },
+      {
+        "subsector": "Personal Finance Management (PFM)",
+        "investment": "$1.5B",
+        "pct": "0.16",
+        "startups": "900-1,100",
+        "trend": "→ Steady"
+      },
+      {
+        "subsector": "Open Banking & Data Aggregation",
+        "investment": "$2.3B",
+        "pct": "0.24",
+        "startups": "400-500",
+        "trend": "↑ Embedded finance"
+      },
+      {
+        "subsector": "Buy Now Pay Later (BNPL)",
+        "investment": "$1.9B",
+        "pct": "0.2",
+        "startups": "300-400",
+        "trend": "↓ Regulatory pressure"
+      },
+      {
+        "subsector": "Banking-as-a-Service (BaaS)",
+        "investment": "$3.2B",
+        "pct": "0.33",
+        "startups": "250-350",
+        "trend": "↓ Regulatory scrutiny"
+      },
+      {
+        "subsector": "Financial Fraud & Security",
+        "investment": "$2.6B",
+        "pct": "0.27",
+        "startups": "700-850",
+        "trend": "↑ ML fraud detection"
+      },
+      {
+        "subsector": "AI-Powered Finance Solutions",
+        "investment": "$4.7B",
+        "pct": "0.49",
+        "startups": "1,000-1,200",
+        "trend": "↑↑ Explosive growth"
+      }
+    ],
+    "comparison": [
+      {
+        "metric": "Inversión Total 2024",
+        "usa": "$50.7B",
+        "latam": "$3.0-3.5B",
+        "ratio": "14-17x"
+      },
+      {
+        "metric": "Número de Deals",
+        "usa": "~2,085",
+        "latam": "~370-450",
+        "ratio": "5-6x"
+      },
+      {
+        "metric": "Deal Size Promedio",
+        "usa": "$24.3M",
+        "latam": "$7.5-9M",
+        "ratio": "2.5-3x"
+      },
+      {
+        "metric": "Total Fintechs Activas",
+        "usa": "~12,000+",
+        "latam": "~3,620+",
+        "ratio": "3-4x"
+      },
+      {
+        "metric": "Unicornios Fintech",
+        "usa": "~165",
+        "latam": "~15-20",
+        "ratio": "8-11x"
+      },
+      {
+        "metric": "Mega-rounds ($100M+)",
+        "usa": "~40",
+        "latam": "~2-4",
+        "ratio": "10-20x"
+      },
+      {
+        "metric": "Subsector #1",
+        "usa": "Payments (32.4%)",
+        "latam": "Payments (28-32%)",
+        "ratio": "Same focus"
+      },
+      {
+        "metric": "Crecimiento YoY",
+        "usa": "-30.3%",
+        "latam": "+5-8%",
+        "ratio": "Opposite trends"
+      },
+      {
+        "metric": "Share AI-Enabled Fintechs",
+        "usa": "15%",
+        "latam": "25-30%",
+        "ratio": "LATAM higher"
+      },
+      {
+        "metric": "Gross Margin Promedio",
+        "usa": "65-75%",
+        "latam": "55-65%",
+        "ratio": "USA higher"
+      }
+    ]
+  },
+  "vcfunds": {
+    "early_stage": {
+      "headers": [
+        "",
+        "Métrica",
+        "Pre-Seed",
+        "Seed",
+        "Serie A"
+      ],
+      "rows": [
+        [
+          "",
+          "IRR mediano (fondos maduros, vintage 2017–2020)",
+          "~11–13%",
+          "~11–13%",
+          "~12–16%"
+        ],
+        [
+          "",
+          "IRR objetivo (target para fondos early-stage)",
+          "30–40%",
+          "30–40%",
+          "20–30%"
+        ],
+        [
+          "",
+          "IRR top decil (90th percentile, fondos pequeños)",
+          "~28%",
+          "~28%",
+          "~28%"
+        ],
+        [
+          "",
+          "TVPI mediano (vintage 2017)",
+          "~1.72–1.95x",
+          "~1.72–1.95x",
+          "~1.72–1.95x"
+        ],
+        [
+          "",
+          "TVPI top decil (fondos <$10M, vintage 2018)",
+          "4.03x",
+          "4.03x",
+          "—"
+        ],
+        [
+          "",
+          "TVPI top quartil (referencia de \"excelente\")",
+          "3.0x+",
+          "3.0x+",
+          "3.0x+"
+        ],
+        [
+          "",
+          "DPI mediano (vintage 2017)",
+          "~0.27x",
+          "~0.27x",
+          "~0.30x"
+        ],
+        [
+          "",
+          "DPI top quartil (Q4 2023)",
+          "—",
+          "1.5x",
+          "1.5x"
+        ],
+        [
+          "",
+          "% fondos con DPI > 0 (vintage 2020, Q1 2025)",
+          "~30%",
+          "~30%",
+          "~42%"
+        ],
+        [
+          "",
+          "MOIC objetivo",
+          "5–10x por deal",
+          "3–5x por deal",
+          "3x+ por fondo"
+        ],
+        [
+          "",
+          "Valuación pre-money mediana",
+          "~$5.7M",
+          "~$12M",
+          "~$25–45M"
+        ],
+        [
+          "",
+          "Tamaño promedio de ronda",
+          "$500K–$2M",
+          "$3–4M",
+          "$10–15M"
+        ],
+        [
+          "",
+          "Tamaño típico del fondo",
+          "$1M–$25M",
+          "$10M–$75M",
+          "$50M–$150M"
+        ],
+        [
+          "",
+          "Tasa de graduación Seed → Serie A (2 años)",
+          "—",
+          "15.4% (2022) / 30.6% (2018)",
+          "—"
+        ],
+        [
+          "",
+          "Capital desplegado a 24 meses (vintage 2022)",
+          "~43%",
+          "~43%",
+          "~43–60%"
+        ],
+        [
+          "",
+          "Retorno índice VC EE. UU. (2024, neto de fees)",
+          "—",
+          "—",
+          "6.2%"
+        ]
+      ]
+    },
+    "benchmark": {
+      "headers": [
+        "",
+        "Métrica",
+        "Pre-Seed",
+        "Seed",
+        "Serie A"
+      ],
+      "rows": [
+        [
+          "",
+          "IRR objetivo (target fondos early-stage)",
+          "30–40%",
+          "25–35%",
+          "20–30%"
+        ],
+        [
+          "",
+          "IRR mediano observado (maduros)",
+          "~8–12%",
+          "~10–15%",
+          "~12–18%"
+        ],
+        [
+          "",
+          "TVPI mediano estimado (fondos activos)",
+          "~1.2–1.5x",
+          "~1.3–1.6x",
+          "~1.5–2.0x"
+        ],
+        [
+          "",
+          "TVPI top cuartil (\"excelente\")",
+          "2.5x+",
+          "2.5–3.0x+",
+          "3.0x+"
+        ],
+        [
+          "",
+          "DPI mediano (fondos <8 años)",
+          "~0.05–0.15x",
+          "~0.10–0.20x",
+          "~0.20–0.40x"
+        ],
+        [
+          "",
+          "MOIC objetivo por deal",
+          "10–20x",
+          "5–10x",
+          "3–5x"
+        ],
+        [
+          "",
+          "Tamaño típico del fondo",
+          "~$10M",
+          "~$15M",
+          "~$35M"
+        ],
+        [
+          "",
+          "Ticket de inversión (cheque)",
+          "$50K–$500K",
+          "$100K–$500K",
+          "$250K–$1.5M"
+        ],
+        [
+          "",
+          "Valuación pre-money mediana",
+          "~$2M–$5M",
+          "~$5M–$10M",
+          "~$12M–$25M"
+        ],
+        [
+          "",
+          "Tamaño promedio de ronda",
+          "$66M total mercado (152 deals) → ~$434K/deal",
+          "~$1.73M/deal (427 deals, 2025)",
+          "~$10.7M/deal (72 deals, 2025)"
+        ],
+        [
+          "",
+          "Capital total desplegado en etapa (2024)",
+          "$110M (↑ desde 2023)",
+          "$408M (mínimo 5 años)",
+          "$707M (leve recuperación)"
+        ],
+        [
+          "",
+          "Capital total desplegado en etapa (2025)",
+          "$66M (↓40% vs 2024)",
+          "$427M (↑4.7% vs 2024)",
+          "$773M (↑9.3% vs 2024)"
+        ],
+        [
+          "",
+          "Número de deals (2025)",
+          "152 deals (↓39% vs 2024)",
+          "247 deals",
+          "72 deals"
+        ],
+        [
+          "",
+          "Tasa de graduación Seed → Serie A",
+          "—",
+          "~10–15% (estimado LATAM)",
+          "—"
+        ],
+        [
+          "",
+          "Tiempo entre rondas",
+          "—",
+          "~20 meses promedio entre rondas (2024)",
+          "~20 meses"
+        ],
+        [
+          "",
+          "% fondos en early-stage (Pre-Seed + Seed)",
+          "74.4% de los fondos totales",
+          "",
+          ""
+        ],
+        [
+          "",
+          "% de capital early-stage (52% del total)",
+          "—",
+          "—",
+          "—"
+        ],
+        [
+          "",
+          "Management fee típico",
+          "2–2.5%",
+          "2–2.5%",
+          "2–2.5%"
+        ],
+        [
+          "",
+          "Carried interest típico",
+          "0.2",
+          "0.2",
+          "0.2"
+        ],
+        [
+          "",
+          "Principales mercados",
+          "Brasil (52.9%), México (26.7%), Argentina",
+          "Brasil, México, Argentina, Colombia",
+          "Brasil, México, Colombia, Chile"
+        ]
+      ]
+    },
+    "latam_vs_us": {
+      "headers": [
+        "",
+        "Métrica",
+        "EE. UU. (Early-Stage)",
+        "LATAM (Early-Stage)"
+      ],
+      "rows": [
+        [
+          "",
+          "IRR mediano (fondos maduros)",
+          "~11–13%",
+          "~8–12%"
+        ],
+        [
+          "",
+          "IRR top decil",
+          "~28%",
+          "~20–25% (est.)"
+        ],
+        [
+          "",
+          "TVPI mediano (vintage ~5–7 años)",
+          "~1.72–1.95x",
+          "~1.2–1.6x"
+        ],
+        [
+          "",
+          "DPI mediano",
+          "~0.27x",
+          "~0.05–0.20x"
+        ],
+        [
+          "",
+          "Tamaño fondo Pre-Seed",
+          "$1M–$25M",
+          "~$10M"
+        ],
+        [
+          "",
+          "Tamaño fondo Seed",
+          "$10M–$75M",
+          "~$15M"
+        ],
+        [
+          "",
+          "Tamaño fondo Serie A",
+          "$50M–$150M",
+          "~$35M"
+        ],
+        [
+          "",
+          "Ticket Pre-Seed",
+          "$500K–$2M",
+          "$50K–$500K"
+        ],
+        [
+          "",
+          "Ticket Seed",
+          "$3–4M",
+          "$100K–$500K"
+        ],
+        [
+          "",
+          "Ticket Serie A",
+          "$10–15M",
+          "$250K–$1.5M"
+        ],
+        [
+          "",
+          "Tiempo entre rondas",
+          "~12–15 meses",
+          "~20 meses"
+        ],
+        [
+          "",
+          "Tasa graduación Seed→Serie A",
+          "~15–30% (según año)",
+          "~10–15% (est.)"
+        ]
+      ]
+    }
+  },
+  "venture_studio": {
+    "A": [
+      {
+        "metric": "Startups Built Per Year",
+        "early": "2–4",
+        "mature": "4–8",
+        "industry": "3–5",
+        "notes": "Depends on team size & focus verticals"
+      },
+      {
+        "metric": "Idea-to-MVP Cycle Time",
+        "early": "9–18 months",
+        "mature": "6–12 months",
+        "industry": "9–14 months",
+        "notes": "Faster in mature studios with playbooks"
+      },
+      {
+        "metric": "Studio OPEX / Year ($M)",
+        "early": "$1M–$3M",
+        "mature": "$3M–$8M",
+        "industry": "$2M–$5M",
+        "notes": "Includes shared services & team salaries"
+      },
+      {
+        "metric": "Cost per Company Built ($K)",
+        "early": "$200K–$600K",
+        "mature": "$300K–$800K",
+        "industry": "$350K–$500K",
+        "notes": "Seed-stage funding + studio overhead allocation"
+      },
+      {
+        "metric": "Equity Retained per Startup",
+        "early": "40%–60%",
+        "mature": "30%–50%",
+        "industry": "40%–55%",
+        "notes": "Diluted through external fundraising rounds"
+      },
+      {
+        "metric": "Studio Team Size (FTEs)",
+        "early": "5–15",
+        "mature": "15–50",
+        "industry": "10–30",
+        "notes": "Incl. operators, designers, engineers, domain experts"
+      },
+      {
+        "metric": "# Active Startups in Portfolio",
+        "early": "3–6",
+        "mature": "6–15",
+        "industry": "5–10",
+        "notes": "Actively operational; excludes exited/shuttered"
+      },
+      {
+        "metric": "Annual Studio Revenue ($M)",
+        "early": "$0–$1M",
+        "mature": "$1M–$5M",
+        "industry": "$0.5M–$3M",
+        "notes": "Service fees, mgmt fees, carry from exits"
+      }
+    ],
+    "B": [
+      {
+        "metric": "Survival Rate (Year 3)",
+        "early": "30%–50%",
+        "mature": "40%–60%",
+        "industry": "40%–55%",
+        "notes": "Higher than traditional VC due to studio support"
+      },
+      {
+        "metric": "Series A Graduation Rate",
+        "early": "20%–35%",
+        "mature": "30%–50%",
+        "industry": "25%–40%",
+        "notes": "% reaching institutional round"
+      },
+      {
+        "metric": "Revenue at Seed Stage ($K)",
+        "early": "$0–$100K",
+        "mature": "$50K–$300K",
+        "industry": "$50K–$200K",
+        "notes": "ARR at time of seed close"
+      },
+      {
+        "metric": "Revenue at Series A ($M)",
+        "early": "$0.5M–$2M",
+        "mature": "$1M–$5M",
+        "industry": "$1M–$3M",
+        "notes": "ARR benchmark for A-round readiness"
+      },
+      {
+        "metric": "MoM Growth Rate (early)",
+        "early": "5%–15%",
+        "mature": "10%–20%",
+        "industry": "8%–15%",
+        "notes": "Monthly revenue/user growth in first 18 months"
+      },
+      {
+        "metric": "CAC (SaaS benchmark)",
+        "early": "$200–$1,000",
+        "mature": "$100–$600",
+        "industry": "$300–$700",
+        "notes": "Customer acquisition cost; varies by vertical"
+      },
+      {
+        "metric": "LTV:CAC Ratio (target)",
+        "early": "2x–4x",
+        "mature": "3x–6x",
+        "industry": "3x–5x",
+        "notes": "Minimum 3x for Series A readiness"
+      },
+      {
+        "metric": "Gross Margin (%)",
+        "early": "40%–60%",
+        "mature": "55%–75%",
+        "industry": "55%–70%",
+        "notes": "Software/SaaS benchmarks; lower for marketplace"
+      },
+      {
+        "metric": "Net Revenue Retention (%)",
+        "early": "90%–110%",
+        "mature": "105%–130%",
+        "industry": "100%–120%",
+        "notes": "Key SaaS health metric"
+      },
+      {
+        "metric": "Churn Rate (Monthly)",
+        "early": "3%–7%",
+        "mature": "1%–4%",
+        "industry": "2%–5%",
+        "notes": "Lower = better retention"
+      },
+      {
+        "metric": "Payback Period (months)",
+        "early": "18–36",
+        "mature": "12–24",
+        "industry": "15–24",
+        "notes": "CAC payback period in months"
+      }
+    ],
+    "C": [
+      {
+        "metric": "Target Gross MOIC",
+        "early": "3x–5x",
+        "mature": "5x–10x",
+        "industry": "4x–7x",
+        "notes": "Multiple on invested capital; pre-fees"
+      },
+      {
+        "metric": "Target Net MOIC (to LPs)",
+        "early": "2x–4x",
+        "mature": "3x–7x",
+        "industry": "3x–5x",
+        "notes": "After mgmt fees & carry"
+      },
+      {
+        "metric": "Target Gross IRR",
+        "early": "20%–30%",
+        "mature": "25%–40%",
+        "industry": "25%–35%",
+        "notes": "Internal rate of return, gross"
+      },
+      {
+        "metric": "Target Net IRR (to LPs)",
+        "early": "15%–25%",
+        "mature": "20%–35%",
+        "industry": "18%–28%",
+        "notes": "Net of 2/20 fee structure"
+      },
+      {
+        "metric": "Fund Life (years)",
+        "early": "7–10",
+        "mature": "8–12",
+        "industry": "8–10",
+        "notes": "Typical LP fund life commitment"
+      },
+      {
+        "metric": "Average Exit Valuation ($M)",
+        "early": "$30M–$100M",
+        "mature": "$80M–$300M",
+        "industry": "$50M–$200M",
+        "notes": "Acquisition / IPO enterprise value"
+      },
+      {
+        "metric": "Expected # of Exits",
+        "early": "1–2 per cohort",
+        "mature": "2–4 per cohort",
+        "industry": "2–3 per cohort",
+        "notes": "Out of 8–10 companies built"
+      },
+      {
+        "metric": "Power Law: Top-2 Return %",
+        "early": "60%–80%",
+        "mature": "70%–90%",
+        "industry": "70%–85%",
+        "notes": "Share of total returns from top 2 exits"
+      },
+      {
+        "metric": "Management Fee (% AUM)",
+        "early": "2.0%–2.5%",
+        "mature": "1.5%–2.0%",
+        "industry": "2.0%",
+        "notes": "Annual; on committed capital"
+      },
+      {
+        "metric": "Carried Interest (%)",
+        "early": "20%–25%",
+        "mature": "20%–30%",
+        "industry": "20%",
+        "notes": "GP carry above hurdle rate"
+      }
+    ]
+  },
+  "benchmarks": {
+    "rev_multiples": {
+      "saas": [
+        {
+          "stage": "Pre-Seed",
+          "type": "ARR",
+          "global": "",
+          "latam": "",
+          "use_case": "Early pricing (team/vision)",
+          "source": "Equidam, Flowjam"
+        },
+        {
+          "stage": "Seed",
+          "type": "ARR",
+          "global": "8–12x",
+          "latam": "5–7x",
+          "use_case": "Traction emerging",
+          "source": "SaaS Capital"
+        },
+        {
+          "stage": "Series A",
+          "type": "ARR",
+          "global": "6–10x",
+          "latam": "4–6x",
+          "use_case": "Product-Market Fit",
+          "source": "Carta, SaaSRise"
+        },
+        {
+          "stage": "Series B",
+          "type": "ARR",
+          "global": "5–8x",
+          "latam": "3–5x",
+          "use_case": "Scaling Validation",
+          "source": "SaaS Capital Index"
+        },
+        {
+          "stage": "Late Growth",
+          "type": "Revenue",
+          "global": "5–7x",
+          "latam": "3–5x",
+          "use_case": "Exit Positioning",
+          "source": "Aventis Advisors"
+        },
+        {
+          "stage": "Public Comps (Median)",
+          "type": "ARR",
+          "global": "6–8x",
+          "latam": "",
+          "use_case": "Benchmarking",
+          "source": "SaaS Capital Index"
+        },
+        {
+          "stage": "Public Comps (Top 10)",
+          "type": "ARR",
+          "global": "12–20x",
+          "latam": "",
+          "use_case": "Benchmarking",
+          "source": "SaaS Capital Index"
+        },
+        {
+          "stage": "M&A Exit (Median)",
+          "type": "Revenue",
+          "global": "3x (EV/Rev)",
+          "latam": "2–3x",
+          "use_case": "Acquisition",
+          "source": "Aventis Advisors"
+        },
+        {
+          "stage": "• Revenue Growth > 100% YoY + Burn Multiple < 1.5x  →  Rare combo that justifies top-quartile pricing",
+          "type": "",
+          "global": "",
+          "latam": "",
+          "use_case": "",
+          "source": ""
+        }
+      ],
+      "fintech": [
+        {
+          "stage": "Pre-Seed",
+          "type": "EV/Revenue",
+          "global": "",
+          "latam": "",
+          "use_case": "",
+          "source": ""
+        },
+        {
+          "stage": "Seed",
+          "type": "EV/Revenue",
+          "global": "15–27x",
+          "latam": "9–18x",
+          "use_case": "Vision / Team based",
+          "source": "Finro FCA"
+        },
+        {
+          "stage": "Series A",
+          "type": "EV/Revenue",
+          "global": "10–20x",
+          "latam": "6–12x",
+          "use_case": "Early traction",
+          "source": "Finro FCA"
+        },
+        {
+          "stage": "Series B",
+          "type": "EV/Revenue",
+          "global": "8–15x (median 12.3x)",
+          "latam": "5–9x",
+          "use_case": "Growth Proof",
+          "source": "Finro FCA"
+        },
+        {
+          "stage": "Series C",
+          "type": "EV/Revenue",
+          "global": "10–20x (median 18.7x)",
+          "latam": "6–12x",
+          "use_case": "Value generation",
+          "source": "Finro FCA"
+        },
+        {
+          "stage": "M&A Exit (Median)",
+          "type": "Revenue",
+          "global": "3.7–7.4x (avg 4.7x)",
+          "latam": "2.5–5x",
+          "use_case": "Exit",
+          "source": "First Page Sage"
+        },
+        {
+          "stage": "Public Comps (Top 10)",
+          "type": "EV/Revenue",
+          "global": "4–6x",
+          "latam": "",
+          "use_case": "Benchmarking",
+          "source": "Bessemer Cloud Index"
+        }
+      ],
+      "logtech": [
+        {
+          "stage": "Pre-Seed",
+          "type": "Revenue/ARR",
+          "global": "",
+          "latam": "",
+          "use_case": "",
+          "source": "Capstone Partners"
+        },
+        {
+          "stage": "Seed",
+          "type": "Revenue",
+          "global": "N/A (range $3-8M val)",
+          "latam": "$2-4M val (LATAM)",
+          "use_case": "Traction proof",
+          "source": "Capstone Partners"
+        },
+        {
+          "stage": "Series A",
+          "type": "Revenue",
+          "global": "2–4x Revenue",
+          "latam": "$1.5-3x Revenue",
+          "use_case": "Cross-border/visibility focus",
+          "source": "Capstone Partners"
+        },
+        {
+          "stage": "Series B",
+          "type": "Revenue",
+          "global": "3–6x Revenue",
+          "latam": "2–4x Revenue",
+          "use_case": "Profitability required",
+          "source": "Capstone Partners"
+        },
+        {
+          "stage": "Late Growth / Exit",
+          "type": "Revenue",
+          "global": "2–5x Revenue",
+          "latam": "1.5–3x Revenue",
+          "use_case": "Exit Positioning",
+          "source": "Capstone / PitchBook"
+        },
+        {
+          "stage": "PREMIUM FACTORS — Metrics that justify multiples above the median range:",
+          "type": "",
+          "global": "",
+          "latam": "",
+          "use_case": "",
+          "source": ""
+        },
+        {
+          "stage": "• Rule of 40 (Revenue Growth % + EBITDA Margin %) > 40%  →  Commands 20-30% premium on multiples",
+          "type": "",
+          "global": "",
+          "latam": "",
+          "use_case": "",
+          "source": ""
+        },
+        {
+          "stage": "• NRR (Net Revenue Retention) > 120%  →  Top-tier signal; compresses churn risk for investors",
+          "type": "",
+          "global": "",
+          "latam": "",
+          "use_case": "",
+          "source": ""
+        }
+      ]
+    },
+    "us_valuations": {
+      "saas": [
+        {
+          "stage": "Pre-Seed",
+          "val": "$3–8M",
+          "multiple": "",
+          "notes": "",
+          "round": "$0.25–2M"
+        },
+        {
+          "stage": "Seed",
+          "val": "$19.8M",
+          "multiple": "+35%",
+          "notes": "+24%",
+          "round": "$2–5M"
+        },
+        {
+          "stage": "Series A",
+          "val": "$60M",
+          "multiple": "+19%",
+          "notes": "+22%",
+          "round": "$10–25M"
+        },
+        {
+          "stage": "Series B",
+          "val": "$175M",
+          "multiple": "+38%",
+          "notes": "",
+          "round": "$25–60M"
+        },
+        {
+          "stage": "Series C+",
+          "val": "$350M+",
+          "multiple": "",
+          "notes": "",
+          "round": "$50–150M+"
+        }
+      ],
+      "fintech": [
+        {
+          "stage": "Pre-Seed",
+          "val": "$4–6M",
+          "multiple": "",
+          "notes": "Team & regulatory thesis pricing",
+          "round": "$0.5–3M"
+        },
+        {
+          "stage": "Seed",
+          "val": "$7M",
+          "multiple": "15x EV/Rev",
+          "notes": "Potential > PMF",
+          "round": "$2–5M"
+        },
+        {
+          "stage": "Series A",
+          "val": "$32M",
+          "multiple": "15x EV/Rev",
+          "notes": "Early traction",
+          "round": "$10–25M"
+        },
+        {
+          "stage": "Series B",
+          "val": "$84M",
+          "multiple": "12.3x EV/Rev",
+          "notes": "Multiples dip at scale",
+          "round": "$30–75M"
+        },
+        {
+          "stage": "Series C",
+          "val": "$200M+",
+          "multiple": "8–12x EV/Rev",
+          "notes": "Value generation / pre-exit",
+          "round": "$75–200M"
+        }
+      ],
+      "logtech": [
+        {
+          "stage": "Pre-Seed",
+          "val": "N/A / Pre-revenue",
+          "multiple": "",
+          "notes": "MVP + pilot customer",
+          "round": "$0.25–1.5M"
+        },
+        {
+          "stage": "Seed",
+          "val": "$3–8M",
+          "multiple": "$25M+ (AI-enabled)",
+          "notes": "Cross-border / automation focus",
+          "round": "$2–6M"
+        },
+        {
+          "stage": "Series A",
+          "val": "$10–20M",
+          "multiple": "$40–60M (AI-enabled)",
+          "notes": "Profitability path required",
+          "round": "$10–30M"
+        },
+        {
+          "stage": "Series B",
+          "val": "$40–80M",
+          "multiple": "",
+          "notes": "Strong unit economics + expansion",
+          "round": "$30–80M"
+        },
+        {
+          "stage": "Series C+",
+          "val": "$100–200M",
+          "multiple": "",
+          "notes": "Exit positioning",
+          "round": "$75–200M"
+        }
+      ]
+    },
+    "latam_discount": [
+      {
+        "factor": "Pre-Seed Median Valuation",
+        "discount": "55–60%",
+        "source": "Equidam 2025",
+        "notes": "US $5.97M vs LATAM $2.60M median"
+      },
+      {
+        "factor": "Overall VC Multiples",
+        "discount": "30–40%",
+        "source": "Multiple sources",
+        "notes": "Historical range across all stages"
+      },
+      {
+        "factor": "Series A Valuations",
+        "discount": "35–45%",
+        "source": "Equidam 2025",
+        "notes": "Europe at 34%, LATAM deeper"
+      },
+      {
+        "factor": "Series B Valuations",
+        "discount": "40–50%",
+        "source": "LAVCA / Crunchbase",
+        "notes": "Scaling validation stage"
+      },
+      {
+        "factor": "Exit / M&A Multiples",
+        "discount": "25–35%",
+        "source": "Aventis Advisors",
+        "notes": "Smaller discount at exit; strategic acquirers pay market rates"
+      },
+      {
+        "factor": "Public Equities vs EM Asia",
+        "discount": "~50%",
+        "source": "Cambridge Associates, MSCI",
+        "notes": "LATAM at near-record discount — upside potential"
+      },
+      {
+        "factor": "Currency Risk Premium",
+        "discount": "+5–10% additional",
+        "source": "MSCI",
+        "notes": "Real FX rates 11–15% below 20-yr median"
+      }
+    ],
+    "latam_by_sector": [
+      {
+        "stage": "Pre-Seed",
+        "saas": "$3–5M",
+        "fintech": "$3–6M",
+        "logtech": "$2–4M",
+        "us_ref": "$3–8M",
+        "discount": "25–60%"
+      },
+      {
+        "stage": "Seed",
+        "saas": "$8–12M",
+        "fintech": "$8–14M",
+        "logtech": "$5–8M",
+        "us_ref": "$19.8M",
+        "discount": "40–60%"
+      },
+      {
+        "stage": "Series A",
+        "saas": "$25–36M",
+        "fintech": "$25–45M",
+        "logtech": "$15–25M",
+        "us_ref": "$60M",
+        "discount": "40–58%"
+      },
+      {
+        "stage": "Series B",
+        "saas": "$70–105M",
+        "fintech": "$80–130M",
+        "logtech": "$50–85M",
+        "us_ref": "$175M",
+        "discount": "40–60%"
+      },
+      {
+        "stage": "Series C+",
+        "saas": "$150–250M",
+        "fintech": "$180–350M",
+        "logtech": "$100–180M",
+        "us_ref": "$350M+",
+        "discount": "30–55%"
+      }
+    ],
+    "latam_notable": [
+      {
+        "company": "Plata",
+        "country": "Mexico",
+        "stage": "Series A",
+        "amount": "$160M",
+        "valuation": "$1.5B",
+        "date": "Mar 2025",
+        "sector": "Fintech (Neobank)"
+      },
+      {
+        "company": "Plata",
+        "country": "Mexico",
+        "stage": "Series B",
+        "amount": "$250M",
+        "valuation": "$3.1B",
+        "date": "Oct 2025",
+        "sector": "Fintech (Neobank)"
+      },
+      {
+        "company": "Uala",
+        "country": "Argentina",
+        "stage": "Series E",
+        "amount": "$366M",
+        "valuation": "$2.75B",
+        "date": "Mar 2025",
+        "sector": "Fintech (Neobank)"
+      },
+      {
+        "company": "Omie",
+        "country": "Brazil",
+        "stage": "Series C",
+        "amount": "$150M",
+        "valuation": "$700M",
+        "date": "Sep 2025",
+        "sector": "Enterprise SaaS (ERP)"
+      },
+      {
+        "company": "Kapital",
+        "country": "Mexico",
+        "stage": "Series B",
+        "amount": "$100M",
+        "valuation": "$1.3B",
+        "date": "Oct 2025",
+        "sector": "Fintech (SMB Credit)"
+      },
+      {
+        "company": "Buk",
+        "country": "Chile",
+        "stage": "Series B",
+        "amount": "$50M",
+        "valuation": "",
+        "date": "Jan 2025",
+        "sector": "Enterprise SaaS (HR)"
+      },
+      {
+        "company": "Paytrack",
+        "country": "Brazil",
+        "stage": "Series B",
+        "amount": "$40M",
+        "valuation": "",
+        "date": "Jan 2025",
+        "sector": "Enterprise SaaS (Expense)"
+      },
+      {
+        "company": "Mendel",
+        "country": "Mexico",
+        "stage": "Series B",
+        "amount": "$35M",
+        "valuation": "",
+        "date": "Mar 2025",
+        "sector": "Fintech (Corporate Expense)"
+      },
+      {
+        "company": "Niko Energy",
+        "country": "Mexico",
+        "stage": "Seed",
+        "amount": "$8M",
+        "valuation": "",
+        "date": "Q1 2025",
+        "sector": "LogTech (Solar)"
+      },
+      {
+        "company": "Neofin",
+        "country": "Brazil",
+        "stage": "Seed",
+        "amount": "$6M",
+        "valuation": "",
+        "date": "Q1 2025",
+        "sector": "Fintech (B2B Payments)"
+      }
+    ],
+    "graduation": {
+      "geography": [
+        {
+          "transition": "Pre-Seed → Seed",
+          "us_2024": "30–45%",
+          "us_2021": "50–65%",
+          "latam": "20–35%",
+          "latam_top": "35–45%"
+        },
+        {
+          "transition": "Seed → Series A",
+          "us_2024": "2–5%",
+          "us_2021": "14–15%",
+          "latam": "5–10%",
+          "latam_top": "10–18%"
+        },
+        {
+          "transition": "Series A → Series B",
+          "us_2024": "40–50% (of mature 2018-20 cohorts)",
+          "us_2021": "55–65%",
+          "latam": "25–40%",
+          "latam_top": "40–50%"
+        },
+        {
+          "transition": "Series B → Series C",
+          "us_2024": "~40–50%",
+          "us_2021": "~55%",
+          "latam": "20–35%",
+          "latam_top": "35–45%"
+        },
+        {
+          "transition": "Series C → Exit / IPO",
+          "us_2024": "~30–40%",
+          "us_2021": "~45%",
+          "latam": "15–25%",
+          "latam_top": "25–35%"
+        }
+      ],
+      "sector": [
+        {
+          "sector": "Fintech",
+          "us_rate": "3–7%",
+          "latam_rate": "6–12%",
+          "key": "Higher LATAM rate driven by financial inclusion TAM (unbanked populations)"
+        },
+        {
+          "sector": "Enterprise SaaS",
+          "us_rate": "4–8%",
+          "latam_rate": "5–10%",
+          "key": "Faster in SaaS globally (15% below median); enterprise sales cycles slow LATAM"
+        },
+        {
+          "sector": "LogTech / Supply Chain",
+          "us_rate": "3–6%",
+          "latam_rate": "4–8%",
+          "key": "Capital-intensive; hardware component → fewer VC-backable; AI-overlay changes equation"
+        },
+        {
+          "sector": "Consumer / B2C",
+          "us_rate": "2–4%",
+          "latam_rate": "3–6%",
+          "key": "Churn risk + DAU/MAU requirements; harder PMF proof in LATAM fragmented market"
+        },
+        {
+          "sector": "Deep Tech / Hardware",
+          "us_rate": "2–4%",
+          "latam_rate": "2–4%",
+          "key": "Long R&D cycles; fewer LATAM investors with patience for hardware timelines"
+        }
+      ],
+      "cohort": [
+        {
+          "stage": "Pre-Seed",
+          "us": "1,000",
+          "latam": "1,000",
+          "pct_us": "100%"
+        },
+        {
+          "stage": "Seed",
+          "us": "350–450",
+          "latam": "200–350",
+          "pct_us": "35–45%"
+        },
+        {
+          "stage": "Series A",
+          "us": "7–22",
+          "latam": "10–35",
+          "pct_us": "0.7–2.2%"
+        },
+        {
+          "stage": "Series B",
+          "us": "3–11",
+          "latam": "3–14",
+          "pct_us": "0.3–1.1%"
+        },
+        {
+          "stage": "Series C+",
+          "us": "1–5",
+          "latam": "1–5",
+          "pct_us": "0.1–0.5%"
+        },
+        {
+          "stage": "Exit / IPO",
+          "us": "<3",
+          "latam": "<2",
+          "pct_us": "<0.3%"
+        },
+        {
+          "stage": "Sources: Carta (11,384 US seed startups analyzed, 2024) · LAVCA VC Report 2024 · Crunchbase Pre-seed & Seed Trends 2024 · Forum Ventures State of Seed 2024 · Cuantico VP LatAm VC Report 2026 (Preliminary) · Capstone Partners LogTech Industry Update Jun 2025",
+          "us": "",
+          "latam": "",
+          "pct_us": ""
+        }
+      ]
+    },
+    "time_between_rounds": [
+      {
+        "transition": "Pre-Seed → Seed",
+        "us_2021": "9–12",
+        "us_2024": "12–18",
+        "change": "+40–50%",
+        "latam_median": "18–24",
+        "latam_top": "12–15"
+      },
+      {
+        "transition": "Seed → Series A",
+        "us_2021": "~14",
+        "us_2024": "~25.8 (774 days)",
+        "change": "+84%",
+        "latam_median": "30–36",
+        "latam_top": "20–24"
+      },
+      {
+        "transition": "Series A → Series B",
+        "us_2021": "~12",
+        "us_2024": "~24.4 (732 days)",
+        "change": "+97%",
+        "latam_median": "30–40",
+        "latam_top": "22–28"
+      },
+      {
+        "transition": "Series B → Series C",
+        "us_2021": "~15",
+        "us_2024": "~26–30",
+        "change": "+60–80%",
+        "latam_median": "32–42",
+        "latam_top": "24–30"
+      },
+      {
+        "transition": "Series C → Series D+",
+        "us_2021": "~18",
+        "us_2024": "~30–36",
+        "change": "+50–70%",
+        "latam_median": "36–48",
+        "latam_top": "28–36"
+      }
+    ]
+  },
+  "metricas": {
+    "income_growth": [
+      {
+        "metric": "ARR (Annual Recurring Revenue)",
+        "preseed": "$0 – $100K",
+        "seed": "$100K – $1M (mediana ~$500K)",
+        "series_a": "$1.5M – $3M+ (nuevo estándar: $3M en 2025)"
+      },
+      {
+        "metric": "MRR (Monthly Recurring Revenue)",
+        "preseed": "$0 – $8K",
+        "seed": "$8K – $83K",
+        "series_a": "$125K – $250K+"
+      },
+      {
+        "metric": "Crecimiento MoM (mes a mes)",
+        "preseed": "N/A (fase de aprendizaje)",
+        "seed": "15–20% MoM",
+        "series_a": "12–15% MoM"
+      },
+      {
+        "metric": "Crecimiento YoY (año a año) en ARR",
+        "preseed": "N/A o >144% early",
+        "seed": ">100% YoY (\"triple, triple, double\")",
+        "series_a": "80–150% YoY (ideal: 3x ARR en 12 meses)"
+      },
+      {
+        "metric": "Tiempo para alcanzar $1M ARR",
+        "preseed": "",
+        "seed": "~15 meses (SaaS tradicional); ~11.5 meses (AI)",
+        "series_a": "Ya superado"
+      },
+      {
+        "metric": "Tiempo para alcanzar $10M ARR",
+        "preseed": "",
+        "seed": "",
+        "series_a": "~5 años (SaaS trad.); ~2 años (AI)"
+      },
+      {
+        "metric": "Rule of 40 (crecimiento % + margen %)",
+        "preseed": "No aplica (stage too early)",
+        "seed": "No aplica aún",
+        "series_a": "≥40% (solo 11-30% lo alcanzan)"
+      },
+      {
+        "metric": "ARR por empleado",
+        "preseed": "No aplica",
+        "seed": "No aplica",
+        "series_a": "$100K–$173K"
+      }
+    ],
+    "capital_efficiency": [
+      {
+        "metric": "Burn Rate mensual (net)",
+        "preseed": "$10K – $50K/mes",
+        "seed": "~$50K – $200K/mes",
+        "series_a": "$200K – $500K/mes"
+      },
+      {
+        "metric": "Runway objetivo",
+        "preseed": "12–18 meses",
+        "seed": "18–24 meses",
+        "series_a": "24–30 meses (post-ronda)"
+      },
+      {
+        "metric": "Burn Multiple (burn neto / nuevo ARR)",
+        "preseed": "N/A (sin ARR)",
+        "seed": "~1.9x (mediana)",
+        "series_a": "<1.5x (ideal); ~3.4x (early-stage promedio)"
+      },
+      {
+        "metric": "Eficiencia de capital (BEI)",
+        "preseed": "",
+        "seed": "En construcción",
+        "series_a": "ARR generado > capital desplegado"
+      },
+      {
+        "metric": "Capital total levantado en ronda",
+        "preseed": "$250K – $2M",
+        "seed": "$1.5M – $5M (mediana ~$3.1M)",
+        "series_a": "$5M – $20M (mediana ~$11M)"
+      },
+      {
+        "metric": "Dilución típica por ronda",
+        "preseed": "10–20%",
+        "seed": "15–25% (típico: 20%)",
+        "series_a": "15–20%"
+      },
+      {
+        "metric": "Tiempo entre rondas (Seed → Serie A)",
+        "preseed": "—",
+        "seed": "~774 días / 2.1 años en Q4 2024 (vs 420 días en 2021)",
+        "series_a": "—"
+      }
+    ],
+    "retention": [
+      {
+        "metric": "Churn Mensual (tasa de cancelación)",
+        "preseed": "N/A o aceptable alto",
+        "seed": "5–10% mensual (bajo $1M ARR)",
+        "series_a": "<2–5% mensual (<3% ideal)"
+      },
+      {
+        "metric": "Churn Anual",
+        "preseed": "",
+        "seed": "~40–70% (etapa temprana)",
+        "series_a": "<10% anual (mediana industria)"
+      },
+      {
+        "metric": "NRR (Net Revenue Retention)",
+        "preseed": "N/A o primitivo",
+        "seed": ">100% como objetivo; mediana: ~100%",
+        "series_a": "110–120%+ (best-in-class: 120%+)"
+      },
+      {
+        "metric": "GRR (Gross Revenue Retention)",
+        "preseed": "",
+        "seed": "70–85% aceptable",
+        "series_a": "85–95% bueno; 95–100% best-in-class"
+      },
+      {
+        "metric": "Retención de clientes",
+        "preseed": "N/A (pocos clientes)",
+        "seed": ">80% (señal de PMF)",
+        "series_a": ">90% (requisito para Serie A)"
+      },
+      {
+        "metric": "NPS (Net Promoter Score)",
+        "preseed": "N/A o anecdótico",
+        "seed": ">30 como objetivo",
+        "series_a": ">40–50 (PMF confirmado si >40% dicen \"very disappointed\" sin el producto)"
+      },
+      {
+        "metric": "DAU/MAU ratio (para apps consumer)",
+        "preseed": "",
+        "seed": ">20% como señal",
+        "series_a": ">25–30%"
+      }
+    ],
+    "unit_economics": [
+      {
+        "metric": "CAC (Costo de Adquisición de Cliente)",
+        "preseed": "N/A (orgánico)",
+        "seed": "En proceso de medir; CAC promedio SaaS: ~$702",
+        "series_a": "Medido y optimizado; varía por segmento"
+      },
+      {
+        "metric": "LTV (Lifetime Value)",
+        "preseed": "Estimado/teórico",
+        "seed": "En construcción",
+        "series_a": "LTV claro y en crecimiento"
+      },
+      {
+        "metric": "LTV/CAC Ratio",
+        "preseed": "N/A (objetivo: >3x)",
+        "seed": "Inicio de medición",
+        "series_a": "3:1 mínimo; 4:1 nuevo estándar; >5:1 best-in-class"
+      },
+      {
+        "metric": "CAC Payback Period",
+        "preseed": "",
+        "seed": "En construcción",
+        "series_a": "<12 meses (ideal); mediana industria: ~20 meses en 2024"
+      },
+      {
+        "metric": "Magic Number (eficiencia GTM)",
+        "preseed": "",
+        "seed": "",
+        "series_a": ">1.0x (ideal)"
+      },
+      {
+        "metric": "Gross Margin",
+        "preseed": "N/A (producto en dev)",
+        "seed": "50–70% (early)",
+        "series_a": "60–80%+ (SaaS: 70–80%+; AI SaaS: 65–75% por costo compute)"
+      }
+    ],
+    "market_valuation": [
+      {
+        "metric": "Valuación pre-money mediana",
+        "preseed": "$5.27M (EE. UU., 2025)",
+        "seed": "~$12M (2023–2024); ~$15–20M (AI, 2025)",
+        "series_a": "~$45M–$49.3M (Carta Q3 2025, mediana primaria)"
+      },
+      {
+        "metric": "Múltiplo ARR (para valuación)",
+        "preseed": "N/A (no hay ARR)",
+        "seed": "10–20x ARR (AI); 5–10x ARR (SaaS trad.)",
+        "series_a": "3x–10x ARR (según industria y crecimiento)"
+      },
+      {
+        "metric": "TAM mínimo esperado",
+        "preseed": ">$1B (visión)",
+        "seed": ">$1B demostrable",
+        "series_a": ">$1B con SAM definido"
+      },
+      {
+        "metric": "ARR para calificar a Serie A",
+        "preseed": "—",
+        "seed": "—",
+        "series_a": "$1.5M–$3M+ (nuevo estándar 2025: $3M)"
+      },
+      {
+        "metric": "ARR para \"excepcionalmente fuerte\" Serie A",
+        "preseed": "—",
+        "seed": "—",
+        "series_a": "$2M–$3M+"
+      },
+      {
+        "metric": "Valuación Seed (ARR >$250K)",
+        "preseed": "—",
+        "seed": "35% supera los $20M pre-money",
+        "series_a": "—"
+      },
+      {
+        "metric": "Valuación Seed (pre-revenue)",
+        "preseed": "22% <$5M; 40% entre $5–10M",
+        "seed": "—",
+        "series_a": "—"
+      }
+    ],
+    "operating": [
+      {
+        "metric": "Tamaño del equipo (headcount)",
+        "preseed": "1–5 personas (founders + 1–2)",
+        "seed": "5–15 personas",
+        "series_a": "15–30 personas"
+      },
+      {
+        "metric": "ARR por empleado",
+        "preseed": "",
+        "seed": "En construcción",
+        "series_a": "$80K–$173K (mediana: $129K; públicas: $283K)"
+      },
+      {
+        "metric": "MVP o producto lanzado",
+        "preseed": "En desarrollo o MVP beta",
+        "seed": "MVP lanzado + beta testers",
+        "series_a": "Producto con tracción y clientes pagantes"
+      },
+      {
+        "metric": "Tasa de conversión Seed → Serie A",
+        "preseed": "—",
+        "seed": "~20% de startups Seed llegan a Serie A (2025)",
+        "series_a": "—"
+      },
+      {
+        "metric": "Número de clientes pagantes",
+        "preseed": "1–10 (design partners)",
+        "seed": "10–100",
+        "series_a": "50–500+"
+      },
+      {
+        "metric": "Duración del ciclo de ventas (B2B)",
+        "preseed": "",
+        "seed": "Semanas–meses",
+        "series_a": "1–6 meses (SMB); 6–12 meses (enterprise)"
+      },
+      {
+        "metric": "ARR mínimo para \"seed estándar\" 2024",
+        "preseed": "",
+        "seed": "$300K–$500K ARR (nuevo estándar; era $200K en 2023)",
+        "series_a": "—"
+      }
+    ]
+  }
+}

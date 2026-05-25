@@ -1,0 +1,1340 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AIDA Ventures — VC Metrics Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+  :root {
+    --bg: #0a0b0e;
+    --surface: #111318;
+    --surface2: #181c24;
+    --border: rgba(255,255,255,0.07);
+    --text: #e8eaf0;
+    --muted: #6b7280;
+    --accent: #c8f55a;
+    --accent2: #5af5c8;
+    --accent3: #f5c85a;
+    --latam: #5af5c8;
+    --us: #c8f55a;
+    --danger: #f5705a;
+    --glow: rgba(200,245,90,0.12);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Mono', monospace;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* NOISE TEXTURE */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.4;
+  }
+
+  /* HEADER */
+  header {
+    position: relative;
+    z-index: 10;
+    padding: 48px 60px 36px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+
+  .logo-block h1 {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 13px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+
+  .logo-block h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 38px;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    color: var(--text);
+  }
+
+  .logo-block h2 em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .header-meta {
+    text-align: right;
+  }
+
+  .header-meta p {
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    line-height: 1.8;
+  }
+
+  /* NAV TABS */
+  nav {
+    position: relative;
+    z-index: 10;
+    padding: 0 60px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    gap: 0;
+  }
+
+  .tab-btn {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 18px 24px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s ease;
+    position: relative;
+    bottom: -1px;
+  }
+
+  .tab-btn:hover { color: var(--text); }
+
+  .tab-btn.active {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+  }
+
+  /* MAIN CONTENT */
+  main {
+    position: relative;
+    z-index: 10;
+    padding: 48px 60px;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .view { display: none; }
+  .view.active { display: block; }
+
+  /* SECTION LABEL */
+  .section-label {
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* KPI ROW */
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 40px;
+  }
+
+  .kpi-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 24px 28px;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.2s;
+    animation: fadeUp 0.5s ease both;
+  }
+
+  .kpi-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--accent);
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+
+  .kpi-card:hover { border-color: rgba(200,245,90,0.25); }
+  .kpi-card:hover::before { opacity: 1; }
+
+  .kpi-label {
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 12px;
+  }
+
+  .kpi-value {
+    font-family: 'DM Serif Display', serif;
+    font-size: 32px;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+
+  .kpi-sub {
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  .kpi-card.us .kpi-value { color: var(--us); }
+  .kpi-card.latam .kpi-value { color: var(--latam); }
+  .kpi-card.warn .kpi-value { color: var(--accent3); }
+
+  /* GRID LAYOUTS */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-bottom: 32px;
+  }
+
+  .three-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 24px;
+    margin-bottom: 32px;
+  }
+
+  .full-col {
+    margin-bottom: 32px;
+  }
+
+  /* PANEL */
+  .panel {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 28px 32px;
+    animation: fadeUp 0.5s ease both;
+  }
+
+  .panel-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text);
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .panel-title .dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    flex-shrink: 0;
+  }
+  .panel-title .dot.latam { background: var(--latam); }
+  .panel-title .dot.us { background: var(--us); }
+  .panel-title .dot.warn { background: var(--accent3); }
+
+  /* COMPARISON TABLE */
+  .cmp-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .cmp-table th {
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 10px 16px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .cmp-table th.us-col { color: var(--us); }
+  .cmp-table th.latam-col { color: var(--latam); }
+
+  .cmp-table td {
+    padding: 12px 16px;
+    font-size: 12px;
+    border-bottom: 1px solid rgba(255,255,255,0.03);
+    vertical-align: middle;
+  }
+
+  .cmp-table tr:last-child td { border-bottom: none; }
+  .cmp-table tr:hover td { background: rgba(255,255,255,0.02); }
+
+  .cmp-table td.metric { color: var(--muted); font-size: 11px; }
+  .cmp-table td.us-val { color: var(--us); font-weight: 500; }
+  .cmp-table td.latam-val { color: var(--latam); font-weight: 500; }
+
+  .badge {
+    display: inline-block;
+    font-size: 10px;
+    padding: 2px 8px;
+    border-radius: 2px;
+    letter-spacing: 0.05em;
+  }
+  .badge-gap { background: rgba(245,112,90,0.15); color: var(--danger); }
+  .badge-par { background: rgba(200,245,90,0.1); color: var(--accent); }
+
+  /* STAGE CARDS */
+  .stage-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-bottom: 32px;
+  }
+
+  .stage-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 28px;
+    position: relative;
+    animation: fadeUp 0.5s ease both;
+  }
+
+  .stage-tag {
+    display: inline-block;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    margin-bottom: 20px;
+    border: 1px solid;
+  }
+
+  .stage-tag.preseed { color: var(--accent3); border-color: var(--accent3); }
+  .stage-tag.seed { color: var(--latam); border-color: var(--latam); }
+  .stage-tag.seriea { color: var(--us); border-color: var(--us); }
+
+  .stage-metric-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .stage-metric-row:last-child { border-bottom: none; }
+
+  .stage-metric-label {
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .stage-metric-val {
+    font-size: 13px;
+    font-weight: 500;
+  }
+
+  /* CHART CONTAINER */
+  .chart-wrap {
+    position: relative;
+    height: 260px;
+  }
+
+  /* DEPLOY ROW */
+  .deploy-bars {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .deploy-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .deploy-label {
+    font-size: 11px;
+    color: var(--muted);
+    width: 80px;
+    flex-shrink: 0;
+    text-align: right;
+  }
+
+  .bar-track {
+    flex: 1;
+    height: 8px;
+    background: var(--surface2);
+    overflow: hidden;
+  }
+
+  .bar-fill {
+    height: 100%;
+    transition: width 1s ease;
+    position: relative;
+  }
+
+  .bar-fill.us { background: var(--us); }
+  .bar-fill.latam { background: var(--latam); }
+  .bar-fill.mid { background: var(--accent3); }
+
+  .deploy-val {
+    font-size: 11px;
+    font-weight: 500;
+    width: 60px;
+    flex-shrink: 0;
+  }
+
+  /* LEGEND */
+  .legend {
+    display: flex;
+    gap: 24px;
+    margin-bottom: 20px;
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  .legend-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+  }
+
+  /* INSIGHT BOX */
+  .insight-box {
+    background: linear-gradient(135deg, rgba(200,245,90,0.05), rgba(90,245,200,0.05));
+    border: 1px solid rgba(200,245,90,0.15);
+    padding: 20px 24px;
+    margin-bottom: 24px;
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    animation: fadeUp 0.5s ease both;
+  }
+
+  .insight-icon {
+    font-size: 18px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .insight-text {
+    font-size: 12px;
+    color: var(--text);
+    line-height: 1.7;
+  }
+
+  .insight-text strong {
+    color: var(--accent);
+    font-weight: 500;
+  }
+
+  /* FUND SIZE VISUAL */
+  .funnel-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .funnel-row {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+  }
+
+  .funnel-stage { font-size: 10px; color: var(--muted); width: 70px; text-align: right; }
+
+  .funnel-bar-group {
+    flex: 1;
+    display: flex;
+    gap: 6px;
+    align-items: center;
+  }
+
+  .fbar {
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    transition: opacity 0.2s;
+  }
+
+  .fbar:hover { opacity: 0.85; }
+  .fbar.us { background: rgba(200,245,90,0.2); color: var(--us); border: 1px solid rgba(200,245,90,0.3); }
+  .fbar.latam { background: rgba(90,245,200,0.2); color: var(--latam); border: 1px solid rgba(90,245,200,0.3); }
+
+  /* ANIMATION */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .kpi-card:nth-child(1) { animation-delay: 0.05s; }
+  .kpi-card:nth-child(2) { animation-delay: 0.1s; }
+  .kpi-card:nth-child(3) { animation-delay: 0.15s; }
+  .kpi-card:nth-child(4) { animation-delay: 0.2s; }
+
+  /* FOOTER */
+  footer {
+    position: relative;
+    z-index: 10;
+    padding: 24px 60px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  footer p { font-size: 10px; color: var(--muted); letter-spacing: 0.1em; }
+
+  /* RESPONSIVE */
+  @media (max-width: 1100px) {
+    header { padding: 32px 32px 24px; }
+    nav { padding: 0 32px; }
+    main { padding: 32px; }
+    footer { padding: 20px 32px; }
+    .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+    .three-col { grid-template-columns: 1fr 1fr; }
+    .stage-grid { grid-template-columns: 1fr 1fr; }
+  }
+
+  @media (max-width: 700px) {
+    .two-col, .three-col, .stage-grid { grid-template-columns: 1fr; }
+    .kpi-grid { grid-template-columns: 1fr 1fr; }
+    .logo-block h2 { font-size: 28px; }
+    header { flex-direction: column; gap: 16px; align-items: flex-start; }
+    .header-meta { text-align: left; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo-block">
+    <h1>AIDA Ventures</h1>
+    <h2>VC Metrics <em>Dashboard</em></h2>
+  </div>
+  <div class="header-meta">
+    <p>Early-Stage — Pre-Seed · Seed · Serie A</p>
+    <p>Benchmarks LATAM &amp; EE. UU.</p>
+    <p>Vintage Reference: 2017–2025</p>
+  </div>
+</header>
+
+<nav>
+  <button class="tab-btn active" onclick="showView('overview')">Resumen General</button>
+  <button class="tab-btn" onclick="showView('latam')">LATAM Benchmark</button>
+  <button class="tab-btn" onclick="showView('us')">EE. UU. Benchmark</button>
+  <button class="tab-btn" onclick="showView('compare')">LATAM vs EE. UU.</button>
+</nav>
+
+<main>
+
+  <!-- ============ VIEW: OVERVIEW ============ -->
+  <div class="view active" id="overview">
+
+    <div class="section-label">Indicadores Clave · Visión General</div>
+
+    <div class="kpi-grid">
+      <div class="kpi-card warn">
+        <div class="kpi-label">IRR Objetivo Early-Stage</div>
+        <div class="kpi-value">30–40%</div>
+        <div class="kpi-sub">Pre-Seed &amp; Seed (ambos mercados)</div>
+      </div>
+      <div class="kpi-card latam">
+        <div class="kpi-label">IRR Mediano LATAM (maduro)</div>
+        <div class="kpi-value">8–12%</div>
+        <div class="kpi-sub">Vs. 11–13% EE. UU. · brecha de ~3 pp</div>
+      </div>
+      <div class="kpi-card us">
+        <div class="kpi-label">TVPI Top Decil LATAM</div>
+        <div class="kpi-value">2.5x+</div>
+        <div class="kpi-sub">EE. UU. top decil: 4.03x (fondos &lt;$10M)</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Capital LATAM Early-Stage 2025</div>
+        <div class="kpi-value">$493M</div>
+        <div class="kpi-sub">Pre-Seed $66M · Seed $427M desplegados</div>
+      </div>
+    </div>
+
+    <div class="insight-box">
+      <div class="insight-icon">⚡</div>
+      <div class="insight-text">
+        <strong>Contexto clave para GPs:</strong> LATAM opera con fondos 3–6x más pequeños que EE. UU. pero exige retornos similares. El top cuartil en LATAM requiere TVPI 2.5x+ frente al 3.0x+ de EE. UU. La tasa de graduación Seed→Serie A es ~10–15% en LATAM vs. 15–30% en EE. UU., y el tiempo entre rondas es 20 meses vs. 12–15 meses. Esto define una dinámica de portfolio completamente distinta.
+      </div>
+    </div>
+
+    <div class="two-col">
+      <div class="panel">
+        <div class="panel-title"><span class="dot warn"></span> Retornos por Etapa — Objetivos</div>
+        <div class="chart-wrap">
+          <canvas id="irrChart"></canvas>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel-title"><span class="dot latam"></span> Capital Desplegado LATAM 2025 (por etapa)</div>
+        <div class="chart-wrap">
+          <canvas id="deployChart"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <div class="three-col">
+      <div class="panel">
+        <div class="panel-title"><span class="dot warn"></span> Tiempo &amp; Velocidad</div>
+        <div class="stage-metric-row">
+          <span class="stage-metric-label">Tiempo entre rondas LATAM</span>
+          <span class="stage-metric-val" style="color:var(--latam)">~20 meses</span>
+        </div>
+        <div class="stage-metric-row">
+          <span class="stage-metric-label">Tiempo entre rondas EE. UU.</span>
+          <span class="stage-metric-val" style="color:var(--us)">~12–15 meses</span>
+        </div>
+        <div class="stage-metric-row">
+          <span class="stage-metric-label">Capital desplegado a 24 meses</span>
+          <span class="stage-metric-val" style="color:var(--accent3)">~43–60%</span>
+        </div>
+        <div class="stage-metric-row">
+          <span class="stage-metric-label">% fondos LATAM early-stage</span>
+          <span class="stage-metric-val" style="color:var(--accent)">74.4%</span>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-title"><span class="dot us"></span> Graduación &amp; Liquidez</div>
+        <div class="stage-metric-row">
+          <span class="stage-metric-label">Grad. Seed→A LATAM (est.)</span>
+          <span class="stage-metric-val" style="color:var(--latam)">10–15%</span>
+        </div>
+        <div class="stage-metric-row">
+          <span class="stage-metric-label">Grad. Seed→A EE. UU. 2022</span>
+          <span class="stage-metric-val" style="color:var(--us)">15.4%</span>
+        </div>
+        <div class="stage-metric-row">
+          <span class="stage-metric-label">Grad. Seed→A EE. UU. 2018</span>
+          <span class="stage-metric-val" style="color:var(--us)">30.6%</span>
+        </div>
+        <div class="stage-metric-row">
+          <span class="stage-metric-label">% fondos DPI &gt; 0 (vintage 2020)</span>
+          <span class="stage-metric-val" style="color:var(--accent3)">~30–42%</span>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-title"><span class="dot"></span> Estructura del Fondo</div>
+        <div class="stage-metric-row">
+          <span class="stage-metric-label">Management fee típico</span>
+          <span class="stage-metric-val" style="color:var(--accent)">2–2.5%</span>
+        </div>
+        <div class="stage-metric-row">
+          <span class="stage-metric-label">Carried interest</span>
+          <span class="stage-metric-val" style="color:var(--accent)">20%</span>
+        </div>
+        <div class="stage-metric-row">
+          <span class="stage-metric-label">Retorno VC index EE. UU. 2024</span>
+          <span class="stage-metric-val" style="color:var(--us)">6.2%</span>
+        </div>
+        <div class="stage-metric-row">
+          <span class="stage-metric-label">% capital early-stage LATAM</span>
+          <span class="stage-metric-val" style="color:var(--latam)">52%</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ============ VIEW: LATAM ============ -->
+  <div class="view" id="latam">
+
+    <div class="section-label">LATAM — Benchmark Early-Stage 2024–2025</div>
+
+    <div class="kpi-grid">
+      <div class="kpi-card latam">
+        <div class="kpi-label">IRR Mediano (fondos maduros)</div>
+        <div class="kpi-value">8–12%</div>
+        <div class="kpi-sub">Fondos vintage activos LATAM</div>
+      </div>
+      <div class="kpi-card latam">
+        <div class="kpi-label">TVPI Mediano (fondos activos)</div>
+        <div class="kpi-value">1.2–1.6x</div>
+        <div class="kpi-sub">Vintage ~5–7 años</div>
+      </div>
+      <div class="kpi-card latam">
+        <div class="kpi-label">DPI Mediano</div>
+        <div class="kpi-value">0.05–0.20x</div>
+        <div class="kpi-sub">Fondos &lt;8 años · liquidez baja</div>
+      </div>
+      <div class="kpi-card warn">
+        <div class="kpi-label">Deals Pre-Seed 2025</div>
+        <div class="kpi-value">152</div>
+        <div class="kpi-sub">↓39% vs. 2024 · $66M total</div>
+      </div>
+    </div>
+
+    <div class="stage-grid">
+      <!-- PRE-SEED -->
+      <div class="stage-card">
+        <div class="stage-tag preseed">Pre-Seed</div>
+        <div class="stage-metric-row">
+          <span class="stage-metric-label">IRR objetivo</span>
+          <span class="stage-metric-val" style="color:var(--accent3)">30–40%</span>
+        </div>
+        <div class="stage-metric-row">
+          <span class="stage-metric-label">TVPI mediano</span>
+          <span class="stage-metric-val" style="color:var(--accent3)">1.2–1.5x</span>
+        </div>
+        <div class="stage-metric-row">
+          <span class="stage-metric-label">TVPI top cuartil</span>
+          <span class="stage-metric-val" style="color:var(--accent3)">2.5x+</span>
+        </div>
+        <div class="stage-metric-row">
+          <span class="stage-metric-label">DPI mediano</span>
+          <span class="stage-metric-val" style="color:var(--accent3)">0.05–0.15x</span>
+        </div>
+        <div class="stage-metric-row">
+          <span class="stage-metric-label">MOIC objetivo/deal</span>
+          <span class="stage-metric-val" style="color:var(--accent3)">10–20x</span>
+        </div>
+        <div class="stage-metric-row">
+          <span class="stage-metric-label">Tamaño fondo</span>
+          <span class="stage-metric-val" style="color:var(--accent3)">~$10M</span>
+        </div>
+        <div class="stage-metric-row">
+          <span class="stage-metric-label">Ticket (cheque)</span>
+          <span class="stage-metric-val" style="color:var(--accent3)">$50K–$500K</span>
+        </div>
+        <div class="stage-metric-row">
+          <span class="stage-metric-label">Valuación pre-money</span>
+          <span class="stage-metric-val" style="color:var(--accent3)">$2M–$5M</span>
+        </div>
+        <div class="stage-metric-row">
+          <span class="stage-metric-label">Capital 2025</span>
+          <span class="stage-metric-val" style="color:var(--danger)">$66M ↓40%</span>
+        </div>
+      </div>
+
+      <!-- SEED -->
+      <div class="stage-card">
+        <div class="stage-tag seed">Seed</div>
+        <div class="stage-metric-row">
+          <span class="stage-metric-label">IRR objetivo</span>
+          <span class="stage-metric-val" style="color:var(--latam)">25–35%</span>
+        </div>
+        <div class="stage-metric-row">
+          <span class="stage-metric-label">TVPI mediano</span>
+          <span class="stage-metric-val" style="color:var(--latam)">1.3–1.6x</span>
+        </div>
+        <div class="stage-metric-row">
+          <span class="stage-metric-label">TVPI top cuartil</span>
+          <span class="stage-metric-val" style="color:var(--latam)">2.5–3.0x+</span>
+        </div>
+        <div class="stage-metric-row">
+          <span class="stage-metric-label">DPI mediano</span>
+          <span class="stage-metric-val" style="color:var(--latam)">0.10–0.20x</span>
+        </div>
+        <div class="stage-metric-row">
+          <span class="stage-metric-label">MOIC objetivo/deal</span>
+          <span class="stage-metric-val" style="color:var(--latam)">5–10x</span>
+        </div>
+        <div class="stage-metric-row">
+          <span class="stage-metric-label">Tamaño fondo</span>
+          <span class="stage-metric-val" style="color:var(--latam)">~$15M</span>
+        </div>
+        <div class="stage-metric-row">
+          <span class="stage-metric-label">Ticket (cheque)</span>
+          <span class="stage-metric-val" style="color:var(--latam)">$100K–$500K</span>
+        </div>
+        <div class="stage-metric-row">
+          <span class="stage-metric-label">Valuación pre-money</span>
+          <span class="stage-metric-val" style="color:var(--latam)">$5M–$10M</span>
+        </div>
+        <div class="stage-metric-row">
+          <span class="stage-metric-label">Capital 2025</span>
+          <span class="stage-metric-val" style="color:var(--accent)">$427M ↑4.7%</span>
+        </div>
+      </div>
+
+      <!-- SERIE A -->
+      <div class="stage-card">
+        <div class="stage-tag seriea">Serie A</div>
+        <div class="stage-metric-row">
+          <span class="stage-metric-label">IRR objetivo</span>
+          <span class="stage-metric-val" style="color:var(--us)">20–30%</span>
+        </div>
+        <div class="stage-metric-row">
+          <span class="stage-metric-label">TVPI mediano</span>
+          <span class="stage-metric-val" style="color:var(--us)">1.5–2.0x</span>
+        </div>
+        <div class="stage-metric-row">
+          <span class="stage-metric-label">TVPI top cuartil</span>
+          <span class="stage-metric-val" style="color:var(--us)">3.0x+</span>
+        </div>
+        <div class="stage-metric-row">
+          <span class="stage-metric-label">DPI mediano</span>
+          <span class="stage-metric-val" style="color:var(--us)">0.20–0.40x</span>
+        </div>
+        <div class="stage-metric-row">
+          <span class="stage-metric-label">MOIC objetivo/deal</span>
+          <span class="stage-metric-val" style="color:var(--us)">3–5x</span>
+        </div>
+        <div class="stage-metric-row">
+          <span class="stage-metric-label">Tamaño fondo</span>
+          <span class="stage-metric-val" style="color:var(--us)">~$35M</span>
+        </div>
+        <div class="stage-metric-row">
+          <span class="stage-metric-label">Ticket (cheque)</span>
+          <span class="stage-metric-val" style="color:var(--us)">$250K–$1.5M</span>
+        </div>
+        <div class="stage-metric-row">
+          <span class="stage-metric-label">Valuación pre-money</span>
+          <span class="stage-metric-val" style="color:var(--us)">$12M–$25M</span>
+        </div>
+        <div class="stage-metric-row">
+          <span class="stage-metric-label">Capital 2025</span>
+          <span class="stage-metric-val" style="color:var(--accent)">$773M ↑9.3%</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="full-col">
+      <div class="panel">
+        <div class="panel-title"><span class="dot latam"></span> Evolución de Capital Desplegado LATAM (2024 → 2025)</div>
+        <div class="chart-wrap">
+          <canvas id="latamEvolutionChart"></canvas>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ============ VIEW: US ============ -->
+  <div class="view" id="us">
+
+    <div class="section-label">EE. UU. — Benchmark Early-Stage (Referencia Global)</div>
+
+    <div class="kpi-grid">
+      <div class="kpi-card us">
+        <div class="kpi-label">IRR Mediano (maduros)</div>
+        <div class="kpi-value">11–13%</div>
+        <div class="kpi-sub">Vintage 2017–2020 · fondos maduros</div>
+      </div>
+      <div class="kpi-card us">
+        <div class="kpi-label">TVPI Mediano Vintage 2017</div>
+        <div class="kpi-value">1.72–1.95x</div>
+        <div class="kpi-sub">Consistente Pre-Seed, Seed &amp; A</div>
+      </div>
+      <div class="kpi-card us">
+        <div class="kpi-label">TVPI Top Decil (&lt;$10M)</div>
+        <div class="kpi-value">4.03x</div>
+        <div class="kpi-sub">Vintage 2018 · fondos pequeños</div>
+      </div>
+      <div class="kpi-card warn">
+        <div class="kpi-label">VC Index Retorno 2024</div>
+        <div class="kpi-value">6.2%</div>
+        <div class="kpi-sub">Neto de fees · referencia de mercado</div>
+      </div>
+    </div>
+
+    <div class="two-col">
+      <div class="panel">
+        <div class="panel-title"><span class="dot us"></span> Benchmarks de Retorno EE. UU.</div>
+        <div class="chart-wrap">
+          <canvas id="usReturnChart"></canvas>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel-title"><span class="dot us"></span> Tamaños de Fondos por Etapa</div>
+        <div class="funnel-wrap" style="padding-top:8px">
+          <div style="font-size:10px; color:var(--muted); margin-bottom:16px; display:flex; gap:16px;">
+            <span style="color:var(--us)">■ EE. UU.</span>
+            <span style="color:var(--latam)">■ LATAM</span>
+          </div>
+          <div class="funnel-row">
+            <span class="funnel-stage">Pre-Seed</span>
+            <div class="funnel-bar-group">
+              <div class="fbar us" style="width:300px; min-width:80px">$1M–$25M</div>
+              <div class="fbar latam" style="width:120px; min-width:60px">~$10M</div>
+            </div>
+          </div>
+          <div class="funnel-row">
+            <span class="funnel-stage">Seed</span>
+            <div class="funnel-bar-group">
+              <div class="fbar us" style="width:380px; min-width:100px">$10M–$75M</div>
+              <div class="fbar latam" style="width:100px; min-width:55px">~$15M</div>
+            </div>
+          </div>
+          <div class="funnel-row">
+            <span class="funnel-stage">Serie A</span>
+            <div class="funnel-bar-group">
+              <div class="fbar us" style="width:460px; min-width:130px">$50M–$150M</div>
+              <div class="fbar latam" style="width:80px; min-width:55px">~$35M</div>
+            </div>
+          </div>
+          <div style="margin-top:20px; border-top:1px solid var(--border); padding-top:16px;">
+            <div style="font-size:10px; color:var(--muted); margin-bottom:12px; letter-spacing:0.1em; text-transform:uppercase;">Tickets de inversión</div>
+            <div class="funnel-row">
+              <span class="funnel-stage">Pre-Seed</span>
+              <div class="funnel-bar-group">
+                <div class="fbar us" style="width:220px">$500K–$2M</div>
+                <div class="fbar latam" style="width:90px">$50K–$500K</div>
+              </div>
+            </div>
+            <div class="funnel-row">
+              <span class="funnel-stage">Seed</span>
+              <div class="funnel-bar-group">
+                <div class="fbar us" style="width:260px">$3M–$4M</div>
+                <div class="fbar latam" style="width:90px">$100K–$500K</div>
+              </div>
+            </div>
+            <div class="funnel-row">
+              <span class="funnel-stage">Serie A</span>
+              <div class="funnel-bar-group">
+                <div class="fbar us" style="width:320px">$10M–$15M</div>
+                <div class="fbar latam" style="width:90px">$250K–$1.5M</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="full-col">
+      <div class="panel">
+        <div class="panel-title"><span class="dot us"></span> Tasa de Graduación Seed → Serie A (EE. UU. histórico)</div>
+        <div class="chart-wrap">
+          <canvas id="gradChart"></canvas>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ============ VIEW: COMPARE ============ -->
+  <div class="view" id="compare">
+
+    <div class="section-label">Análisis Comparativo — LATAM vs. EE. UU.</div>
+
+    <div class="insight-box">
+      <div class="insight-icon">🔍</div>
+      <div class="insight-text">
+        <strong>Brecha estructural:</strong> Los fondos LATAM operan con capital 3–6x menor pero deben lograr retornos similares para ser competitivos globalmente. La clave está en el <strong>MOIC por deal más alto</strong> (10–20x en Pre-Seed vs. 5x en EE. UU.) para compensar portfolios más concentrados. El tiempo entre rondas de <strong>20 meses en LATAM vs. 12–15 en EE. UU.</strong> impacta directamente los modelos de DPI y liquidez.
+      </div>
+    </div>
+
+    <div class="full-col">
+      <div class="panel">
+        <div class="panel-title"><span class="dot"></span> Tabla Comparativa Completa</div>
+        <table class="cmp-table">
+          <thead>
+            <tr>
+              <th>Métrica</th>
+              <th class="us-col">EE. UU. (Early-Stage)</th>
+              <th class="latam-col">LATAM (Early-Stage)</th>
+              <th>Brecha</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="metric">IRR mediano (fondos maduros)</td>
+              <td class="us-val">~11–13%</td>
+              <td class="latam-val">~8–12%</td>
+              <td><span class="badge badge-gap">~3 pp</span></td>
+            </tr>
+            <tr>
+              <td class="metric">IRR top decil</td>
+              <td class="us-val">~28%</td>
+              <td class="latam-val">~20–25% (est.)</td>
+              <td><span class="badge badge-gap">~3–8 pp</span></td>
+            </tr>
+            <tr>
+              <td class="metric">TVPI mediano (vintage ~5–7 años)</td>
+              <td class="us-val">~1.72–1.95x</td>
+              <td class="latam-val">~1.2–1.6x</td>
+              <td><span class="badge badge-gap">0.3–0.7x</span></td>
+            </tr>
+            <tr>
+              <td class="metric">DPI mediano</td>
+              <td class="us-val">~0.27x</td>
+              <td class="latam-val">~0.05–0.20x</td>
+              <td><span class="badge badge-gap">Alta brecha</span></td>
+            </tr>
+            <tr>
+              <td class="metric">Tamaño fondo Pre-Seed</td>
+              <td class="us-val">$1M–$25M</td>
+              <td class="latam-val">~$10M</td>
+              <td><span class="badge badge-par">Comparable</span></td>
+            </tr>
+            <tr>
+              <td class="metric">Tamaño fondo Seed</td>
+              <td class="us-val">$10M–$75M</td>
+              <td class="latam-val">~$15M</td>
+              <td><span class="badge badge-gap">5x menor</span></td>
+            </tr>
+            <tr>
+              <td class="metric">Tamaño fondo Serie A</td>
+              <td class="us-val">$50M–$150M</td>
+              <td class="latam-val">~$35M</td>
+              <td><span class="badge badge-gap">3–4x menor</span></td>
+            </tr>
+            <tr>
+              <td class="metric">Ticket Pre-Seed</td>
+              <td class="us-val">$500K–$2M</td>
+              <td class="latam-val">$50K–$500K</td>
+              <td><span class="badge badge-gap">4–8x menor</span></td>
+            </tr>
+            <tr>
+              <td class="metric">Ticket Seed</td>
+              <td class="us-val">$3M–$4M</td>
+              <td class="latam-val">$100K–$500K</td>
+              <td><span class="badge badge-gap">6–40x menor</span></td>
+            </tr>
+            <tr>
+              <td class="metric">Ticket Serie A</td>
+              <td class="us-val">$10M–$15M</td>
+              <td class="latam-val">$250K–$1.5M</td>
+              <td><span class="badge badge-gap">7–60x menor</span></td>
+            </tr>
+            <tr>
+              <td class="metric">Tiempo entre rondas</td>
+              <td class="us-val">~12–15 meses</td>
+              <td class="latam-val">~20 meses</td>
+              <td><span class="badge badge-gap">+5–8 meses</span></td>
+            </tr>
+            <tr>
+              <td class="metric">Tasa graduación Seed→Serie A</td>
+              <td class="us-val">~15–30% (según año)</td>
+              <td class="latam-val">~10–15% (est.)</td>
+              <td><span class="badge badge-gap">~5–15 pp</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="two-col">
+      <div class="panel">
+        <div class="panel-title"><span class="dot"></span> TVPI Comparativo por Percentil</div>
+        <div class="chart-wrap">
+          <canvas id="tvpiCompareChart"></canvas>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel-title"><span class="dot"></span> IRR por Etapa y Mercado</div>
+        <div class="chart-wrap">
+          <canvas id="irrCompareChart"></canvas>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</main>
+
+<footer>
+  <p>AIDA Ventures · Dashboard de Métricas VC · Datos: Kauffman Fellows, Pitchbook, LAVCA, Cambridge Associates</p>
+  <p>Vintage Reference 2017–2025 · Actualizado 2025</p>
+</footer>
+
+<script>
+// ========== TAB NAVIGATION ==========
+function showView(id) {
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  event.target.classList.add('active');
+  // trigger chart init for the active view
+  setTimeout(() => initChartsForView(id), 50);
+}
+
+const chartsInitialized = {};
+
+function initChartsForView(viewId) {
+  if (chartsInitialized[viewId]) return;
+  chartsInitialized[viewId] = true;
+
+  const defaults = {
+    font: { family: "'DM Mono', monospace" },
+    color: '#6b7280'
+  };
+  Chart.defaults.font.family = "'DM Mono', monospace";
+  Chart.defaults.color = '#6b7280';
+
+  const gridColor = 'rgba(255,255,255,0.05)';
+  const accent = '#c8f55a';
+  const latam = '#5af5c8';
+  const us = '#c8f55a';
+  const warn = '#f5c85a';
+
+  if (viewId === 'overview') {
+    // IRR targets chart
+    new Chart(document.getElementById('irrChart'), {
+      type: 'bar',
+      data: {
+        labels: ['Pre-Seed', 'Seed', 'Serie A'],
+        datasets: [
+          {
+            label: 'IRR Objetivo (máx)',
+            data: [40, 35, 30],
+            backgroundColor: 'rgba(200,245,90,0.25)',
+            borderColor: accent,
+            borderWidth: 1.5
+          },
+          {
+            label: 'IRR Mediano Observado',
+            data: [10, 12.5, 15],
+            backgroundColor: 'rgba(245,200,90,0.2)',
+            borderColor: warn,
+            borderWidth: 1.5
+          }
+        ]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        plugins: { legend: { labels: { color: '#9ca3af', font: { size: 10 } } } },
+        scales: {
+          x: { grid: { color: gridColor }, ticks: { color: '#6b7280' } },
+          y: { grid: { color: gridColor }, ticks: { color: '#6b7280', callback: v => v + '%' } }
+        }
+      }
+    });
+
+    // Deploy chart
+    new Chart(document.getElementById('deployChart'), {
+      type: 'doughnut',
+      data: {
+        labels: ['Seed ($427M)', 'Serie A ($773M)', 'Pre-Seed ($66M)'],
+        datasets: [{
+          data: [427, 773, 66],
+          backgroundColor: [latam + '99', us + '99', warn + '99'],
+          borderColor: [latam, us, warn],
+          borderWidth: 1.5
+        }]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        plugins: {
+          legend: { position: 'bottom', labels: { color: '#9ca3af', font: { size: 10 }, padding: 16 } }
+        },
+        cutout: '60%'
+      }
+    });
+  }
+
+  if (viewId === 'latam') {
+    new Chart(document.getElementById('latamEvolutionChart'), {
+      type: 'bar',
+      data: {
+        labels: ['Pre-Seed', 'Seed', 'Serie A'],
+        datasets: [
+          {
+            label: '2024',
+            data: [110, 408, 707],
+            backgroundColor: 'rgba(90,245,200,0.15)',
+            borderColor: latam,
+            borderWidth: 1.5
+          },
+          {
+            label: '2025',
+            data: [66, 427, 773],
+            backgroundColor: 'rgba(90,245,200,0.35)',
+            borderColor: '#3dffb5',
+            borderWidth: 1.5
+          }
+        ]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        plugins: { legend: { labels: { color: '#9ca3af', font: { size: 10 } } } },
+        scales: {
+          x: { grid: { color: gridColor }, ticks: { color: '#6b7280' } },
+          y: { grid: { color: gridColor }, ticks: { color: '#6b7280', callback: v => '$' + v + 'M' } }
+        }
+      }
+    });
+  }
+
+  if (viewId === 'us') {
+    new Chart(document.getElementById('usReturnChart'), {
+      type: 'radar',
+      data: {
+        labels: ['IRR Mediano', 'IRR Top Decil', 'TVPI Mediano', 'TVPI Top Cuartil', 'DPI Mediano', 'Graduación Seed→A'],
+        datasets: [
+          {
+            label: 'EE. UU. (normalizado)',
+            data: [75, 100, 70, 90, 50, 80],
+            backgroundColor: 'rgba(200,245,90,0.1)',
+            borderColor: us,
+            borderWidth: 1.5,
+            pointBackgroundColor: us
+          },
+          {
+            label: 'LATAM (normalizado)',
+            data: [55, 75, 45, 65, 20, 55],
+            backgroundColor: 'rgba(90,245,200,0.1)',
+            borderColor: latam,
+            borderWidth: 1.5,
+            pointBackgroundColor: latam
+          }
+        ]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        plugins: { legend: { labels: { color: '#9ca3af', font: { size: 10 } } } },
+        scales: {
+          r: {
+            grid: { color: gridColor },
+            ticks: { display: false },
+            pointLabels: { color: '#9ca3af', font: { size: 10 } },
+            angleLines: { color: gridColor }
+          }
+        }
+      }
+    });
+
+    new Chart(document.getElementById('gradChart'), {
+      type: 'line',
+      data: {
+        labels: ['2015', '2016', '2017', '2018', '2019', '2020', '2021', '2022', '2023', '2024'],
+        datasets: [
+          {
+            label: 'EE. UU. — Graduación Seed → Serie A (%)',
+            data: [22, 24, 20, 30.6, 26, 20, 18, 15.4, 14, 13],
+            borderColor: us,
+            backgroundColor: 'rgba(200,245,90,0.05)',
+            borderWidth: 2,
+            fill: true,
+            tension: 0.4,
+            pointRadius: 4,
+            pointBackgroundColor: us
+          },
+          {
+            label: 'LATAM — Estimado (%)',
+            data: [null, null, null, null, 13, 11, 12, 10, 11, 12],
+            borderColor: latam,
+            backgroundColor: 'rgba(90,245,200,0.05)',
+            borderWidth: 2,
+            borderDash: [6, 3],
+            fill: true,
+            tension: 0.4,
+            pointRadius: 4,
+            pointBackgroundColor: latam
+          }
+        ]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        plugins: { legend: { labels: { color: '#9ca3af', font: { size: 10 } } } },
+        scales: {
+          x: { grid: { color: gridColor }, ticks: { color: '#6b7280' } },
+          y: { grid: { color: gridColor }, ticks: { color: '#6b7280', callback: v => v + '%' } }
+        }
+      }
+    });
+  }
+
+  if (viewId === 'compare') {
+    new Chart(document.getElementById('tvpiCompareChart'), {
+      type: 'bar',
+      data: {
+        labels: ['TVPI Mediano', 'TVPI Top Cuartil', 'TVPI Top Decil'],
+        datasets: [
+          {
+            label: 'EE. UU.',
+            data: [1.84, 3.0, 4.03],
+            backgroundColor: 'rgba(200,245,90,0.25)',
+            borderColor: us,
+            borderWidth: 1.5
+          },
+          {
+            label: 'LATAM',
+            data: [1.4, 2.5, null],
+            backgroundColor: 'rgba(90,245,200,0.25)',
+            borderColor: latam,
+            borderWidth: 1.5
+          }
+        ]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        plugins: { legend: { labels: { color: '#9ca3af', font: { size: 10 } } } },
+        scales: {
+          x: { grid: { color: gridColor }, ticks: { color: '#6b7280' } },
+          y: { grid: { color: gridColor }, ticks: { color: '#6b7280', callback: v => v + 'x' } }
+        }
+      }
+    });
+
+    new Chart(document.getElementById('irrCompareChart'), {
+      type: 'bar',
+      data: {
+        labels: ['Pre-Seed', 'Seed', 'Serie A'],
+        datasets: [
+          {
+            label: 'EE. UU. — IRR Mediano',
+            data: [12, 12.5, 15],
+            backgroundColor: 'rgba(200,245,90,0.25)',
+            borderColor: us, borderWidth: 1.5
+          },
+          {
+            label: 'LATAM — IRR Mediano',
+            data: [10, 10, 11],
+            backgroundColor: 'rgba(90,245,200,0.25)',
+            borderColor: latam, borderWidth: 1.5
+          },
+          {
+            label: 'Target (ambos)',
+            data: [35, 30, 25],
+            backgroundColor: 'rgba(245,200,90,0.15)',
+            borderColor: warn, borderWidth: 1.5,
+            borderDash: [4, 2]
+          }
+        ]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        plugins: { legend: { labels: { color: '#9ca3af', font: { size: 10 } } } },
+        scales: {
+          x: { grid: { color: gridColor }, ticks: { color: '#6b7280' } },
+          y: { grid: { color: gridColor }, ticks: { color: '#6b7280', callback: v => v + '%' } }
+        }
+      }
+    });
+  }
+}
+
+// Init overview on load
+window.addEventListener('load', () => initChartsForView('overview'));
+</script>
+
+</body>
+</html>

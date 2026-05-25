@@ -1,0 +1,1174 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AIDA Ventures — Deal Evaluation Scorecard</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy: #0B1628;
+    --navy2: #122040;
+    --navy3: #1A2E52;
+    --blue: #1A6FE8;
+    --blue-light: #4A91F0;
+    --cyan: #00C6D7;
+    --cyan-dim: rgba(0,198,215,0.12);
+    --teal: #0BBFA0;
+    --amber: #F5A623;
+    --amber-dim: rgba(245,166,35,0.1);
+    --green: #22C55E;
+    --green-dim: rgba(34,197,94,0.1);
+    --red: #EF4444;
+    --red-dim: rgba(239,68,68,0.1);
+    --yellow: #EAB308;
+    --yellow-dim: rgba(234,179,8,0.1);
+    --text-primary: #E8EDF5;
+    --text-secondary: #8A9AB8;
+    --text-tertiary: #5A6A84;
+    --border: rgba(255,255,255,0.06);
+    --border-mid: rgba(255,255,255,0.1);
+    --card-bg: rgba(255,255,255,0.03);
+    --card-bg-hover: rgba(255,255,255,0.05);
+  }
+
+  html { font-size: 15px; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--navy);
+    color: var(--text-primary);
+    min-height: 100vh;
+    line-height: 1.6;
+  }
+
+  /* HEADER */
+  .header {
+    background: linear-gradient(135deg, var(--navy2) 0%, var(--navy3) 100%);
+    border-bottom: 1px solid var(--border-mid);
+    padding: 28px 48px 24px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 24px;
+  }
+  .header-brand { display: flex; align-items: center; gap: 14px; }
+  .brand-mark {
+    width: 42px; height: 42px;
+    border: 1.5px solid var(--cyan);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; font-weight: 600; color: var(--cyan);
+    letter-spacing: -1px;
+    position: relative;
+  }
+  .brand-mark::before {
+    content: '';
+    position: absolute;
+    inset: 4px;
+    border: 1px solid rgba(0,198,215,0.3);
+    border-radius: 50%;
+  }
+  .header h1 { font-size: 19px; font-weight: 500; color: var(--text-primary); letter-spacing: -0.3px; }
+  .header p { font-size: 12px; color: var(--text-secondary); margin-top: 2px; }
+  .header-badge {
+    font-size: 11px; font-weight: 500;
+    padding: 4px 12px;
+    background: var(--cyan-dim);
+    color: var(--cyan);
+    border: 1px solid rgba(0,198,215,0.2);
+    border-radius: 999px;
+    white-space: nowrap;
+  }
+
+  /* LAYOUT */
+  .container { max-width: 1100px; margin: 0 auto; padding: 32px 48px 64px; }
+
+  /* INTRO */
+  .intro {
+    background: var(--card-bg);
+    border: 1px solid var(--border-mid);
+    border-left: 3px solid var(--cyan);
+    border-radius: 10px;
+    padding: 18px 22px;
+    margin-bottom: 32px;
+    font-size: 13.5px;
+    color: var(--text-secondary);
+    line-height: 1.7;
+  }
+  .intro strong { color: var(--text-primary); font-weight: 500; }
+
+  /* STARTUP INPUT */
+  .input-section {
+    background: var(--card-bg);
+    border: 1px solid var(--border-mid);
+    border-radius: 12px;
+    padding: 24px 28px;
+    margin-bottom: 28px;
+  }
+  .input-section h2 { font-size: 14px; font-weight: 500; color: var(--text-secondary); margin-bottom: 16px; letter-spacing: 0.5px; text-transform: uppercase; font-size: 11px; }
+  .input-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 14px; }
+  .input-group label { display: block; font-size: 11px; color: var(--text-tertiary); margin-bottom: 5px; letter-spacing: 0.3px; }
+  .input-group select, .input-group input {
+    width: 100%;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid var(--border-mid);
+    border-radius: 7px;
+    padding: 8px 11px;
+    color: var(--text-primary);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .input-group select:focus, .input-group input:focus { border-color: var(--cyan); }
+  .input-group select option { background: var(--navy2); }
+  .score-btn {
+    margin-top: 20px;
+    background: var(--blue);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 24px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+  }
+  .score-btn:hover { background: var(--blue-light); }
+  .score-btn:active { transform: scale(0.98); }
+
+  /* OVERALL SCORE BANNER */
+  .score-banner {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    background: var(--card-bg);
+    border: 1px solid var(--border-mid);
+    border-radius: 12px;
+    padding: 22px 28px;
+    margin-bottom: 28px;
+  }
+  .score-circle {
+    width: 80px; height: 80px;
+    border-radius: 50%;
+    border: 2px solid var(--cyan);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    flex-shrink: 0;
+    position: relative;
+  }
+  .score-circle .score-num { font-size: 26px; font-weight: 600; color: var(--cyan); line-height: 1; }
+  .score-circle .score-max { font-size: 11px; color: var(--text-tertiary); }
+  .score-info h3 { font-size: 18px; font-weight: 500; margin-bottom: 4px; }
+  .score-info p { font-size: 13px; color: var(--text-secondary); }
+  .score-verdict {
+    margin-left: auto;
+    padding: 8px 18px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 500;
+    border: 1px solid;
+  }
+  .verdict-strong { background: var(--green-dim); color: var(--green); border-color: rgba(34,197,94,0.25); }
+  .verdict-watch { background: var(--yellow-dim); color: var(--yellow); border-color: rgba(234,179,8,0.25); }
+  .verdict-pass { background: var(--red-dim); color: var(--red); border-color: rgba(239,68,68,0.25); }
+
+  /* TABS */
+  .tabs-nav {
+    display: flex;
+    gap: 2px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 4px;
+    margin-bottom: 24px;
+    overflow-x: auto;
+  }
+  .tab-btn {
+    flex: 1;
+    min-width: 110px;
+    padding: 9px 14px;
+    border: none;
+    border-radius: 7px;
+    background: transparent;
+    color: var(--text-secondary);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12.5px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.18s;
+    white-space: nowrap;
+    text-align: center;
+  }
+  .tab-btn:hover { background: rgba(255,255,255,0.04); color: var(--text-primary); }
+  .tab-btn.active { background: var(--navy3); color: var(--cyan); box-shadow: 0 0 0 1px rgba(0,198,215,0.2); }
+
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+
+  /* DIMENSION CARDS */
+  .dim-header {
+    display: flex; align-items: center; gap: 12px;
+    margin-bottom: 20px;
+  }
+  .dim-icon {
+    width: 36px; height: 36px;
+    border-radius: 9px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px;
+  }
+  .dim-header h2 { font-size: 16px; font-weight: 500; }
+  .dim-header p { font-size: 12px; color: var(--text-secondary); margin-top: 2px; }
+  .dim-score-pill {
+    margin-left: auto;
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    padding: 4px 14px;
+    border-radius: 999px;
+    border: 1px solid;
+  }
+
+  /* METRICS TABLE */
+  .metrics-grid { display: flex; flex-direction: column; gap: 10px; }
+  .metric-row {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    padding: 14px 18px;
+    display: grid;
+    grid-template-columns: 1fr 110px 110px 110px 90px;
+    align-items: center;
+    gap: 12px;
+    transition: border-color 0.15s;
+  }
+  .metric-row:hover { border-color: var(--border-mid); }
+  .metric-name { font-size: 13px; font-weight: 500; }
+  .metric-sub { font-size: 11px; color: var(--text-tertiary); margin-top: 2px; }
+  .metric-val {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    text-align: center;
+  }
+  .col-label {
+    font-size: 10px;
+    color: var(--text-tertiary);
+    text-align: center;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+    padding: 0 18px;
+    margin-bottom: 4px;
+    display: grid;
+    grid-template-columns: 1fr 110px 110px 110px 90px;
+    gap: 12px;
+  }
+  .col-label span { text-align: center; }
+  .col-label span:first-child { text-align: left; }
+
+  /* STATUS DOTS */
+  .status {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    padding: 3px 10px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 500;
+  }
+  .status-green { background: var(--green-dim); color: var(--green); }
+  .status-yellow { background: var(--yellow-dim); color: var(--yellow); }
+  .status-red { background: var(--red-dim); color: var(--red); }
+  .status-gray { background: rgba(255,255,255,0.05); color: var(--text-tertiary); }
+
+  /* PROGRESS BAR */
+  .progress-wrap { width: 100%; background: rgba(255,255,255,0.06); border-radius: 999px; height: 4px; }
+  .progress-bar { height: 4px; border-radius: 999px; transition: width 0.6s ease; }
+
+  /* BENCHMARKS SECTION */
+  .bench-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 14px; margin-bottom: 24px; }
+  .bench-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 18px;
+  }
+  .bench-card h4 { font-size: 12px; color: var(--text-tertiary); margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.4px; }
+  .bench-row { display: flex; justify-content: space-between; align-items: baseline; padding: 4px 0; border-bottom: 1px solid var(--border); }
+  .bench-row:last-child { border-bottom: none; }
+  .bench-label { font-size: 12px; color: var(--text-secondary); }
+  .bench-value { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--text-primary); }
+  .bench-value.cyan { color: var(--cyan); }
+  .bench-value.amber { color: var(--amber); }
+
+  /* MULTIPLE TABLE */
+  .multiple-table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+  .multiple-table th {
+    text-align: left;
+    padding: 8px 14px;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    color: var(--text-tertiary);
+    border-bottom: 1px solid var(--border-mid);
+    font-weight: 500;
+  }
+  .multiple-table td {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: middle;
+  }
+  .multiple-table tr:last-child td { border-bottom: none; }
+  .multiple-table tr:hover td { background: var(--card-bg-hover); }
+  .multiple-table .mono { font-family: 'DM Mono', monospace; font-size: 12px; }
+  .multiple-table .stage-badge {
+    display: inline-block;
+    padding: 2px 9px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 500;
+  }
+  .stage-preseed { background: rgba(138,154,184,0.12); color: #8A9AB8; }
+  .stage-seed { background: rgba(0,198,215,0.12); color: var(--cyan); }
+  .stage-seriea { background: rgba(26,111,232,0.15); color: var(--blue-light); }
+  .stage-serieb { background: rgba(11,191,160,0.12); color: var(--teal); }
+
+  /* SCORECARD METHODOLOGY */
+  .method-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
+  .method-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px;
+  }
+  .method-card .weight-tag {
+    font-size: 20px;
+    font-weight: 600;
+    font-family: 'DM Mono', monospace;
+    color: var(--cyan);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .method-card h4 { font-size: 13px; font-weight: 500; margin-bottom: 6px; }
+  .method-card p { font-size: 12px; color: var(--text-secondary); line-height: 1.6; }
+
+  /* SECTION TITLE */
+  .section-title {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: var(--text-tertiary);
+    font-weight: 500;
+    margin: 24px 0 12px;
+  }
+
+  /* AIDA CRITERIA BOX */
+  .criteria-box {
+    background: rgba(0,198,215,0.04);
+    border: 1px solid rgba(0,198,215,0.15);
+    border-radius: 10px;
+    padding: 18px 22px;
+    margin-bottom: 24px;
+  }
+  .criteria-box h4 { font-size: 13px; font-weight: 500; color: var(--cyan); margin-bottom: 10px; }
+  .criteria-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .criteria-list li { font-size: 13px; color: var(--text-secondary); padding-left: 16px; position: relative; }
+  .criteria-list li::before { content: '→'; position: absolute; left: 0; color: var(--cyan); font-size: 11px; top: 2px; }
+
+  /* LATAM DISCOUNT TABLE */
+  .discount-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; margin-bottom: 24px; }
+  .discount-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 18px;
+    display: flex; flex-direction: column; gap: 6px;
+  }
+  .discount-card .factor { font-size: 12px; color: var(--text-tertiary); }
+  .discount-card .pct { font-size: 22px; font-weight: 600; font-family: 'DM Mono', monospace; color: var(--amber); }
+  .discount-card .note { font-size: 11px; color: var(--text-secondary); line-height: 1.5; }
+
+  /* FOOTER */
+  .footer {
+    margin-top: 48px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+    font-size: 11px;
+    color: var(--text-tertiary);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    .header { padding: 20px 24px; flex-direction: column; align-items: flex-start; }
+    .container { padding: 24px 20px 48px; }
+    .metric-row { grid-template-columns: 1fr 1fr; }
+    .col-label { display: none; }
+    .score-banner { flex-wrap: wrap; }
+    .score-verdict { margin-left: 0; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-brand">
+    <div class="brand-mark">A</div>
+    <div>
+      <h1>Deal Evaluation Scorecard</h1>
+      <p>AIDA Ventures · Fund II · LatAm Early Stage</p>
+    </div>
+  </div>
+  <div class="header-badge">Powered by AIDA Data Lake</div>
+</div>
+
+<div class="container">
+
+  <!-- INTRO -->
+  <div class="intro">
+    <strong>¿Cómo funciona este scorecard?</strong> El sistema evalúa cada startup candidata en <strong>6 dimensiones clave</strong>, comparándola contra los benchmarks reales del data lake de AIDA Ventures: métricas de SaaS/Fintech de US y LATAM (Carta, LAVCA, SaaS Capital, ChartMogul), múltiplos de valuación por etapa y sector, y los criterios de inversión propios del fondo. El resultado es un score 0–100 que clasifica la oportunidad y señala áreas de riesgo.
+  </div>
+
+  <!-- STARTUP INPUT -->
+  <div class="input-section">
+    <h2>Parámetros de la startup a evaluar</h2>
+    <div class="input-grid">
+      <div class="input-group">
+        <label>Sector</label>
+        <select id="inp-sector" onchange="recalc()">
+          <option value="fintech">Fintech</option>
+          <option value="saas">Enterprise SaaS</option>
+          <option value="logtech">Supply Chain / LogTech</option>
+        </select>
+      </div>
+      <div class="input-group">
+        <label>Etapa actual</label>
+        <select id="inp-stage" onchange="recalc()">
+          <option value="preseed">Pre-Seed</option>
+          <option value="seed" selected>Seed</option>
+          <option value="seriea">Serie A</option>
+        </select>
+      </div>
+      <div class="input-group">
+        <label>País</label>
+        <select id="inp-country" onchange="recalc()">
+          <option value="colombia">Colombia</option>
+          <option value="mexico">México</option>
+          <option value="brazil">Brasil</option>
+          <option value="argentina">Argentina</option>
+          <option value="peru">Perú</option>
+          <option value="chile">Chile</option>
+        </select>
+      </div>
+      <div class="input-group">
+        <label>ARR actual (USD)</label>
+        <input type="number" id="inp-arr" value="350000" onchange="recalc()" placeholder="350000"/>
+      </div>
+      <div class="input-group">
+        <label>MoM Growth (%)</label>
+        <input type="number" id="inp-mom" value="18" onchange="recalc()" placeholder="18"/>
+      </div>
+      <div class="input-group">
+        <label>NRR (%)</label>
+        <input type="number" id="inp-nrr" value="108" onchange="recalc()" placeholder="108"/>
+      </div>
+      <div class="input-group">
+        <label>Burn Multiple</label>
+        <input type="number" id="inp-burn" value="1.8" step="0.1" onchange="recalc()" placeholder="1.8"/>
+      </div>
+      <div class="input-group">
+        <label>LTV:CAC ratio</label>
+        <input type="number" id="inp-ltvcac" value="3.2" step="0.1" onchange="recalc()" placeholder="3.2"/>
+      </div>
+      <div class="input-group">
+        <label>Gross Margin (%)</label>
+        <input type="number" id="inp-margin" value="68" onchange="recalc()" placeholder="68"/>
+      </div>
+      <div class="input-group">
+        <label>Team score (1–10)</label>
+        <input type="number" id="inp-team" value="7" min="1" max="10" onchange="recalc()" placeholder="7"/>
+      </div>
+      <div class="input-group">
+        <label>TAM (USD M)</label>
+        <input type="number" id="inp-tam" value="2500" onchange="recalc()" placeholder="2500"/>
+      </div>
+      <div class="input-group">
+        <label>Runway (meses)</label>
+        <input type="number" id="inp-runway" value="15" onchange="recalc()" placeholder="15"/>
+      </div>
+    </div>
+    <button class="score-btn" onclick="recalc()">Calcular scorecard →</button>
+  </div>
+
+  <!-- SCORE BANNER -->
+  <div class="score-banner" id="score-banner">
+    <div class="score-circle">
+      <span class="score-num" id="score-total">72</span>
+      <span class="score-max">/100</span>
+    </div>
+    <div class="score-info">
+      <h3 id="score-label">Candidato Fuerte</h3>
+      <p id="score-desc">El perfil supera la mediana LATAM en la mayoría de dimensiones. Recomienda avanzar a due diligence.</p>
+    </div>
+    <div class="score-verdict verdict-strong" id="score-verdict">Avanzar a DD</div>
+  </div>
+
+  <!-- TABS -->
+  <div class="tabs-nav">
+    <button class="tab-btn active" onclick="showTab('methodology', this)">Metodología</button>
+    <button class="tab-btn" onclick="showTab('growth', this)">Crecimiento</button>
+    <button class="tab-btn" onclick="showTab('efficiency', this)">Eficiencia Capital</button>
+    <button class="tab-btn" onclick="showTab('retention', this)">Retención</button>
+    <button class="tab-btn" onclick="showTab('valuation', this)">Valuación</button>
+    <button class="tab-btn" onclick="showTab('multiples', this)">Múltiplos LATAM</button>
+    <button class="tab-btn" onclick="showTab('latam', this)">Contexto LATAM</button>
+  </div>
+
+  <!-- TAB: METHODOLOGY -->
+  <div class="tab-panel active" id="tab-methodology">
+
+    <div class="criteria-box">
+      <h4>Criterios de inversión AIDA Ventures — Fund II</h4>
+      <ul class="criteria-list">
+        <li>Sectores objetivo: Fintech (fraud detection, payments, lending, alt. credit scoring), Supply Chain (e-commerce, last-mile, optimization) y Enterprise SaaS (digitalization, cloud adoption, operational efficiency)</li>
+        <li>Etapas: Pre-Seed ($250K inicial) y Seed ($750K inicial), con follow-ons para los mejores portfolios</li>
+        <li>Geografías: México, Colombia, Brasil, Argentina, Chile, Perú — con foco en hubs de innovación</li>
+        <li>Valuaciones objetivo: 30–40% de descuento vs US en etapa equivalente (ventaja estructural de LATAM)</li>
+        <li>Target returns: 35–45% IRR · 3.5x–4.5x TVPI · Horizon 10 años (con 2 de extensión)</li>
+        <li>Diferenciador: modelo híbrido VC Fund + Venture Studio reduce riesgo y acelera time-to-market 60% en idea→seed</li>
+      </ul>
+    </div>
+
+    <div class="section-title">Ponderación de dimensiones</div>
+    <div class="method-grid">
+      <div class="method-card">
+        <div class="weight-tag">25%</div>
+        <h4>Crecimiento</h4>
+        <p>ARR YoY, MoM growth, tiempo para alcanzar hitos de revenue. Señal más fuerte de product-market fit.</p>
+      </div>
+      <div class="method-card">
+        <div class="weight-tag">20%</div>
+        <h4>Retención</h4>
+        <p>NRR, GRR, logo churn. Indicador de calidad del producto y fortaleza del modelo de negocio.</p>
+      </div>
+      <div class="method-card">
+        <div class="weight-tag">20%</div>
+        <h4>Eficiencia de Capital</h4>
+        <p>Burn Multiple, Magic Number, Rule of 40, runway. Capacidad de hacer más con menos.</p>
+      </div>
+      <div class="method-card">
+        <div class="weight-tag">15%</div>
+        <h4>Unit Economics</h4>
+        <p>LTV:CAC, gross margin, CAC payback. Confirma el motor económico a escala.</p>
+      </div>
+      <div class="method-card">
+        <div class="weight-tag">10%</div>
+        <h4>Equipo</h4>
+        <p>Experiencia founder, track record, complementariedad técnica-negocio, red de advisors.</p>
+      </div>
+      <div class="method-card">
+        <div class="weight-tag">10%</div>
+        <h4>Mercado</h4>
+        <p>TAM >$1B, SAM definido, timing de mercado, presión regulatoria favorable.</p>
+      </div>
+    </div>
+
+    <div class="section-title">Cómo se produce el score</div>
+    <div class="intro" style="margin-bottom: 0;">
+      Cada métrica ingresada se compara contra <strong>cuatro referencias</strong>: mediana LATAM, top cuartil LATAM, mediana US y best-in-class US. Se asigna un puntaje parcial (0–10) según en qué rango cae el valor. Las 6 dimensiones se ponderan según la tabla de arriba. El score final determina la recomendación: <strong style="color: var(--green);">70–100 → Avanzar a DD</strong> · <strong style="color: var(--yellow);">50–69 → Watchlist</strong> · <strong style="color: var(--red);">0–49 → Pasar</strong>.
+    </div>
+  </div>
+
+  <!-- TAB: GROWTH -->
+  <div class="tab-panel" id="tab-growth">
+    <div class="dim-header">
+      <div class="dim-icon" style="background: rgba(0,198,215,0.1); color: var(--cyan);">📈</div>
+      <div>
+        <h2>Dimensión 1 — Crecimiento</h2>
+        <p>Peso: 25% del score total · Fuente: ChartMogul 2024, RevPartners 2024, High Alpha</p>
+      </div>
+      <div class="dim-score-pill" id="growth-pill" style="color: var(--cyan); border-color: rgba(0,198,215,0.3); background: rgba(0,198,215,0.07);">— / 25 pts</div>
+    </div>
+
+    <div class="col-label">
+      <span>Métrica</span>
+      <span>Mediana LATAM</span>
+      <span>Top LATAM</span>
+      <span>Tu startup</span>
+      <span>Estado</span>
+    </div>
+    <div class="metrics-grid" id="growth-metrics"></div>
+
+    <div class="section-title">Benchmarks de referencia (Fintech / SaaS LATAM)</div>
+    <div class="bench-grid">
+      <div class="bench-card">
+        <h4>ARR Growth YoY</h4>
+        <div class="bench-row"><span class="bench-label">Mediana LATAM</span><span class="bench-value">55–75%</span></div>
+        <div class="bench-row"><span class="bench-label">Top quartil LATAM</span><span class="bench-value cyan">100–150%</span></div>
+        <div class="bench-row"><span class="bench-label">Mediana US</span><span class="bench-value">45% (>$1M ARR)</span></div>
+        <div class="bench-row"><span class="bench-label">Top quartil US</span><span class="bench-value amber">68–192%</span></div>
+        <div class="bench-row"><span class="bench-label">Fuente</span><span class="bench-value" style="color: var(--text-tertiary)">RevPartners 2024</span></div>
+      </div>
+      <div class="bench-card">
+        <h4>MRR Growth (mensual)</h4>
+        <div class="bench-row"><span class="bench-label">Mediana LATAM</span><span class="bench-value">8–15%</span></div>
+        <div class="bench-row"><span class="bench-label">Top quartil LATAM</span><span class="bench-value cyan">20–30%</span></div>
+        <div class="bench-row"><span class="bench-label">Mediana US</span><span class="bench-value">5–10%</span></div>
+        <div class="bench-row"><span class="bench-label">Top quartil US</span><span class="bench-value amber">15–20%</span></div>
+        <div class="bench-row"><span class="bench-label">Fuente</span><span class="bench-value" style="color: var(--text-tertiary)">ChartMogul 2024</span></div>
+      </div>
+      <div class="bench-card">
+        <h4>Tiempo a $1M ARR</h4>
+        <div class="bench-row"><span class="bench-label">Mediana LATAM</span><span class="bench-value">12–18 meses</span></div>
+        <div class="bench-row"><span class="bench-label">Top LATAM</span><span class="bench-value cyan">&lt;12 meses</span></div>
+        <div class="bench-row"><span class="bench-label">Mediana US</span><span class="bench-value">9 meses (top)</span></div>
+        <div class="bench-row"><span class="bench-label">AI SaaS US</span><span class="bench-value amber">~11.5 meses</span></div>
+        <div class="bench-row"><span class="bench-label">Fuente</span><span class="bench-value" style="color: var(--text-tertiary)">High Alpha 2024</span></div>
+      </div>
+      <div class="bench-card">
+        <h4>ARR pre-seed → seed</h4>
+        <div class="bench-row"><span class="bench-label">Pre-Seed típico</span><span class="bench-value">$0 – $100K</span></div>
+        <div class="bench-row"><span class="bench-label">Seed mediana</span><span class="bench-value cyan">~$500K ARR</span></div>
+        <div class="bench-row"><span class="bench-label">Serie A mínimo</span><span class="bench-value">$1.5M–$3M</span></div>
+        <div class="bench-row"><span class="bench-label">Serie A (2025 std)</span><span class="bench-value amber">$3M ARR</span></div>
+        <div class="bench-row"><span class="bench-label">Fuente</span><span class="bench-value" style="color: var(--text-tertiary)">Carta Q3 2025</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB: EFFICIENCY -->
+  <div class="tab-panel" id="tab-efficiency">
+    <div class="dim-header">
+      <div class="dim-icon" style="background: rgba(245,166,35,0.1); color: var(--amber);">⚡</div>
+      <div>
+        <h2>Dimensión 3 — Eficiencia de Capital</h2>
+        <p>Peso: 20% del score total · Fuente: SaaS Capital, Bessemer, OpenView 2024</p>
+      </div>
+      <div class="dim-score-pill" id="eff-pill" style="color: var(--amber); border-color: rgba(245,166,35,0.3); background: var(--amber-dim);">— / 20 pts</div>
+    </div>
+
+    <div class="col-label">
+      <span>Métrica</span>
+      <span>Mediana LATAM</span>
+      <span>Best-in-class</span>
+      <span>Tu startup</span>
+      <span>Estado</span>
+    </div>
+    <div class="metrics-grid" id="eff-metrics"></div>
+
+    <div class="section-title">Benchmarks de referencia</div>
+    <div class="bench-grid">
+      <div class="bench-card">
+        <h4>Burn Multiple</h4>
+        <div class="bench-row"><span class="bench-label">Mediana LATAM</span><span class="bench-value">2.0–2.5x</span></div>
+        <div class="bench-row"><span class="bench-label">Best-in-class LATAM</span><span class="bench-value cyan">&lt;1.5x</span></div>
+        <div class="bench-row"><span class="bench-label">Mediana US</span><span class="bench-value">1.5–2.0x</span></div>
+        <div class="bench-row"><span class="bench-label">Best-in-class US</span><span class="bench-value amber">&lt;1.0x</span></div>
+        <div class="bench-row"><span class="bench-label">Seed mediana (general)</span><span class="bench-value" style="color:var(--text-tertiary)">~1.9x</span></div>
+      </div>
+      <div class="bench-card">
+        <h4>Gross Margin</h4>
+        <div class="bench-row"><span class="bench-label">Mediana LATAM Fintech</span><span class="bench-value">55–65%</span></div>
+        <div class="bench-row"><span class="bench-label">Best-in-class LATAM</span><span class="bench-value cyan">65–75%</span></div>
+        <div class="bench-row"><span class="bench-label">SaaS US mediana</span><span class="bench-value">65–75%</span></div>
+        <div class="bench-row"><span class="bench-label">SaaS US best-in-class</span><span class="bench-value amber">75–85%</span></div>
+        <div class="bench-row"><span class="bench-label">AI SaaS (por compute)</span><span class="bench-value" style="color:var(--text-tertiary)">65–75%</span></div>
+      </div>
+      <div class="bench-card">
+        <h4>Rule of 40</h4>
+        <div class="bench-row"><span class="bench-label">Mediana LATAM</span><span class="bench-value">25–35%</span></div>
+        <div class="bench-row"><span class="bench-label">Top LATAM</span><span class="bench-value cyan">&gt;35%</span></div>
+        <div class="bench-row"><span class="bench-label">Mediana US</span><span class="bench-value">30–40%</span></div>
+        <div class="bench-row"><span class="bench-label">Top US (solo 11–30%)</span><span class="bench-value amber">&gt;40%</span></div>
+        <div class="bench-row"><span class="bench-label">Aplica desde</span><span class="bench-value" style="color:var(--text-tertiary)">Serie A en adelante</span></div>
+      </div>
+      <div class="bench-card">
+        <h4>Runway objetivo</h4>
+        <div class="bench-row"><span class="bench-label">Pre-Seed</span><span class="bench-value">12–18 meses</span></div>
+        <div class="bench-row"><span class="bench-label">Seed</span><span class="bench-value cyan">18–24 meses</span></div>
+        <div class="bench-row"><span class="bench-label">Serie A (post-ronda)</span><span class="bench-value">24–30 meses</span></div>
+        <div class="bench-row"><span class="bench-label">Burn rate Seed US</span><span class="bench-value amber">$50K–$200K/mes</span></div>
+        <div class="bench-row"><span class="bench-label">Burn rate Seed LATAM</span><span class="bench-value" style="color:var(--text-tertiary)">$40K–$120K/mes</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB: RETENTION -->
+  <div class="tab-panel" id="tab-retention">
+    <div class="dim-header">
+      <div class="dim-icon" style="background: var(--green-dim); color: var(--green);">🔄</div>
+      <div>
+        <h2>Dimensión 2 — Retención y Clientes</h2>
+        <p>Peso: 20% del score total · Fuente: SaaS Capital, Bessemer, ChartMogul 2024</p>
+      </div>
+      <div class="dim-score-pill" id="ret-pill" style="color: var(--green); border-color: rgba(34,197,94,0.3); background: var(--green-dim);">— / 20 pts</div>
+    </div>
+
+    <div class="col-label">
+      <span>Métrica</span>
+      <span>Mediana LATAM</span>
+      <span>Top tier LATAM</span>
+      <span>Tu startup</span>
+      <span>Estado</span>
+    </div>
+    <div class="metrics-grid" id="ret-metrics"></div>
+
+    <div class="section-title">Benchmarks de retención LATAM vs US</div>
+    <div class="bench-grid">
+      <div class="bench-card">
+        <h4>Gross Revenue Retention (GRR)</h4>
+        <div class="bench-row"><span class="bench-label">Mediana LATAM</span><span class="bench-value">75–85%</span></div>
+        <div class="bench-row"><span class="bench-label">Top tier LATAM</span><span class="bench-value cyan">&gt;88%</span></div>
+        <div class="bench-row"><span class="bench-label">Mediana US</span><span class="bench-value">85–90%</span></div>
+        <div class="bench-row"><span class="bench-label">Top tier US</span><span class="bench-value amber">&gt;95%</span></div>
+      </div>
+      <div class="bench-card">
+        <h4>Net Revenue Retention (NRR)</h4>
+        <div class="bench-row"><span class="bench-label">Mediana LATAM</span><span class="bench-value">90–110%</span></div>
+        <div class="bench-row"><span class="bench-label">Top tier LATAM</span><span class="bench-value cyan">&gt;120%</span></div>
+        <div class="bench-row"><span class="bench-label">Mediana US</span><span class="bench-value">100–120%</span></div>
+        <div class="bench-row"><span class="bench-label">Top tier US</span><span class="bench-value amber">&gt;130%</span></div>
+      </div>
+      <div class="bench-card">
+        <h4>Logo Churn Rate (anual)</h4>
+        <div class="bench-row"><span class="bench-label">Mediana LATAM</span><span class="bench-value">15–25%</span></div>
+        <div class="bench-row"><span class="bench-label">Top tier LATAM</span><span class="bench-value cyan">&lt;10%</span></div>
+        <div class="bench-row"><span class="bench-label">Mediana US</span><span class="bench-value">10–15%</span></div>
+        <div class="bench-row"><span class="bench-label">Top tier US</span><span class="bench-value amber">&lt;5%</span></div>
+      </div>
+      <div class="bench-card">
+        <h4>Retención 12 meses (cohorte)</h4>
+        <div class="bench-row"><span class="bench-label">Mediana LATAM</span><span class="bench-value">60–70%</span></div>
+        <div class="bench-row"><span class="bench-label">Top LATAM</span><span class="bench-value cyan">&gt;75%</span></div>
+        <div class="bench-row"><span class="bench-label">Mediana US</span><span class="bench-value">70–80%</span></div>
+        <div class="bench-row"><span class="bench-label">Top US</span><span class="bench-value amber">&gt;85%</span></div>
+      </div>
+    </div>
+
+    <div class="criteria-box">
+      <h4>Señales de PMF (Product-Market Fit) que busca AIDA</h4>
+      <ul class="criteria-list">
+        <li>NRR &gt;100% indica que los clientes existentes crecen más de lo que se van — el negocio crece sin necesitar nuevos clientes</li>
+        <li>Retención de logos &gt;80% en Seed es señal de PMF; &gt;90% es requisito para Serie A</li>
+        <li>NPS &gt;40 con al menos 40% de usuarios que estarían "muy decepcionados" sin el producto confirma PMF</li>
+        <li>Churn mensual de Seed aceptable: 5–10% bajo $1M ARR (disminuye con escala)</li>
+        <li>DAU/MAU &gt;20% para apps consumer o B2B con uso frecuente</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- TAB: VALUATION -->
+  <div class="tab-panel" id="tab-valuation">
+    <div class="dim-header">
+      <div class="dim-icon" style="background: rgba(138,154,184,0.1); color: #8A9AB8;">💰</div>
+      <div>
+        <h2>Dimensión 5 — Valuación y Unit Economics</h2>
+        <p>Peso: 15% (unit econ) + valuación contextual · Fuente: Carta, Equidam, Finro, SaaS Capital 2025</p>
+      </div>
+    </div>
+
+    <div class="col-label">
+      <span>Métrica</span>
+      <span>Mediana LATAM</span>
+      <span>Best-in-class</span>
+      <span>Tu startup</span>
+      <span>Estado</span>
+    </div>
+    <div class="metrics-grid" id="val-metrics"></div>
+
+    <div class="section-title">Valuaciones medianas por etapa — LATAM vs US (2025)</div>
+    <div class="bench-grid">
+      <div class="bench-card">
+        <h4>Pre-Seed (estimado LATAM)</h4>
+        <div class="bench-row"><span class="bench-label">SaaS</span><span class="bench-value cyan">$3–5M</span></div>
+        <div class="bench-row"><span class="bench-label">Fintech</span><span class="bench-value cyan">$3–6M</span></div>
+        <div class="bench-row"><span class="bench-label">LogTech</span><span class="bench-value cyan">$2–4M</span></div>
+        <div class="bench-row"><span class="bench-label">US Pre-Seed (SaaS)</span><span class="bench-value amber">$3–8M</span></div>
+        <div class="bench-row"><span class="bench-label">Descuento vs US</span><span class="bench-value" style="color:var(--text-tertiary)">~55–60%</span></div>
+      </div>
+      <div class="bench-card">
+        <h4>Seed (estimado LATAM)</h4>
+        <div class="bench-row"><span class="bench-label">SaaS</span><span class="bench-value cyan">$8–12M</span></div>
+        <div class="bench-row"><span class="bench-label">Fintech</span><span class="bench-value cyan">$8–14M</span></div>
+        <div class="bench-row"><span class="bench-label">LogTech</span><span class="bench-value cyan">$5–8M</span></div>
+        <div class="bench-row"><span class="bench-label">US Seed (SaaS Carta)</span><span class="bench-value amber">$19.8M</span></div>
+        <div class="bench-row"><span class="bench-label">Descuento vs US</span><span class="bench-value" style="color:var(--text-tertiary)">~35–45%</span></div>
+      </div>
+      <div class="bench-card">
+        <h4>Serie A (estimado LATAM)</h4>
+        <div class="bench-row"><span class="bench-label">SaaS</span><span class="bench-value cyan">$25–36M</span></div>
+        <div class="bench-row"><span class="bench-label">Fintech</span><span class="bench-value cyan">$25–45M</span></div>
+        <div class="bench-row"><span class="bench-label">LogTech</span><span class="bench-value cyan">$15–25M</span></div>
+        <div class="bench-row"><span class="bench-label">US Serie A (SaaS)</span><span class="bench-value amber">$60M</span></div>
+        <div class="bench-row"><span class="bench-label">US Fintech Serie A</span><span class="bench-value amber">$32M</span></div>
+      </div>
+      <div class="bench-card">
+        <h4>Unit Economics (LTV:CAC)</h4>
+        <div class="bench-row"><span class="bench-label">Mediana LATAM</span><span class="bench-value">2.5–3.5:1</span></div>
+        <div class="bench-row"><span class="bench-label">Top LATAM</span><span class="bench-value cyan">3–4.5:1</span></div>
+        <div class="bench-row"><span class="bench-label">Mediana US</span><span class="bench-value">3.6:1</span></div>
+        <div class="bench-row"><span class="bench-label">Top US (Enterprise)</span><span class="bench-value amber">4–6:1</span></div>
+        <div class="bench-row"><span class="bench-label">Mínimo aceptable</span><span class="bench-value" style="color:var(--text-tertiary)">&gt;3:1</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB: MULTIPLES -->
+  <div class="tab-panel" id="tab-multiples">
+    <div class="dim-header">
+      <div class="dim-icon" style="background: rgba(11,191,160,0.1); color: var(--teal);">✕</div>
+      <div>
+        <h2>Múltiplos de Revenue por Etapa y Sector</h2>
+        <p>Fuente: SaaS Capital Index, Carta, Finro, Aventis Advisors · Actualizado Q3–Q4 2025</p>
+      </div>
+    </div>
+
+    <div class="section-title">SaaS — Múltiplos ARR globales vs LATAM</div>
+    <table class="multiple-table" style="margin-bottom: 24px;">
+      <thead>
+        <tr>
+          <th>Etapa</th>
+          <th>Tipo múltiplo</th>
+          <th>Global</th>
+          <th>LATAM</th>
+          <th>Uso / Contexto</th>
+          <th>Fuente</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><span class="stage-badge stage-preseed">Pre-Seed</span></td><td class="mono">ARR</td><td class="mono">N/A</td><td class="mono">N/A</td><td style="color:var(--text-secondary); font-size:12px">Pricing temprano por tesis</td><td style="color:var(--text-tertiary);font-size:11px">Equidam, Flowjam 2025</td></tr>
+        <tr><td><span class="stage-badge stage-seed">Seed</span></td><td class="mono">ARR</td><td class="mono" style="color:var(--cyan)">8–12x</td><td class="mono" style="color:var(--amber)">5–7x</td><td style="color:var(--text-secondary); font-size:12px">Tracción emergente</td><td style="color:var(--text-tertiary);font-size:11px">SaaS Capital Jan 2025</td></tr>
+        <tr><td><span class="stage-badge stage-seriea">Serie A</span></td><td class="mono">ARR</td><td class="mono" style="color:var(--cyan)">6–10x</td><td class="mono" style="color:var(--amber)">4–6x</td><td style="color:var(--text-secondary); font-size:12px">Product-Market Fit</td><td style="color:var(--text-tertiary);font-size:11px">Carta, SaaSRise 2025</td></tr>
+        <tr><td><span class="stage-badge stage-serieb">Serie B</span></td><td class="mono">ARR</td><td class="mono" style="color:var(--cyan)">5–8x</td><td class="mono" style="color:var(--amber)">3–5x</td><td style="color:var(--text-secondary); font-size:12px">Validación de escalamiento</td><td style="color:var(--text-tertiary);font-size:11px">SaaS Capital Index 2025</td></tr>
+        <tr><td><span class="stage-badge" style="background:rgba(26,111,232,0.12);color:var(--blue-light)">Late Growth</span></td><td class="mono">Revenue</td><td class="mono" style="color:var(--cyan)">5–7x</td><td class="mono" style="color:var(--amber)">3–5x</td><td style="color:var(--text-secondary); font-size:12px">Posicionamiento de exit</td><td style="color:var(--text-tertiary);font-size:11px">Aventis Advisors Q3 2025</td></tr>
+        <tr><td><span class="stage-badge" style="background:rgba(138,154,184,0.1);color:#8A9AB8">Comps públicas</span></td><td class="mono">ARR</td><td class="mono" style="color:var(--cyan)">6–8x (mediana)</td><td class="mono">N/A</td><td style="color:var(--text-secondary); font-size:12px">Benchmarking</td><td style="color:var(--text-tertiary);font-size:11px">SaaS Capital Index Jan 2025</td></tr>
+        <tr><td><span class="stage-badge" style="background:rgba(138,154,184,0.1);color:#8A9AB8">Comps públicas top</span></td><td class="mono">ARR</td><td class="mono" style="color:var(--cyan)">12–20x</td><td class="mono">N/A</td><td style="color:var(--text-secondary); font-size:12px">Top 10 público</td><td style="color:var(--text-tertiary);font-size:11px">SaaS Capital Index Jan 2025</td></tr>
+        <tr><td><span class="stage-badge" style="background:rgba(138,154,184,0.1);color:#8A9AB8">M&amp;A Exit</span></td><td class="mono">EV/Revenue</td><td class="mono" style="color:var(--cyan)">~3x</td><td class="mono" style="color:var(--amber)">2–3x</td><td style="color:var(--text-secondary); font-size:12px">Adquisición corporativa</td><td style="color:var(--text-tertiary);font-size:11px">Aventis Advisors 2015–2025</td></tr>
+      </tbody>
+    </table>
+
+    <div class="section-title">Fintech — Múltiplos específicos (Finro Mid-2025)</div>
+    <table class="multiple-table" style="margin-bottom: 24px;">
+      <thead>
+        <tr>
+          <th>Etapa</th>
+          <th>Valuación US</th>
+          <th>Múltiplo US</th>
+          <th>Valuación LATAM (est.)</th>
+          <th>Notas</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><span class="stage-badge stage-preseed">Pre-Seed</span></td><td class="mono">$4–6M</td><td class="mono">N/A</td><td class="mono" style="color:var(--amber)">$3–6M</td><td style="color:var(--text-secondary);font-size:12px">Pricing por equipo y tesis</td></tr>
+        <tr><td><span class="stage-badge stage-seed">Seed</span></td><td class="mono">$7M</td><td class="mono" style="color:var(--cyan)">15x EV/Rev</td><td class="mono" style="color:var(--amber)">$8–14M</td><td style="color:var(--text-secondary);font-size:12px">Potencial &gt; PMF</td></tr>
+        <tr><td><span class="stage-badge stage-seriea">Serie A</span></td><td class="mono">$32M</td><td class="mono" style="color:var(--cyan)">15x EV/Rev</td><td class="mono" style="color:var(--amber)">$25–45M</td><td style="color:var(--text-secondary);font-size:12px">Early traction demostrada</td></tr>
+        <tr><td><span class="stage-badge stage-serieb">Serie B</span></td><td class="mono">$84M</td><td class="mono" style="color:var(--cyan)">12.3x EV/Rev</td><td class="mono" style="color:var(--amber)">$80–130M</td><td style="color:var(--text-secondary);font-size:12px">Compresión de múltiplos</td></tr>
+      </tbody>
+    </table>
+
+    <div class="criteria-box">
+      <h4>Factores premium que justifican múltiplos superiores (según data lake AIDA)</h4>
+      <ul class="criteria-list">
+        <li>Rule of 40 &gt;40% — arriba del 40% indica eficiencia excepcional (solo 11–30% lo alcanza)</li>
+        <li>NRR &gt;120% — retención top tier que indica expansión natural del revenue sin nuevos clientes</li>
+        <li>Gross Margins &gt;75% — esperado para SaaS puro; indica poder de pricing y escalabilidad</li>
+        <li>Crecimiento YoY &gt;100% con burn multiple &lt;1.5x — eficiencia excepcional que justifica premium</li>
+        <li>Modelo de expansión regional comprobable — múltiple de países en LATAM multiplica el TAM accesible</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- TAB: LATAM CONTEXT -->
+  <div class="tab-panel" id="tab-latam">
+    <div class="dim-header">
+      <div class="dim-icon" style="background: var(--amber-dim); color: var(--amber);">🌎</div>
+      <div>
+        <h2>Contexto de Mercado LATAM</h2>
+        <p>Fuente: LAVCA 2024–2025, Equidam, Cambridge Associates, MSCI</p>
+      </div>
+    </div>
+
+    <div class="section-title">Descuento estructural LATAM vs US (y por qué importa)</div>
+    <div class="discount-grid">
+      <div class="discount-card">
+        <div class="factor">Pre-Seed median valuation</div>
+        <div class="pct">55–60%</div>
+        <div class="note">US $5.97M vs LATAM $2.60M mediana. Descuento de entrada máximo — mayor upside potencial (Equidam 2025)</div>
+      </div>
+      <div class="discount-card">
+        <div class="factor">Overall VC multiples</div>
+        <div class="pct">30–40%</div>
+        <div class="note">Rango histórico a través de todas las etapas. Converge con US al escalar hacia exits (múltiple fuentes)</div>
+      </div>
+      <div class="discount-card">
+        <div class="factor">Serie A valuations</div>
+        <div class="pct">35–45%</div>
+        <div class="note">Europa at 34%, LATAM más profundo. Señal de oportunidad no de riesgo — mercado sub-capitalizado (Equidam)</div>
+      </div>
+      <div class="discount-card">
+        <div class="factor">Exit / M&amp;A multiples</div>
+        <div class="pct">25–35%</div>
+        <div class="note">Descuento menor al exit — los compradores estratégicos globales pagan precios de mercado (Aventis Advisors)</div>
+      </div>
+      <div class="discount-card">
+        <div class="factor">Public equities vs EM Asia</div>
+        <div class="pct">~50%</div>
+        <div class="note">LATAM a descuento de récord en renta variable. Tailwind potencial al normalizar (Cambridge Associates, MSCI)</div>
+      </div>
+      <div class="discount-card">
+        <div class="factor">Currency risk premium</div>
+        <div class="pct">+5–10%</div>
+        <div class="note">FX real 11–15% abajo de mediana 20 años — monedas subvaloradas representan potencial upside adicional (MSCI)</div>
+      </div>
+    </div>
+
+    <div class="section-title">VC Investment por país — LATAM 2024</div>
+    <table class="multiple-table" style="margin-bottom: 24px;">
+      <thead>
+        <tr>
+          <th>País</th>
+          <th>Inversión 2024</th>
+          <th>% Regional</th>
+          <th>Nº Fintechs</th>
+          <th>Deals</th>
+          <th>Unicorns</th>
+          <th>Growth YoY</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td style="font-weight:500">🇧🇷 Brasil</td><td class="mono" style="color:var(--cyan)">$900M–$1.1B</td><td class="mono">32–35%</td><td class="mono">850–920</td><td class="mono">110–135</td><td class="mono">8–10</td><td class="mono" style="color:var(--green)">+7.9%</td></tr>
+        <tr><td style="font-weight:500">🇲🇽 México</td><td class="mono" style="color:var(--cyan)">$750M–$950M</td><td class="mono">26–30%</td><td class="mono">730–800</td><td class="mono">85–105</td><td class="mono">5–7</td><td class="mono" style="color:var(--green)">+2.8%</td></tr>
+        <tr><td style="font-weight:500">🇨🇴 Colombia</td><td class="mono" style="color:var(--amber)">$250M–$350M</td><td class="mono">9–11%</td><td class="mono">300–350</td><td class="mono">35–50</td><td class="mono">1–2</td><td class="mono" style="color:var(--yellow)">±0%</td></tr>
+        <tr><td style="font-weight:500">🇦🇷 Argentina</td><td class="mono">$200M–$280M</td><td class="mono">7–9%</td><td class="mono">280–320</td><td class="mono">30–45</td><td class="mono">2–3</td><td class="mono" style="color:var(--red)">–5%</td></tr>
+        <tr><td style="font-weight:500">🇨🇱 Chile</td><td class="mono">$150M–$200M</td><td class="mono">5–7%</td><td class="mono">180–220</td><td class="mono">20–30</td><td class="mono">1</td><td class="mono" style="color:var(--green)">+3%</td></tr>
+        <tr><td style="font-weight:500">🇵🇪 Perú</td><td class="mono">$80M–$120M</td><td class="mono">3–4%</td><td class="mono">120–160</td><td class="mono">15–22</td><td class="mono">0</td><td class="mono" style="color:var(--green)">+12%</td></tr>
+      </tbody>
+    </table>
+
+    <div class="section-title">Señales positivas de mercado para AIDA Fund II (2025)</div>
+    <div class="bench-grid">
+      <div class="bench-card">
+        <h4>VC estabilizado en LATAM</h4>
+        <div class="bench-row"><span class="bench-label">Total 2024</span><span class="bench-value cyan">$4.5B / 751 deals</span></div>
+        <div class="bench-row"><span class="bench-label">Fuente</span><span class="bench-value" style="color:var(--text-tertiary)">LAVCA 2024</span></div>
+        <div class="bench-row"><span class="bench-label">Señal</span><span class="bench-value" style="color:var(--green)">Mercado madurando</span></div>
+      </div>
+      <div class="bench-card">
+        <h4>Renta variable LATAM 2025</h4>
+        <div class="bench-row"><span class="bench-label">Retorno equities</span><span class="bench-value cyan">+53% en 2025</span></div>
+        <div class="bench-row"><span class="bench-label">Fuente</span><span class="bench-value" style="color:var(--text-tertiary)">Cambridge Associates</span></div>
+        <div class="bench-row"><span class="bench-label">Señal</span><span class="bench-value" style="color:var(--green)">Apetito de riesgo ↑</span></div>
+      </div>
+      <div class="bench-card">
+        <h4>Monedas subvaloradas</h4>
+        <div class="bench-row"><span class="bench-label">FX vs mediana 20yr</span><span class="bench-value cyan">–15% (aprox.)</span></div>
+        <div class="bench-row"><span class="bench-label">Fuente</span><span class="bench-value" style="color:var(--text-tertiary)">MSCI 2025</span></div>
+        <div class="bench-row"><span class="bench-label">Señal</span><span class="bench-value" style="color:var(--green)">Tailwind potencial</span></div>
+      </div>
+      <div class="bench-card">
+        <h4>Descuento de entrada AIDA</h4>
+        <div class="bench-row"><span class="bench-label">Pre-Seed vs US</span><span class="bench-value cyan">–55–60%</span></div>
+        <div class="bench-row"><span class="bench-label">Tesis del deck</span><span class="bench-value" style="color:var(--text-tertiary)">30–40% descuento</span></div>
+        <div class="bench-row"><span class="bench-label">Señal</span><span class="bench-value" style="color:var(--green)">Alpha estructural</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <span>AIDA Ventures Fund II — Deal Evaluation Scorecard v1.0</span>
+    <span>Benchmarks: Carta Q3 2025 · LAVCA 2024 · SaaS Capital · ChartMogul · Finro · Equidam · Cambridge Associates</span>
+    <span>Target closing: Dec 30, 2027</span>
+  </div>
+
+</div>
+
+<script>
+// ─── DATA ───────────────────────────────────────────────────────────────────
+const benchmarks = {
+  growth: {
+    latamMedian: { mom: [8, 15], yoy: [55, 75] },
+    latamTop:    { mom: [20, 30], yoy: [100, 150] },
+  },
+  efficiency: {
+    latamMedian: { burn: [2.0, 2.5], margin: [55, 65], runway: [12, 15] },
+    latamTop:    { burn: [0, 1.5], margin: [65, 75], runway: [15, 18] },
+  },
+  retention: {
+    latamMedian: { nrr: [90, 110] },
+    latamTop:    { nrr: [120, 130] },
+  },
+  unitEcon: {
+    latamMedian: { ltvcac: [2.5, 3.5] },
+    latamTop:    { ltvcac: [3.0, 4.5] },
+  }
+};
+
+// ─── SCORING ────────────────────────────────────────────────────────────────
+function score(val, latamMed, latamTop, max) {
+  const [lmLo, lmHi] = latamMed;
+  const [ltLo, ltHi] = latamTop;
+  const lmMid = (lmLo + lmHi) / 2;
+  const ltMid = (ltLo + ltHi) / 2;
+  if (val >= ltMid) return max;
+  if (val >= lmMid) return Math.round(max * 0.7 + (val - lmMid) / (ltMid - lmMid) * max * 0.3);
+  if (val >= lmLo)  return Math.round(max * 0.4 + (val - lmLo) / (lmMid - lmLo) * max * 0.3);
+  return Math.max(0, Math.round(max * 0.4 * (val / lmLo)));
+}
+
+function scoreBurn(val, max) {
+  // Lower is better for burn
+  if (val <= 1.5) return max;
+  if (val <= 2.0) return Math.round(max * 0.75);
+  if (val <= 2.5) return Math.round(max * 0.5);
+  if (val <= 3.5) return Math.round(max * 0.25);
+  return 0;
+}
+
+function statusClass(pct) {
+  if (pct >= 0.75) return 'status-green';
+  if (pct >= 0.45) return 'status-yellow';
+  return 'status-red';
+}
+function statusLabel(pct) {
+  if (pct >= 0.75) return '✓ Fuerte';
+  if (pct >= 0.45) return '~ Aceptable';
+  return '✗ Por debajo';
+}
+
+// ─── RENDER METRICS ─────────────────────────────────────────────────────────
+function renderMetrics(id, rows) {
+  const el = document.getElementById(id);
+  el.innerHTML = rows.map(r => `
+    <div class="metric-row">
+      <div><div class="metric-name">${r.name}</div><div class="metric-sub">${r.sub||''}</div></div>
+      <div class="metric-val" style="color:var(--text-secondary)">${r.latamMed}</div>
+      <div class="metric-val" style="color:var(--cyan)">${r.latamTop}</div>
+      <div class="metric-val" style="color:var(--amber); font-weight:500">${r.yours}</div>
+      <div style="text-align:center"><span class="status ${r.cls}">${r.lbl}</span></div>
+    </div>
+  `).join('');
+}
+
+// ─── MAIN RECALC ────────────────────────────────────────────────────────────
+function recalc() {
+  const arr    = parseFloat(document.getElementById('inp-arr').value) || 0;
+  const mom    = parseFloat(document.getElementById('inp-mom').value) || 0;
+  const nrr    = parseFloat(document.getElementById('inp-nrr').value) || 0;
+  const burn   = parseFloat(document.getElementById('inp-burn').value) || 0;
+  const ltvcac = parseFloat(document.getElementById('inp-ltvcac').value) || 0;
+  const margin = parseFloat(document.getElementById('inp-margin').value) || 0;
+  const team   = parseFloat(document.getElementById('inp-team').value) || 0;
+  const tam    = parseFloat(document.getElementById('inp-tam').value) || 0;
+  const runway = parseFloat(document.getElementById('inp-runway').value) || 0;
+  const stage  = document.getElementById('inp-stage').value;
+
+  // ARR benchmark by stage
+  const arrBench = { preseed: [0, 100000], seed: [100000, 1000000], seriea: [1500000, 3000000] };
+  const arrLatamMed = arrBench[stage];
+
+  // Scores per dimension (max total = 100)
+  const sGrowth   = score(mom, [8, 15], [20, 30], 15) + score(arr, arrLatamMed, [arrLatamMed[1], arrLatamMed[1]*2], 10);
+  const sRetention = score(nrr, [90, 110], [110, 130], 20);
+  const sBurn     = scoreBurn(burn, 10) + score(margin, [55, 65], [65, 75], 6) + score(runway, [12, 15], [15, 24], 4);
+  const sUnitEcon = score(ltvcac, [2.5, 3.5], [3.0, 4.5], 15);
+  const sTeam     = Math.round((team / 10) * 10);
+  const sMkt      = score(tam, [1000, 2000], [2000, 5000], 10);
+  const total     = Math.min(100, sGrowth + sRetention + sBurn + sUnitEcon + sTeam + sMkt);
+
+  // Update score display
+  document.getElementById('score-total').textContent = total;
+  const banner = document.getElementById('score-banner');
+  const verdict = document.getElementById('score-verdict');
+  const label = document.getElementById('score-label');
+  const desc = document.getElementById('score-desc');
+  const circle = document.querySelector('.score-circle');
+
+  if (total >= 70) {
+    label.textContent = 'Candidato Fuerte';
+    desc.textContent = 'El perfil supera la mediana LATAM en la mayoría de dimensiones. Recomendar avanzar a due diligence.';
+    verdict.textContent = 'Avanzar a DD';
+    verdict.className = 'score-verdict verdict-strong';
+    circle.style.borderColor = 'var(--green)';
+    document.querySelector('.score-num').style.color = 'var(--green)';
+  } else if (total >= 50) {
+    label.textContent = 'Watchlist — Potencial Condicional';
+    desc.textContent = 'Algunas dimensiones clave están por debajo del benchmark. Requiere más tracción o claridad en métricas.';
+    verdict.textContent = 'Watchlist';
+    verdict.className = 'score-verdict verdict-watch';
+    circle.style.borderColor = 'var(--yellow)';
+    document.querySelector('.score-num').style.color = 'var(--yellow)';
+  } else {
+    label.textContent = 'No califica en este ciclo';
+    desc.textContent = 'El perfil actual está por debajo de los umbrales mínimos del fondo. Posible re-evaluación en 6–12 meses.';
+    verdict.textContent = 'Pasar';
+    verdict.className = 'score-verdict verdict-pass';
+    circle.style.borderColor = 'var(--red)';
+    document.querySelector('.score-num').style.color = 'var(--red)';
+  }
+
+  // Pill updates
+  document.getElementById('growth-pill').textContent   = `${sGrowth} / 25 pts`;
+  document.getElementById('eff-pill').textContent      = `${sBurn} / 20 pts`;
+  document.getElementById('ret-pill').textContent      = `${sRetention} / 20 pts`;
+
+  // ARR format
+  const arrFmt = arr >= 1000000 ? `$${(arr/1000000).toFixed(1)}M` : arr >= 1000 ? `$${(arr/1000).toFixed(0)}K` : `$${arr}`;
+  const arrLatamFmt = arrLatamMed[0] >= 1000000 ? `$${(arrLatamMed[0]/1000000).toFixed(1)}–${(arrLatamMed[1]/1000000).toFixed(1)}M` :
+                      `$${(arrLatamMed[0]/1000).toFixed(0)}–${(arrLatamMed[1]/1000).toFixed(0)}K`;
+
+  // Growth metrics
+  const momPct  = mom >= 20 ? 1 : mom >= 8 ? 0.65 : 0.25;
+  const arrPct  = arr >= arrLatamMed[1] ? 1 : arr >= arrLatamMed[0] ? 0.65 : 0.3;
+  renderMetrics('growth-metrics', [
+    { name: 'MoM Growth Rate', sub: 'Crecimiento mensual de MRR', latamMed: '8–15%', latamTop: '20–30%', yours: `${mom}%`, cls: statusClass(momPct), lbl: statusLabel(momPct) },
+    { name: 'ARR actual', sub: `Benchmark para etapa ${stage}`, latamMed: arrLatamFmt, latamTop: `>${arrLatamFmt.split('–')[1]||arrLatamFmt}`, yours: arrFmt, cls: statusClass(arrPct), lbl: statusLabel(arrPct) },
+    { name: 'ARR YoY Growth', sub: 'Estimado si MoM se mantiene', latamMed: '55–75%', latamTop: '100–150%', yours: `~${Math.round((Math.pow(1 + mom/100, 12) - 1)*100)}%`, cls: statusClass(mom >= 15 ? 0.8 : mom >= 8 ? 0.55 : 0.25), lbl: statusLabel(mom >= 15 ? 0.8 : mom >= 8 ? 0.55 : 0.25) },
+  ]);
+
+  // Efficiency metrics
+  const burnPct   = burn <= 1.5 ? 1 : burn <= 2.0 ? 0.75 : burn <= 2.5 ? 0.5 : 0.2;
+  const marginPct = margin >= 65 ? 1 : margin >= 55 ? 0.65 : 0.3;
+  const runwayPct = runway >= 18 ? 1 : runway >= 12 ? 0.65 : 0.25;
+  renderMetrics('eff-metrics', [
+    { name: 'Burn Multiple', sub: 'Burn neto / nuevo ARR — menor es mejor', latamMed: '2.0–2.5x', latamTop: '<1.5x', yours: `${burn.toFixed(1)}x`, cls: statusClass(burnPct), lbl: statusLabel(burnPct) },
+    { name: 'Gross Margin', sub: 'Margen bruto del modelo', latamMed: '55–65%', latamTop: '65–75%', yours: `${margin}%`, cls: statusClass(marginPct), lbl: statusLabel(marginPct) },
+    { name: 'Runway actual', sub: 'Meses de capital disponible', latamMed: '12–15m', latamTop: '15–18m', yours: `${runway}m`, cls: statusClass(runwayPct), lbl: statusLabel(runwayPct) },
+  ]);
+
+  // Retention metrics
+  const nrrPct   = nrr >= 120 ? 1 : nrr >= 100 ? 0.75 : nrr >= 90 ? 0.5 : 0.25;
+  const ltvcPct  = ltvcac >= 4 ? 1 : ltvcac >= 3 ? 0.75 : ltvcac >= 2.5 ? 0.5 : 0.2;
+  renderMetrics('ret-metrics', [
+    { name: 'Net Revenue Retention (NRR)', sub: 'Expansión neta incluyendo churn', latamMed: '90–110%', latamTop: '>120%', yours: `${nrr}%`, cls: statusClass(nrrPct), lbl: statusLabel(nrrPct) },
+    { name: 'Retención de logos estimada', sub: 'Derivada de NRR y modelo', latamMed: '60–75%', latamTop: '>80%', yours: nrr >= 110 ? '>85%' : nrr >= 100 ? '75–85%' : '<75%', cls: statusClass(nrr >= 110 ? 0.9 : nrr >= 100 ? 0.65 : 0.35), lbl: statusLabel(nrr >= 110 ? 0.9 : nrr >= 100 ? 0.65 : 0.35) },
+  ]);
+
+  // Valuation metrics
+  renderMetrics('val-metrics', [
+    { name: 'LTV:CAC Ratio', sub: 'Mínimo 3:1 · Ideal >4:1', latamMed: '2.5–3.5:1', latamTop: '3–4.5:1', yours: `${ltvcac.toFixed(1)}:1`, cls: statusClass(ltvcPct), lbl: statusLabel(ltvcPct) },
+    { name: 'TAM disponible', sub: 'Tamaño de mercado total (USD)', latamMed: '>$1B', latamTop: '>$2B', yours: `$${tam >= 1000 ? (tam/1000).toFixed(1)+'B' : tam+'M'}`, cls: statusClass(tam >= 2000 ? 1 : tam >= 1000 ? 0.7 : 0.3), lbl: statusLabel(tam >= 2000 ? 1 : tam >= 1000 ? 0.7 : 0.3) },
+    { name: 'Equipo (subjetivo)', sub: 'Score 1–10 asignado en diligence', latamMed: '5–7', latamTop: '8–10', yours: `${team}/10`, cls: statusClass(team >= 8 ? 1 : team >= 6 ? 0.65 : 0.3), lbl: statusLabel(team >= 8 ? 1 : team >= 6 ? 0.65 : 0.3) },
+  ]);
+}
+
+// ─── TAB SWITCH ─────────────────────────────────────────────────────────────
+function showTab(id, btn) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  btn.classList.add('active');
+}
+
+// Init
+recalc();
+</script>
+</body>
+</html>

@@ -1,0 +1,2877 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AIDA Ventures — Intelligence Platform</title>
+  <style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,600&family=JetBrains+Mono:wght@400;500&display=swap');
+
+:root {
+  --bg:         #F5F7FA;
+  --surface:    #FFFFFF;
+  --surface2:   #EEF2F7;
+  --border:     #DDE4EE;
+  --navy:       #0B1F3A;
+  --navy-mid:   #1A3A5F;
+  --navy-light: #2C5282;
+  --accent:     #1A6FB5;
+  --teal:       #0D7377;
+  --teal-light: rgba(13,115,119,0.08);
+  --gold:       #B8882A;
+  --gold-light: rgba(184,136,42,0.10);
+  --green:      #15803D;
+  --green-bg:   rgba(21,128,61,0.08);
+  --amber:      #D97706;
+  --amber-bg:   rgba(217,119,6,0.09);
+  --red:        #DC2626;
+  --red-bg:     rgba(220,38,38,0.08);
+  --text:       #0B1F3A;
+  --text2:      #2D4A6B;
+  --muted:      #5A7290;
+  --dim:        #8BA0B8;
+  --shadow-sm:  0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow:     0 4px 12px rgba(0,0,0,0.07), 0 1px 3px rgba(0,0,0,0.05);
+  --shadow-lg:  0 8px 30px rgba(0,0,0,0.09), 0 2px 8px rgba(0,0,0,0.05);
+  --radius:     12px;
+  --radius-sm:  8px;
+  --radius-lg:  16px;
+  --font-display: 'Inter', system-ui, sans-serif;
+  --font-body:    'Inter', system-ui, sans-serif;
+  --font-mono:    'JetBrains Mono', monospace;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+/* ── NAVBAR ── */
+#navbar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: rgba(255,255,255,0.95);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 40px; height: 64px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+}
+.nav-brand {
+  display: flex; align-items: center; gap: 10px; text-decoration: none;
+}
+.nav-brand-icon {
+  width: 32px; height: 32px; background: var(--navy);
+  border-radius: 6px; display: flex; align-items: center; justify-content: center;
+}
+.nav-brand-icon svg { width: 20px; height: 20px; }
+.nav-brand-name {
+  font-family: var(--font-display); font-size: 18px; font-weight: 600;
+  color: var(--navy); letter-spacing: 0.01em;
+}
+.nav-brand-name span { color: var(--accent); }
+.nav-links { display: flex; gap: 4px; }
+.nav-link {
+  padding: 6px 14px; border-radius: 6px; text-decoration: none;
+  font-size: 13px; font-weight: 500; color: var(--muted);
+  transition: all 0.15s ease; cursor: pointer; border: none; background: none;
+  white-space: nowrap;
+}
+.nav-link:hover, .nav-link.active {
+  background: var(--surface2); color: var(--navy);
+}
+.nav-right {
+  font-size: 11px; color: var(--dim); font-family: var(--font-mono);
+  letter-spacing: 0.02em;
+}
+
+/* ── SECTIONS ── */
+.section {
+  display: none; min-height: 100vh; padding: 88px 40px 48px;
+  max-width: 1280px; margin: 0 auto;
+}
+.section.active { display: block; }
+
+/* ── SECTION HEADERS ── */
+.section-eyebrow {
+  font-size: 11px; font-weight: 600; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--accent);
+  margin-bottom: 8px;
+}
+.section-title {
+  font-family: var(--font-display);
+  font-size: 32px; font-weight: 700; line-height: 1.2;
+  color: #0B1F3A; margin-bottom: 8px;
+}
+.section-title em { font-style: italic; color: var(--accent); font-weight: 300; }
+.section-subtitle {
+  font-size: 15px; color: var(--muted); line-height: 1.6;
+  max-width: 560px; margin-bottom: 36px;
+}
+
+/* ── KPI CARDS ── */
+.kpi-grid {
+  display: grid; gap: 16px; margin-bottom: 36px;
+}
+.kpi-grid-4 { grid-template-columns: repeat(4, 1fr); }
+.kpi-grid-3 { grid-template-columns: repeat(3, 1fr); }
+.kpi-grid-6 { grid-template-columns: repeat(6, 1fr); }
+.kpi-grid-2 { grid-template-columns: repeat(2, 1fr); }
+
+.kpi-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 22px 24px;
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+.kpi-card:hover {
+  box-shadow: var(--shadow); transform: translateY(-1px);
+}
+.kpi-card.accent-teal { border-left: 3px solid var(--teal); }
+.kpi-card.accent-gold  { border-left: 3px solid var(--gold); }
+.kpi-card.accent-navy  { border-left: 3px solid var(--navy); }
+.kpi-card.accent-blue  { border-left: 3px solid var(--accent); }
+.kpi-label {
+  font-size: 11px; font-weight: 600; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--muted); margin-bottom: 6px;
+}
+.kpi-value {
+  font-family: var(--font-display); font-size: 30px; font-weight: 600;
+  color: var(--navy); line-height: 1.1; margin-bottom: 4px;
+}
+.kpi-sub { font-size: 12px; color: var(--dim); }
+.kpi-badge {
+  display: inline-block; margin-top: 6px;
+  font-size: 11px; font-weight: 600; padding: 2px 8px;
+  border-radius: 4px;
+}
+.badge-up   { background: var(--green-bg); color: var(--green); }
+.badge-down { background: var(--red-bg); color: var(--red); }
+.badge-neu  { background: var(--surface2); color: var(--muted); }
+
+/* ── CARDS ── */
+.card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); box-shadow: var(--shadow-sm);
+}
+.card-lg { border-radius: var(--radius-lg); }
+.card-header {
+  padding: 20px 24px 16px; border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+}
+.card-title {
+  font-size: 14px; font-weight: 600; color: #0B1F3A;
+  letter-spacing: 0.01em;
+}
+.card-body { padding: 20px 24px; }
+
+/* ── INTERNAL TABS ── */
+.tabs-bar {
+  display: flex; gap: 2px; padding: 4px;
+  background: var(--surface2); border-radius: 10px;
+  margin-bottom: 28px; flex-wrap: wrap;
+}
+.tab-btn {
+  padding: 7px 16px; border: none; background: none;
+  border-radius: 7px; font-size: 13px; font-weight: 500;
+  color: var(--muted); cursor: pointer;
+  transition: all 0.15s ease; white-space: nowrap;
+  font-family: var(--font-body);
+}
+.tab-btn:hover { color: var(--navy); }
+.tab-btn.active {
+  background: var(--surface); color: var(--navy);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
+/* ── TABLES ── */
+.data-table {
+  width: 100%; border-collapse: collapse; font-size: 13px;
+}
+.data-table th {
+  background: var(--surface2); padding: 10px 14px;
+  text-align: left; font-size: 11px; font-weight: 600;
+  letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted);
+  border-bottom: 1px solid var(--border);
+  position: sticky; top: 0;
+}
+.data-table td {
+  padding: 10px 14px; border-bottom: 1px solid rgba(0,0,0,0.04);
+  color: var(--text2); vertical-align: middle;
+}
+.data-table tr:last-child td { border-bottom: none; }
+.data-table tr:hover td { background: var(--surface2); }
+.data-table .td-num {
+  font-family: var(--font-mono); font-size: 12px; color: var(--navy);
+}
+.data-table .td-strong { font-weight: 600; color: var(--navy); }
+.data-table .td-teal { color: var(--teal); font-weight: 500; }
+.data-table .td-gold { color: var(--gold); font-weight: 500; }
+.table-wrapper {
+  overflow-x: auto; border-radius: var(--radius);
+  border: 1px solid var(--border); background: var(--surface);
+  box-shadow: var(--shadow-sm);
+}
+
+/* ── GRID LAYOUTS ── */
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; }
+.grid-1-2 { display: grid; grid-template-columns: 1fr 2fr; gap: 24px; }
+.grid-2-1 { display: grid; grid-template-columns: 2fr 1fr; gap: 24px; }
+
+/* ── CHART CONTAINERS ── */
+.chart-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 20px 24px;
+  box-shadow: var(--shadow-sm);
+}
+.chart-title {
+  font-size: 13px; font-weight: 600; color: #0B1F3A;
+  margin-bottom: 4px;
+}
+.chart-sub { font-size: 11px; color: var(--dim); margin-bottom: 16px; }
+.chart-wrap { position: relative; }
+.chart-wrap.h300 { height: 300px; }
+.chart-wrap.h280 { height: 280px; }
+.chart-wrap.h240 { height: 240px; }
+.chart-wrap.h220 { height: 220px; }
+.chart-wrap.h180 { height: 180px; }
+
+/* ── HERO SECTION ── */
+.hero {
+  padding: 20px 0 48px;
+}
+.hero-eyebrow {
+  font-size: 11px; font-weight: 600; letter-spacing: 0.2em;
+  text-transform: uppercase; color: var(--accent); margin-bottom: 16px;
+  display: flex; align-items: center; gap: 8px;
+}
+.hero-eyebrow::before {
+  content: ''; display: inline-block;
+  width: 24px; height: 1px; background: var(--accent);
+}
+.hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(36px, 4.5vw, 52px);
+  font-weight: 300; line-height: 1.15; color: #0B1F3A;
+  margin-bottom: 20px;
+}
+.hero-title strong { font-weight: 800; }
+.hero-title em { font-style: italic; color: var(--accent); font-weight: 300; }
+.hero-desc {
+  font-size: 16px; color: var(--muted); max-width: 560px;
+  line-height: 1.7; margin-bottom: 40px;
+}
+.hero-pillars {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+  margin-bottom: 48px;
+}
+.pillar-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 24px;
+  box-shadow: var(--shadow-sm); cursor: pointer;
+  transition: all 0.2s ease;
+}
+.pillar-card:hover {
+  border-color: var(--accent); box-shadow: var(--shadow);
+  transform: translateY(-2px);
+}
+.pillar-icon {
+  width: 40px; height: 40px; border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 14px; font-size: 18px;
+}
+.pillar-icon.teal { background: var(--teal-light); }
+.pillar-icon.gold { background: var(--gold-light); }
+.pillar-icon.navy { background: rgba(11,31,58,0.06); }
+.pillar-title {
+  font-size: 15px; font-weight: 600; color: var(--navy);
+  margin-bottom: 6px;
+}
+.pillar-desc { font-size: 13px; color: var(--muted); line-height: 1.5; }
+.pillar-link {
+  margin-top: 14px; font-size: 12px; font-weight: 500;
+  color: var(--accent); display: flex; align-items: center; gap: 4px;
+}
+
+/* ── SCORECARD SPECIFIC ── */
+.sc-layout {
+  display: grid; grid-template-columns: 320px 1fr; gap: 28px;
+  align-items: start;
+}
+.sc-inputs-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius-lg); padding: 24px;
+  box-shadow: var(--shadow); position: sticky; top: 80px;
+}
+.sc-inputs-title {
+  font-size: 13px; font-weight: 600; color: var(--muted);
+  letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 18px;
+}
+.sc-field { margin-bottom: 14px; }
+.sc-label {
+  display: block; font-size: 11px; font-weight: 600;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 5px;
+}
+.sc-input, .sc-select {
+  width: 100%; padding: 8px 12px; border: 1px solid var(--border);
+  border-radius: var(--radius-sm); font-size: 13px; font-family: var(--font-body);
+  background: var(--bg); color: var(--text); outline: none;
+  transition: border-color 0.15s;
+}
+.sc-input:focus, .sc-select:focus { border-color: var(--accent); }
+.sc-section-label {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--dim); margin: 16px 0 10px;
+  padding-bottom: 6px; border-bottom: 1px solid var(--border);
+}
+.sc-result-panel {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius-lg); padding: 28px;
+  box-shadow: var(--shadow);
+}
+.score-ring-wrap {
+  display: flex; align-items: center; gap: 24px; margin-bottom: 28px;
+  padding-bottom: 24px; border-bottom: 1px solid var(--border);
+}
+.score-ring {
+  width: 100px; height: 100px; border-radius: 50%;
+  border: 5px solid var(--border); display: flex;
+  flex-direction: column; align-items: center; justify-content: center;
+  flex-shrink: 0; transition: border-color 0.4s ease;
+}
+.score-num {
+  font-family: var(--font-display); font-size: 34px; font-weight: 700;
+  line-height: 1; color: var(--navy); transition: color 0.4s;
+}
+.score-max { font-size: 11px; color: var(--dim); margin-top: 2px; }
+.score-info { flex: 1; }
+.score-verdict-badge {
+  display: inline-block; padding: 4px 12px; border-radius: 20px;
+  font-size: 11px; font-weight: 700; letter-spacing: 0.06em;
+  text-transform: uppercase; margin-bottom: 8px;
+}
+.verdict-strong { background: var(--green-bg); color: var(--green); }
+.verdict-watch  { background: var(--amber-bg); color: var(--amber); }
+.verdict-pass   { background: var(--red-bg); color: var(--red); }
+.score-label { font-size: 16px; font-weight: 600; color: var(--navy); margin-bottom: 4px; }
+.score-desc  { font-size: 13px; color: var(--muted); line-height: 1.5; }
+
+/* ── METRIC ROWS (scorecard) ── */
+.metrics-header {
+  display: grid; grid-template-columns: 1fr 100px 100px 100px 90px;
+  gap: 8px; padding: 8px 12px;
+  font-size: 10px; font-weight: 700; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--dim);
+  border-bottom: 1px solid var(--border); margin-bottom: 4px;
+}
+.metric-row {
+  display: grid; grid-template-columns: 1fr 100px 100px 100px 90px;
+  gap: 8px; padding: 10px 12px; border-radius: 6px;
+  transition: background 0.15s;
+}
+.metric-row:hover { background: var(--surface2); }
+.metric-name { font-size: 13px; font-weight: 500; color: var(--navy); }
+.metric-sub  { font-size: 11px; color: var(--dim); margin-top: 1px; }
+.metric-val  { font-family: var(--font-mono); font-size: 12px; line-height: 1.4; }
+.status {
+  display: inline-block; padding: 2px 8px; border-radius: 4px;
+  font-size: 10px; font-weight: 700; letter-spacing: 0.04em;
+}
+.status-green { background: var(--green-bg); color: var(--green); }
+.status-yellow { background: var(--amber-bg); color: var(--amber); }
+.status-red { background: var(--red-bg); color: var(--red); }
+
+/* ── DIM SCORE PILL ── */
+.dim-pill-row {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 14px;
+}
+.dim-pill-title { font-size: 14px; font-weight: 600; color: var(--navy); }
+.dim-score-pill {
+  font-family: var(--font-mono); font-size: 12px; font-weight: 500;
+  padding: 4px 12px; border-radius: 20px;
+  background: var(--surface2); border: 1px solid var(--border);
+  color: var(--muted);
+}
+
+/* ── STUDIO METRICS ── */
+.studio-section {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius-lg); margin-bottom: 24px;
+  box-shadow: var(--shadow-sm); overflow: hidden;
+}
+.studio-section-header {
+  padding: 16px 24px;
+  background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 100%);
+  display: flex; align-items: center; gap: 12px;
+}
+.studio-section-icon {
+  width: 28px; height: 28px; border-radius: 6px;
+  background: rgba(255,255,255,0.12);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px;
+}
+.studio-section-title {
+  font-size: 13px; font-weight: 600; color: white;
+  letter-spacing: 0.03em;
+}
+.studio-section-sub { font-size: 11px; color: rgba(255,255,255,0.6); margin-top: 1px; }
+
+/* ── METHODOLOGY ── */
+.source-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 20px 24px;
+  box-shadow: var(--shadow-sm);
+}
+.source-num {
+  width: 28px; height: 28px; border-radius: 50%;
+  background: var(--navy); color: white;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 700; flex-shrink: 0;
+}
+.source-name { font-size: 14px; font-weight: 600; color: var(--navy); }
+.source-desc { font-size: 13px; color: var(--muted); margin-top: 4px; }
+
+/* ── INSIGHT TAGS ── */
+.insight-tag {
+  display: inline-block; padding: 3px 10px; border-radius: 4px;
+  font-size: 11px; font-weight: 600; margin: 2px;
+}
+.tag-teal { background: var(--teal-light); color: var(--teal); }
+.tag-gold { background: var(--gold-light); color: var(--gold); }
+.tag-navy { background: rgba(11,31,58,0.07); color: var(--navy-mid); }
+
+/* ── NOTABLE DEAL CARD ── */
+.deal-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 16px 20px;
+  box-shadow: var(--shadow-sm);
+  display: flex; flex-direction: column; gap: 8px;
+}
+.deal-company { font-size: 16px; font-weight: 700; color: var(--navy); }
+.deal-meta { font-size: 12px; color: var(--muted); }
+.deal-amount {
+  font-family: var(--font-display); font-size: 22px; font-weight: 600;
+  color: var(--teal);
+}
+.deal-valuation { font-size: 12px; color: var(--muted); }
+
+/* ── COMPARISON BAR ── */
+.compare-bar-row { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+.compare-bar-label { font-size: 12px; color: var(--text2); min-width: 90px; }
+.compare-bar-track { flex: 1; background: var(--surface2); border-radius: 4px; height: 8px; }
+.compare-bar-fill { height: 8px; border-radius: 4px; transition: width 0.6s ease; }
+.compare-bar-val { font-family: var(--font-mono); font-size: 11px; color: var(--navy); min-width: 52px; text-align: right; }
+
+/* ── MOBILE ── */
+@media (max-width: 900px) {
+  #navbar { padding: 0 16px; }
+  .nav-links .nav-link { padding: 6px 10px; font-size: 12px; }
+  .section { padding: 80px 16px 40px; }
+  .kpi-grid-4, .kpi-grid-6 { grid-template-columns: repeat(2, 1fr); }
+  .kpi-grid-3 { grid-template-columns: repeat(2, 1fr); }
+  .grid-2, .grid-3, .grid-1-2, .grid-2-1 { grid-template-columns: 1fr; }
+  .hero-pillars { grid-template-columns: 1fr; }
+  .sc-layout { grid-template-columns: 1fr; }
+  .sc-inputs-card { position: static; }
+  .hero-title { font-size: 34px; }
+}
+</style>
+</head>
+<body>
+
+
+<nav id="navbar">
+  <a class="nav-brand" href="#" onclick="showSection('overview')">
+    <img src="logo.png" alt="AIDA Ventures" style="height:36px; width:auto; display:block;">
+  </a>
+  <div class="nav-links">
+    <button class="nav-link active" onclick="showSection('overview')">Overview</button>
+    <button class="nav-link" onclick="showSection('market')">Market Intelligence</button>
+    <button class="nav-link" onclick="showSection('vc')">VC Benchmarks</button>
+    <button class="nav-link" onclick="showSection('scorecard')">Deal Scorecard</button>
+    <button class="nav-link" onclick="showSection('studio')">Venture Studio</button>
+    <button class="nav-link" onclick="showSection('methodology')">Methodology</button>
+  </div>
+  <div class="nav-right">Intelligence Platform v2.0</div>
+</nav>
+
+
+<div style="max-width:1280px; margin:0 auto">
+
+<section id="overview" class="section active">
+  <div class="hero">
+    <div class="hero-eyebrow">AIDA Ventures — Intelligence Platform</div>
+    <h1 class="hero-title">
+      <strong>Investment Intelligence</strong><br>
+      for <em>Early-Stage</em> Latin America
+    </h1>
+    <p class="hero-desc">
+      A unified data platform combining fintech market intelligence, VC fund benchmarks,
+      deal evaluation tools, and venture studio metrics — built for AIDA Ventures' hybrid
+      VC + Studio model across LatAm.
+    </p>
+  </div>
+
+  <div class="kpi-grid kpi-grid-6" style="margin-bottom:40px">
+    <div class="kpi-card accent-teal">
+      <div class="kpi-label">LATAM Fintech 2024</div>
+      <div class="kpi-value">$3.2B</div>
+      <div class="kpi-sub">Total investment</div>
+      <span class="kpi-badge badge-up">+5–8% YoY</span>
+    </div>
+    <div class="kpi-card accent-gold">
+      <div class="kpi-label">US Fintech 2024</div>
+      <div class="kpi-value">$50.7B</div>
+      <div class="kpi-sub">Total investment</div>
+      <span class="kpi-badge badge-down">−30% YoY</span>
+    </div>
+    <div class="kpi-card accent-navy">
+      <div class="kpi-label">US / LATAM Ratio</div>
+      <div class="kpi-value">14–17×</div>
+      <div class="kpi-sub">Investment gap</div>
+      <span class="kpi-badge badge-neu">Converging</span>
+    </div>
+    <div class="kpi-card accent-blue">
+      <div class="kpi-label">IRR Target Early</div>
+      <div class="kpi-value">30–40%</div>
+      <div class="kpi-sub">Pre-Seed / Seed</div>
+      <span class="kpi-badge badge-neu">Top decil: ~28%</span>
+    </div>
+    <div class="kpi-card accent-teal">
+      <div class="kpi-label">TVPI Benchmark</div>
+      <div class="kpi-value">3.0×+</div>
+      <div class="kpi-sub">Top quartile target</div>
+      <span class="kpi-badge badge-neu">Median: 1.7–1.9×</span>
+    </div>
+    <div class="kpi-card accent-gold">
+      <div class="kpi-label">Seed → Series A</div>
+      <div class="kpi-value">2–5%</div>
+      <div class="kpi-sub">Graduation rate (US 2024)</div>
+      <span class="kpi-badge badge-down">vs 15% in 2021</span>
+    </div>
+  </div>
+
+  <div class="hero-pillars">
+    <div class="pillar-card" onclick="showSection('market')">
+      <div class="pillar-icon teal">🗺️</div>
+      <div class="pillar-title">Where to Invest</div>
+      <p class="pillar-desc">
+        Fintech sector mapping across 9 LATAM countries and 14 subsectors.
+        Investment flows, deal activity, unicorn density and growth trajectories.
+      </p>
+      <div class="pillar-link">Market Intelligence →</div>
+    </div>
+    <div class="pillar-card" onclick="showSection('vc')">
+      <div class="pillar-icon gold">📊</div>
+      <div class="pillar-title">What Returns to Expect</div>
+      <p class="pillar-desc">
+        VC fund benchmarks for IRR, TVPI, DPI and MOIC across Pre-Seed,
+        Seed and Series A. LATAM vs US comparisons.
+      </p>
+      <div class="pillar-link">VC Benchmarks →</div>
+    </div>
+    <div class="pillar-card" onclick="showSection('scorecard')">
+      <div class="pillar-icon navy">🎯</div>
+      <div class="pillar-title">How to Evaluate Deals</div>
+      <p class="pillar-desc">
+        Interactive scorecard evaluating startups across 5 dimensions:
+        growth, capital efficiency, retention, valuation and LATAM context.
+      </p>
+      <div class="pillar-link">Deal Scorecard →</div>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="chart-card">
+      <div class="chart-title">LATAM Fintech Investment by Country</div>
+      <div class="chart-sub">2024 estimated investment (USD midpoint)</div>
+      <div class="chart-wrap h300">
+        <canvas id="ov-country-chart"></canvas>
+      </div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">Stage Graduation Funnel — 1,000 Pre-Seed Startups</div>
+      <div class="chart-sub">Expected survivors at each stage (US vs LATAM)</div>
+      <div class="chart-wrap h300">
+        <canvas id="ov-funnel-chart"></canvas>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section id="market" class="section">
+  <div class="section-eyebrow">Market Intelligence</div>
+  <h2 class="section-title">Fintech <em>Sector Analysis</em></h2>
+  <p class="section-subtitle">
+    Investment flows, subsector dynamics and competitive positioning across LATAM and the US fintech ecosystem.
+  </p>
+
+  <div class="tabs-bar" id="market-tabs">
+    <button class="tab-btn active" onclick="mktTab('overview',this)">Overview</button>
+    <button class="tab-btn" onclick="mktTab('countries',this)">LATAM Countries</button>
+    <button class="tab-btn" onclick="mktTab('latam-sub',this)">LATAM Subsectors</button>
+    <button class="tab-btn" onclick="mktTab('usa',this)">United States</button>
+    <button class="tab-btn" onclick="mktTab('compare',this)">LATAM vs USA</button>
+    <button class="tab-btn" onclick="mktTab('opps',this)">GP Opportunities</button>
+  </div>
+
+  <!-- OVERVIEW TAB -->
+  <div class="tab-panel active" id="mkt-overview">
+    <div class="kpi-grid kpi-grid-4" style="margin-bottom:28px">
+      <div class="kpi-card accent-teal">
+        <div class="kpi-label">LATAM Total 2024</div>
+        <div class="kpi-value">$3.0–3.5B</div>
+        <div class="kpi-sub">Fintech investment</div>
+        <span class="kpi-badge badge-up">+5–8% YoY</span>
+      </div>
+      <div class="kpi-card accent-gold">
+        <div class="kpi-label">USA Total 2024</div>
+        <div class="kpi-value">$50.7B</div>
+        <div class="kpi-sub">Fintech investment</div>
+        <span class="kpi-badge badge-down">−30.3% YoY</span>
+      </div>
+      <div class="kpi-card accent-navy">
+        <div class="kpi-label">LATAM Active Fintechs</div>
+        <div class="kpi-value">3,620+</div>
+        <div class="kpi-sub">Across 9 markets</div>
+        <span class="kpi-badge badge-neu">~370–450 deals</span>
+      </div>
+      <div class="kpi-card accent-blue">
+        <div class="kpi-label">LATAM Unicorns</div>
+        <div class="kpi-value">15–20</div>
+        <div class="kpi-sub">Fintech unicorns</div>
+        <span class="kpi-badge badge-neu">vs ~165 in US</span>
+      </div>
+    </div>
+    <div class="grid-2">
+      <div class="chart-card">
+        <div class="chart-title">Investment by Country — Top 6 LATAM Markets</div>
+        <div class="chart-sub">Estimated midpoint 2024 (USD millions)</div>
+        <div class="chart-wrap h280"><canvas id="mkt-country-bar"></canvas></div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-title">Top LATAM Subsectors by Investment</div>
+        <div class="chart-sub">2024 estimated investment (USD)</div>
+        <div class="chart-wrap h280"><canvas id="mkt-sub-donut"></canvas></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- COUNTRIES TAB -->
+  <div class="tab-panel" id="mkt-countries">
+    <div class="grid-1-2" style="align-items:start">
+      <div class="chart-card">
+        <div class="chart-title">Regional Share Distribution</div>
+        <div class="chart-sub">% of total LATAM fintech investment</div>
+        <div class="chart-wrap h280"><canvas id="mkt-share-donut"></canvas></div>
+      </div>
+      <div class="table-wrapper">
+        <table class="data-table">
+          <thead><tr>
+            <th>Country</th><th>Investment</th><th>Share</th>
+            <th>Fintechs</th><th>Deals</th><th>Unicorns</th><th>Growth YoY</th>
+          </tr></thead>
+          <tbody>
+        <tr>
+          <td class="td-strong">Brazil</td>
+          <td class="td-num">$900M-1.1B</td>
+          <td>32-35%</td>
+          <td>850-920</td>
+          <td>110-135</td>
+          <td>8-10</td>
+          <td class="td-teal">+7.9%</td>
+        </tr>
+        <tr>
+          <td class="td-strong">Mexico</td>
+          <td class="td-num">$750M-950M</td>
+          <td>26-30%</td>
+          <td>730-800</td>
+          <td>85-105</td>
+          <td>5-7</td>
+          <td class="td-teal">+2.8%</td>
+        </tr>
+        <tr>
+          <td class="td-strong">Colombia</td>
+          <td class="td-num">$280M-380M</td>
+          <td>10-12%</td>
+          <td>480-530</td>
+          <td>40-55</td>
+          <td>2-3</td>
+          <td class="td-teal">+36.3%</td>
+        </tr>
+        <tr>
+          <td class="td-strong">Argentina</td>
+          <td class="td-num">$250M-320M</td>
+          <td>9-11%</td>
+          <td>370-410</td>
+          <td>35-45</td>
+          <td>2-3</td>
+          <td class="td-gold">-5.2%</td>
+        </tr>
+        <tr>
+          <td class="td-strong">Chile</td>
+          <td class="td-num">$180M-240M</td>
+          <td>6-8%</td>
+          <td>360-400</td>
+          <td>25-35</td>
+          <td>1-2</td>
+          <td class="td-teal">+12.4%</td>
+        </tr>
+        <tr>
+          <td class="td-strong">Peru</td>
+          <td class="td-num">$85M-120M</td>
+          <td>3-4%</td>
+          <td>150-180</td>
+          <td>12-18</td>
+          <td>0-1</td>
+          <td class="td-teal">+8.7%</td>
+        </tr>
+        <tr>
+          <td class="td-strong">Uruguay</td>
+          <td class="td-num">$45M-70M</td>
+          <td>2-3%</td>
+          <td>60-80</td>
+          <td>6-10</td>
+          <td>0-1</td>
+          <td class="td-teal">+15.3%</td>
+        </tr>
+        <tr>
+          <td class="td-strong">Central America</td>
+          <td class="td-num">$90M-130M</td>
+          <td>3-4%</td>
+          <td>180-220</td>
+          <td>15-22</td>
+          <td>0-1</td>
+          <td class="td-teal">+18.6%</td>
+        </tr>
+        <tr>
+          <td class="td-strong">Other LATAM</td>
+          <td class="td-num">$70M-100M</td>
+          <td>2-3%</td>
+          <td>120-150</td>
+          <td>10-15</td>
+          <td>0</td>
+          <td class="">Variable</td>
+        </tr></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- LATAM SUBSECTORS TAB -->
+  <div class="tab-panel" id="mkt-latam-sub">
+    <div class="grid-1-2" style="align-items:start; margin-bottom:24px">
+      <div class="chart-card">
+        <div class="chart-title">LATAM Investment by Subsector</div>
+        <div class="chart-sub">Top 10 subsectors (USD midpoint)</div>
+        <div class="chart-wrap h300"><canvas id="mkt-latam-sub-bar"></canvas></div>
+      </div>
+      <div class="table-wrapper">
+        <table class="data-table">
+          <thead><tr>
+            <th>Subsector</th><th>Investment</th><th>% Total</th>
+            <th>Startups</th><th>Leading Markets</th>
+          </tr></thead>
+          <tbody>
+        <tr>
+          <td class="td-strong">Payments & Digital Wallets</td>
+          <td class="td-num">$800M-1.0B</td>
+          <td>28-32%</td>
+          <td>750-850</td>
+          <td class="td-teal">Brazil, Mexico, Colombia</td>
+        </tr>
+        <tr>
+          <td class="td-strong">Digital Banking & Neobanks</td>
+          <td class="td-num">$600M-750M</td>
+          <td>20-24%</td>
+          <td>400-450</td>
+          <td class="td-teal">Brazil, Argentina, Mexico</td>
+        </tr>
+        <tr>
+          <td class="td-strong">Digital Lending & Credit</td>
+          <td class="td-num">$400M-550M</td>
+          <td>13-17%</td>
+          <td>550-650</td>
+          <td class="td-teal">Brazil, Mexico, Colombia</td>
+        </tr>
+        <tr>
+          <td class="td-strong">Open Banking & BaaS</td>
+          <td class="td-num">$250M-350M</td>
+          <td>8-11%</td>
+          <td>200-250</td>
+          <td class="td-teal">Brazil, Mexico</td>
+        </tr>
+        <tr>
+          <td class="td-strong">Insurtech</td>
+          <td class="td-num">$150M-200M</td>
+          <td>5-6%</td>
+          <td>180-220</td>
+          <td class="td-teal">Brazil, Chile, Mexico</td>
+        </tr>
+        <tr>
+          <td class="td-strong">B2B Finance & Treasury</td>
+          <td class="td-num">$300M-400M</td>
+          <td>10-12%</td>
+          <td>280-340</td>
+          <td class="td-teal">Brazil, Mexico, Colombia</td>
+        </tr>
+        <tr>
+          <td class="td-strong">Remittances & Cross-border</td>
+          <td class="td-num">$200M-280M</td>
+          <td>7-9%</td>
+          <td>150-200</td>
+          <td class="td-teal">Mexico, Central America</td>
+        </tr>
+        <tr>
+          <td class="td-strong">Wealth Management</td>
+          <td class="td-num">$120M-180M</td>
+          <td>4-5%</td>
+          <td>120-160</td>
+          <td class="td-teal">Brazil, Chile</td>
+        </tr>
+        <tr>
+          <td class="td-strong">RegTech & Compliance</td>
+          <td class="td-num">$80M-120M</td>
+          <td>3-4%</td>
+          <td>90-120</td>
+          <td class="td-teal">Brazil, Colombia</td>
+        </tr>
+        <tr>
+          <td class="td-strong">Crypto & Stablecoins</td>
+          <td class="td-num">$180M-250M</td>
+          <td>6-8%</td>
+          <td>300-380</td>
+          <td class="td-teal">Argentina, Brazil</td>
+        </tr>
+        <tr>
+          <td class="td-strong">PFM & Financial Inclusion</td>
+          <td class="td-num">$90M-130M</td>
+          <td>3-4%</td>
+          <td>220-280</td>
+          <td class="td-teal">Brazil, Mexico, Colombia</td>
+        </tr>
+        <tr>
+          <td class="td-strong">Buy Now Pay Later (BNPL)</td>
+          <td class="td-num">$70M-100M</td>
+          <td>2-3%</td>
+          <td>80-110</td>
+          <td class="td-teal">Mexico, Brazil</td>
+        </tr>
+        <tr>
+          <td class="td-strong">Alternative Credit Scoring</td>
+          <td class="td-num">$110M-150M</td>
+          <td>4-5%</td>
+          <td>160-200</td>
+          <td class="td-teal">Colombia, Mexico, Brazil</td>
+        </tr>
+        <tr>
+          <td class="td-strong">Embedded Finance</td>
+          <td class="td-num">$150M-220M</td>
+          <td>5-7%</td>
+          <td>140-180</td>
+          <td class="td-teal">Brazil, Mexico</td>
+        </tr></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- USA TAB -->
+  <div class="tab-panel" id="mkt-usa">
+    <div class="kpi-grid kpi-grid-3" style="margin-bottom:24px">
+      <div class="kpi-card accent-gold">
+        <div class="kpi-label">Payments (Largest)</div>
+        <div class="kpi-value">$31.0B</div>
+        <div class="kpi-sub">↑ B2B, cross-border</div>
+      </div>
+      <div class="kpi-card accent-gold">
+        <div class="kpi-label">Crypto / Digital Assets</div>
+        <div class="kpi-value">$8.5B</div>
+        <div class="kpi-sub">↑ Institutional adoption</div>
+      </div>
+      <div class="kpi-card accent-gold">
+        <div class="kpi-label">AI-Powered Finance</div>
+        <div class="kpi-value">$4.7B</div>
+        <div class="kpi-sub">↑↑ Explosive growth</div>
+      </div>
+    </div>
+    <div class="grid-1-2" style="align-items:start">
+      <div class="chart-card">
+        <div class="chart-title">US Fintech — Top Subsectors</div>
+        <div class="chart-sub">2024 investment (USD billions)</div>
+        <div class="chart-wrap h300"><canvas id="mkt-usa-bar"></canvas></div>
+      </div>
+      <div class="table-wrapper">
+        <table class="data-table">
+          <thead><tr><th>Subsector</th><th>Investment</th><th>Startups</th><th>2025 Trend</th></tr></thead>
+          <tbody>
+        <tr>
+          <td class="td-strong">Payments & Payment Infrastructure</td>
+          <td class="td-num">$31.0B</td>
+          <td>3,200-3,500</td>
+          <td class="td-teal">↑ B2B payments, cross-border</td>
+        </tr>
+        <tr>
+          <td class="td-strong">Digital Lending</td>
+          <td class="td-num">$4.9B</td>
+          <td>1,800-2,100</td>
+          <td class="td-gold">↓ Tighter underwriting</td>
+        </tr>
+        <tr>
+          <td class="td-strong">Digital Banking & Neobanks</td>
+          <td class="td-num">$4.2B</td>
+          <td>1,500-1,700</td>
+          <td class="">→ Consolidation phase</td>
+        </tr>
+        <tr>
+          <td class="td-strong">Insurtech</td>
+          <td class="td-num">$4.5B</td>
+          <td>1,500 (25 unicorns)</td>
+          <td class="">→ Stable growth</td>
+        </tr>
+        <tr>
+          <td class="td-strong">Wealth Management & Investment</td>
+          <td class="td-num">$3.8B</td>
+          <td>1,200-1,400</td>
+          <td class="td-teal">↑ AI-driven wealth</td>
+        </tr>
+        <tr>
+          <td class="td-strong">Digital Assets & Crypto</td>
+          <td class="td-num">$8.5B</td>
+          <td>2,500-2,800</td>
+          <td class="td-teal">↑ Institutional adoption</td>
+        </tr>
+        <tr>
+          <td class="td-strong">RegTech & Compliance</td>
+          <td class="td-num">$2.1B</td>
+          <td>800-1,000</td>
+          <td class="td-teal">↑ AI compliance tools</td>
+        </tr>
+        <tr>
+          <td class="td-strong">B2B Finance & Treasury</td>
+          <td class="td-num">$5.3B</td>
+          <td>1,100-1,300</td>
+          <td class="td-teal">↑↑ Strong growth</td>
+        </tr>
+        <tr>
+          <td class="td-strong">Capital Markets & Trading</td>
+          <td class="td-num">$2.8B</td>
+          <td>600-750</td>
+          <td class="">→ Blockchain integration</td>
+        </tr>
+        <tr>
+          <td class="td-strong">Personal Finance Management (PFM)</td>
+          <td class="td-num">$1.5B</td>
+          <td>900-1,100</td>
+          <td class="">→ Steady</td>
+        </tr>
+        <tr>
+          <td class="td-strong">Open Banking & Data Aggregation</td>
+          <td class="td-num">$2.3B</td>
+          <td>400-500</td>
+          <td class="td-teal">↑ Embedded finance</td>
+        </tr>
+        <tr>
+          <td class="td-strong">Buy Now Pay Later (BNPL)</td>
+          <td class="td-num">$1.9B</td>
+          <td>300-400</td>
+          <td class="td-gold">↓ Regulatory pressure</td>
+        </tr>
+        <tr>
+          <td class="td-strong">Banking-as-a-Service (BaaS)</td>
+          <td class="td-num">$3.2B</td>
+          <td>250-350</td>
+          <td class="td-gold">↓ Regulatory scrutiny</td>
+        </tr>
+        <tr>
+          <td class="td-strong">Financial Fraud & Security</td>
+          <td class="td-num">$2.6B</td>
+          <td>700-850</td>
+          <td class="td-teal">↑ ML fraud detection</td>
+        </tr>
+        <tr>
+          <td class="td-strong">AI-Powered Finance Solutions</td>
+          <td class="td-num">$4.7B</td>
+          <td>1,000-1,200</td>
+          <td class="td-teal">↑↑ Explosive growth</td>
+        </tr></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- COMPARISON TAB -->
+  <div class="tab-panel" id="mkt-compare">
+    <div class="grid-2">
+      <div>
+        <div class="table-wrapper" style="margin-bottom:24px">
+          <table class="data-table">
+            <thead><tr><th>Metric</th><th class="td-gold">USA</th><th class="td-teal">LATAM</th><th>Ratio</th></tr></thead>
+            <tbody>
+        <tr>
+          <td class="td-strong">Inversión Total 2024</td>
+          <td class="td-gold td-num">$50.7B</td>
+          <td class="td-teal td-num">$3.0-3.5B</td>
+          <td class="td-num">14-17x</td>
+        </tr>
+        <tr>
+          <td class="td-strong">Número de Deals</td>
+          <td class="td-gold td-num">~2,085</td>
+          <td class="td-teal td-num">~370-450</td>
+          <td class="td-num">5-6x</td>
+        </tr>
+        <tr>
+          <td class="td-strong">Deal Size Promedio</td>
+          <td class="td-gold td-num">$24.3M</td>
+          <td class="td-teal td-num">$7.5-9M</td>
+          <td class="td-num">2.5-3x</td>
+        </tr>
+        <tr>
+          <td class="td-strong">Total Fintechs Activas</td>
+          <td class="td-gold td-num">~12,000+</td>
+          <td class="td-teal td-num">~3,620+</td>
+          <td class="td-num">3-4x</td>
+        </tr>
+        <tr>
+          <td class="td-strong">Unicornios Fintech</td>
+          <td class="td-gold td-num">~165</td>
+          <td class="td-teal td-num">~15-20</td>
+          <td class="td-num">8-11x</td>
+        </tr>
+        <tr>
+          <td class="td-strong">Mega-rounds ($100M+)</td>
+          <td class="td-gold td-num">~40</td>
+          <td class="td-teal td-num">~2-4</td>
+          <td class="td-num">10-20x</td>
+        </tr>
+        <tr>
+          <td class="td-strong">Subsector #1</td>
+          <td class="td-gold td-num">Payments (32.4%)</td>
+          <td class="td-teal td-num">Payments (28-32%)</td>
+          <td class="td-num">Same focus</td>
+        </tr>
+        <tr>
+          <td class="td-strong">Crecimiento YoY</td>
+          <td class="td-gold td-num">-30.3%</td>
+          <td class="td-teal td-num">+5-8%</td>
+          <td class="td-num">Opposite trends</td>
+        </tr>
+        <tr>
+          <td class="td-strong">Share AI-Enabled Fintechs</td>
+          <td class="td-gold td-num">15%</td>
+          <td class="td-teal td-num">25-30%</td>
+          <td class="td-num">LATAM higher</td>
+        </tr>
+        <tr>
+          <td class="td-strong">Gross Margin Promedio</td>
+          <td class="td-gold td-num">65-75%</td>
+          <td class="td-teal td-num">55-65%</td>
+          <td class="td-num">USA higher</td>
+        </tr></tbody>
+          </table>
+        </div>
+        <div class="card" style="padding:20px">
+          <div class="card-title" style="margin-bottom:14px">Key Takeaways</div>
+          <div style="font-size:13px; color:var(--text2); line-height:1.7">
+            <p style="margin-bottom:8px">
+              📍 <strong>14–17× investment gap</strong> — but LATAM is growing while US contracted 30% in 2024.
+            </p>
+            <p style="margin-bottom:8px">
+              💡 <strong>AI adoption higher in LATAM</strong> (25–30% of fintechs vs 15% in US), suggesting faster iteration cycles.
+            </p>
+            <p style="margin-bottom:8px">
+              🎯 <strong>Payments dominates both markets</strong> (28–32% LATAM / 32% US), validating the sector thesis.
+            </p>
+            <p>
+              📈 <strong>Colombia grew +36.3% YoY</strong> — strongest momentum in the region.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-title">Investment Gap — LATAM vs USA</div>
+        <div class="chart-sub">Selected metrics normalized for comparison</div>
+        <div class="chart-wrap h300"><canvas id="mkt-compare-radar"></canvas></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GP OPPORTUNITIES TAB -->
+  <div class="tab-panel" id="mkt-opps">
+    <div class="kpi-grid kpi-grid-3" style="margin-bottom:24px">
+      <div class="kpi-card accent-teal">
+        <div class="kpi-label">🥇 Priority 1 — Payments</div>
+        <div class="kpi-value">$800M–1B</div>
+        <div class="kpi-sub">LATAM 2024 · 28–32% share</div>
+        <div style="margin-top:10px; font-size:12px; color:var(--muted)">
+          Cross-border corridors Mexico-US, B2B rails, stablecoin settlement
+        </div>
+      </div>
+      <div class="kpi-card accent-teal">
+        <div class="kpi-label">🥈 Priority 2 — Open Banking / BaaS</div>
+        <div class="kpi-value">$250–350M</div>
+        <div class="kpi-sub">LATAM 2024 · Regulatory tailwinds</div>
+        <div style="margin-top:10px; font-size:12px; color:var(--muted)">
+          Brazil PIX expansion, Mexico Open Finance, Colombia BaaS licensing
+        </div>
+      </div>
+      <div class="kpi-card accent-teal">
+        <div class="kpi-label">🥉 Priority 3 — B2B Finance</div>
+        <div class="kpi-value">$300–400M</div>
+        <div class="kpi-sub">LATAM 2024 · High growth</div>
+        <div style="margin-top:10px; font-size:12px; color:var(--muted)">
+          SMB treasury, embedded payroll, working capital for e-commerce
+        </div>
+      </div>
+    </div>
+    <div class="grid-2">
+      <div class="chart-card">
+        <div class="chart-title">Top Opportunity Subsectors</div>
+        <div class="chart-sub">LATAM investment size vs growth potential</div>
+        <div class="chart-wrap h280"><canvas id="mkt-opp-bubble"></canvas></div>
+      </div>
+      <div class="card" style="padding:24px">
+        <div class="card-title" style="margin-bottom:16px">Why Colombia + Mexico Now</div>
+        <div style="font-size:13px; color:var(--text2); line-height:1.75">
+          <p style="margin-bottom:10px">
+            <span class="insight-tag tag-teal">Colombia +36.3%</span>
+            Fastest-growing market in 2024. Sandbox regulation, growing fintech
+            license approvals, and proximity to US investment appetite.
+          </p>
+          <p style="margin-bottom:10px">
+            <span class="insight-tag tag-gold">Mexico: Plata $1.5B</span>
+            Neobank ecosystem maturing rapidly. Series A–B valuations still at LATAM
+            discount (35–45%) despite US-quality metrics.
+          </p>
+          <p style="margin-bottom:10px">
+            <span class="insight-tag tag-teal">AI-First Fintechs</span>
+            25–30% of LATAM fintechs are AI-enabled — higher than US (15%).
+            Early-mover advantage for AI credit scoring, fraud detection.
+          </p>
+          <p>
+            <span class="insight-tag tag-navy">Valuation Entry Point</span>
+            LATAM Pre-Seed at 55–60% discount vs US. Series A at 35–45% discount.
+            Rare asymmetric entry for GP with global network.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section id="vc" class="section">
+  <div class="section-eyebrow">Fund Benchmarks</div>
+  <h2 class="section-title">VC <em>Performance Intelligence</em></h2>
+  <p class="section-subtitle">
+    IRR, TVPI, DPI and return benchmarks across early-stage funds. Graduation rates,
+    timing between rounds, and valuation context for LatAm vs US markets.
+  </p>
+
+  <div class="tabs-bar" id="vc-tabs">
+    <button class="tab-btn active" onclick="vcTab('summary',this)">Fund Summary</button>
+    <button class="tab-btn" onclick="vcTab('latam-us',this)">LATAM vs US</button>
+    <button class="tab-btn" onclick="vcTab('valuations',this)">Valuations</button>
+    <button class="tab-btn" onclick="vcTab('timing',this)">Timing & Rounds</button>
+    <button class="tab-btn" onclick="vcTab('graduation',this)">Graduation Rates</button>
+    <button class="tab-btn" onclick="vcTab('notable',this)">Notable Deals</button>
+  </div>
+
+  <!-- SUMMARY TAB -->
+  <div class="tab-panel active" id="vc-summary">
+    <div class="kpi-grid kpi-grid-4" style="margin-bottom:28px">
+      <div class="kpi-card accent-navy">
+        <div class="kpi-label">IRR Target Pre-Seed</div>
+        <div class="kpi-value">30–40%</div>
+        <div class="kpi-sub">Observed median: ~8–12%</div>
+      </div>
+      <div class="kpi-card accent-navy">
+        <div class="kpi-label">TVPI Top Quartile</div>
+        <div class="kpi-value">3.0×+</div>
+        <div class="kpi-sub">Median: 1.72–1.95×</div>
+      </div>
+      <div class="kpi-card accent-navy">
+        <div class="kpi-label">MOIC Target (deal)</div>
+        <div class="kpi-value">5–10×</div>
+        <div class="kpi-sub">Pre-Seed / Seed level</div>
+      </div>
+      <div class="kpi-card accent-navy">
+        <div class="kpi-label">Capital Deployed (24m)</div>
+        <div class="kpi-value">~43%</div>
+        <div class="kpi-sub">Vintage 2022 benchmark</div>
+      </div>
+    </div>
+    <div class="grid-2">
+      <div class="table-wrapper">
+        <table class="data-table">
+          <thead><tr><th>Metric</th><th>Pre-Seed</th><th>Seed</th><th>Series A</th></tr></thead>
+          <tbody><tr>
+          <td class="td-strong"></td>
+          <td class="td-num td-teal">IRR mediano (fondos maduros, vintage 2017–2020)</td>
+          <td class="td-num td-teal">~11–13%</td>
+          <td class="td-num td-gold">~11–13%</td>
+        </tr><tr>
+          <td class="td-strong"></td>
+          <td class="td-num td-teal">IRR objetivo (target para fondos early-stage)</td>
+          <td class="td-num td-teal">30–40%</td>
+          <td class="td-num td-gold">30–40%</td>
+        </tr><tr>
+          <td class="td-strong"></td>
+          <td class="td-num td-teal">IRR top decil (90th percentile, fondos pequeños)</td>
+          <td class="td-num td-teal">~28%</td>
+          <td class="td-num td-gold">~28%</td>
+        </tr><tr>
+          <td class="td-strong"></td>
+          <td class="td-num td-teal">TVPI mediano (vintage 2017)</td>
+          <td class="td-num td-teal">~1.72–1.95x</td>
+          <td class="td-num td-gold">~1.72–1.95x</td>
+        </tr><tr>
+          <td class="td-strong"></td>
+          <td class="td-num td-teal">TVPI top decil (fondos <$10M, vintage 2018)</td>
+          <td class="td-num td-teal">4.03x</td>
+          <td class="td-num td-gold">4.03x</td>
+        </tr><tr>
+          <td class="td-strong"></td>
+          <td class="td-num td-teal">TVPI top quartil (referencia de "excelente")</td>
+          <td class="td-num td-teal">3.0x+</td>
+          <td class="td-num td-gold">3.0x+</td>
+        </tr><tr>
+          <td class="td-strong"></td>
+          <td class="td-num td-teal">DPI mediano (vintage 2017)</td>
+          <td class="td-num td-teal">~0.27x</td>
+          <td class="td-num td-gold">~0.27x</td>
+        </tr><tr>
+          <td class="td-strong"></td>
+          <td class="td-num td-teal">DPI top quartil (Q4 2023)</td>
+          <td class="td-num td-teal">—</td>
+          <td class="td-num td-gold">1.5x</td>
+        </tr><tr>
+          <td class="td-strong"></td>
+          <td class="td-num td-teal">% fondos con DPI > 0 (vintage 2020, Q1 2025)</td>
+          <td class="td-num td-teal">~30%</td>
+          <td class="td-num td-gold">~30%</td>
+        </tr><tr>
+          <td class="td-strong"></td>
+          <td class="td-num td-teal">MOIC objetivo</td>
+          <td class="td-num td-teal">5–10x por deal</td>
+          <td class="td-num td-gold">3–5x por deal</td>
+        </tr><tr>
+          <td class="td-strong"></td>
+          <td class="td-num td-teal">Valuación pre-money mediana</td>
+          <td class="td-num td-teal">~$5.7M</td>
+          <td class="td-num td-gold">~$12M</td>
+        </tr><tr>
+          <td class="td-strong"></td>
+          <td class="td-num td-teal">Tamaño promedio de ronda</td>
+          <td class="td-num td-teal">$500K–$2M</td>
+          <td class="td-num td-gold">$3–4M</td>
+        </tr><tr>
+          <td class="td-strong"></td>
+          <td class="td-num td-teal">Tamaño típico del fondo</td>
+          <td class="td-num td-teal">$1M–$25M</td>
+          <td class="td-num td-gold">$10M–$75M</td>
+        </tr><tr>
+          <td class="td-strong"></td>
+          <td class="td-num td-teal">Tasa de graduación Seed → Serie A (2 años)</td>
+          <td class="td-num td-teal">—</td>
+          <td class="td-num td-gold">15.4% (2022) / 30.6% (2018)</td>
+        </tr><tr>
+          <td class="td-strong"></td>
+          <td class="td-num td-teal">Capital desplegado a 24 meses (vintage 2022)</td>
+          <td class="td-num td-teal">~43%</td>
+          <td class="td-num td-gold">~43%</td>
+        </tr><tr>
+          <td class="td-strong"></td>
+          <td class="td-num td-teal">Retorno índice VC EE. UU. (2024, neto de fees)</td>
+          <td class="td-num td-teal">—</td>
+          <td class="td-num td-gold">—</td>
+        </tr></tbody>
+        </table>
+      </div>
+      <div class="chart-card">
+        <div class="chart-title">IRR Target vs Observed Median</div>
+        <div class="chart-sub">By fund stage — early-stage benchmarks</div>
+        <div class="chart-wrap h280"><canvas id="vc-irr-chart"></canvas></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LATAM vs US TAB -->
+  <div class="tab-panel" id="vc-latam-us">
+    <div class="grid-2">
+      <div class="table-wrapper">
+        <table class="data-table">
+          <thead><tr><th>Metric</th><th>🇺🇸 United States</th><th>🌎 LATAM</th></tr></thead>
+          <tbody><tr>
+          <td class="td-strong"></td>
+          <td class="td-num td-gold">IRR mediano (fondos maduros)</td>
+          <td class="td-num td-teal">~11–13%</td>
+        </tr><tr>
+          <td class="td-strong"></td>
+          <td class="td-num td-gold">IRR top decil</td>
+          <td class="td-num td-teal">~28%</td>
+        </tr><tr>
+          <td class="td-strong"></td>
+          <td class="td-num td-gold">TVPI mediano (vintage ~5–7 años)</td>
+          <td class="td-num td-teal">~1.72–1.95x</td>
+        </tr><tr>
+          <td class="td-strong"></td>
+          <td class="td-num td-gold">DPI mediano</td>
+          <td class="td-num td-teal">~0.27x</td>
+        </tr><tr>
+          <td class="td-strong"></td>
+          <td class="td-num td-gold">Tamaño fondo Pre-Seed</td>
+          <td class="td-num td-teal">$1M–$25M</td>
+        </tr><tr>
+          <td class="td-strong"></td>
+          <td class="td-num td-gold">Tamaño fondo Seed</td>
+          <td class="td-num td-teal">$10M–$75M</td>
+        </tr><tr>
+          <td class="td-strong"></td>
+          <td class="td-num td-gold">Tamaño fondo Serie A</td>
+          <td class="td-num td-teal">$50M–$150M</td>
+        </tr><tr>
+          <td class="td-strong"></td>
+          <td class="td-num td-gold">Ticket Pre-Seed</td>
+          <td class="td-num td-teal">$500K–$2M</td>
+        </tr><tr>
+          <td class="td-strong"></td>
+          <td class="td-num td-gold">Ticket Seed</td>
+          <td class="td-num td-teal">$3–4M</td>
+        </tr><tr>
+          <td class="td-strong"></td>
+          <td class="td-num td-gold">Ticket Serie A</td>
+          <td class="td-num td-teal">$10–15M</td>
+        </tr><tr>
+          <td class="td-strong"></td>
+          <td class="td-num td-gold">Tiempo entre rondas</td>
+          <td class="td-num td-teal">~12–15 meses</td>
+        </tr><tr>
+          <td class="td-strong"></td>
+          <td class="td-num td-gold">Tasa graduación Seed→Serie A</td>
+          <td class="td-num td-teal">~15–30% (según año)</td>
+        </tr></tbody>
+        </table>
+      </div>
+      <div class="chart-card">
+        <div class="chart-title">LATAM vs US — Key VC Metrics</div>
+        <div class="chart-sub">Comparative benchmarks by market</div>
+        <div class="chart-wrap h280"><canvas id="vc-compare-chart"></canvas></div>
+      </div>
+    </div>
+    <div style="margin-top:24px" class="card" style="padding:20px">
+      <div style="padding:20px">
+        <div class="card-title" style="margin-bottom:12px">Fund Size Comparison</div>
+        <div style="display:grid; grid-template-columns: repeat(3,1fr); gap:16px; font-size:13px">
+          <div>
+            <div style="font-weight:600; margin-bottom:6px; color:var(--navy)">Pre-Seed</div>
+            <div style="color:var(--gold)">🇺🇸 US: $1M–$25M</div>
+            <div style="color:var(--teal)">🌎 LATAM: ~$10M</div>
+            <div style="margin-top:6px; color:var(--muted)">Ticket: $500K–$2M (US) / $50K–$500K (LATAM)</div>
+          </div>
+          <div>
+            <div style="font-weight:600; margin-bottom:6px; color:var(--navy)">Seed</div>
+            <div style="color:var(--gold)">🇺🇸 US: $10M–$75M</div>
+            <div style="color:var(--teal)">🌎 LATAM: ~$15M</div>
+            <div style="margin-top:6px; color:var(--muted)">Ticket: $3–4M (US) / $100K–$500K (LATAM)</div>
+          </div>
+          <div>
+            <div style="font-weight:600; margin-bottom:6px; color:var(--navy)">Series A</div>
+            <div style="color:var(--gold)">🇺🇸 US: $50M–$150M</div>
+            <div style="color:var(--teal)">🌎 LATAM: ~$35M</div>
+            <div style="margin-top:6px; color:var(--muted)">Ticket: $10–15M (US) / $250K–$1.5M (LATAM)</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- VALUATIONS TAB -->
+  <div class="tab-panel" id="vc-valuations">
+    <div class="grid-2" style="margin-bottom:24px">
+      <div>
+        <div style="font-size:13px; font-weight:600; color:var(--navy); margin-bottom:12px">
+          US Valuations — Enterprise SaaS (2025)
+        </div>
+        <div class="table-wrapper">
+          <table class="data-table">
+            <thead><tr><th>Stage</th><th>Median Val.</th><th>ARR Multiple</th><th>Notes</th><th>Round Size</th></tr></thead>
+            <tbody><tr>
+          <td class="td-strong">Pre-Seed</td>
+          <td class="td-num td-gold">$3–8M</td>
+          <td class="td-num"></td>
+          <td style="font-size:12px; color:var(--muted)"></td>
+          <td class="td-num">$0.25–2M</td>
+        </tr><tr>
+          <td class="td-strong">Seed</td>
+          <td class="td-num td-gold">$19.8M</td>
+          <td class="td-num">+35%</td>
+          <td style="font-size:12px; color:var(--muted)">+24%</td>
+          <td class="td-num">$2–5M</td>
+        </tr><tr>
+          <td class="td-strong">Series A</td>
+          <td class="td-num td-gold">$60M</td>
+          <td class="td-num">+19%</td>
+          <td style="font-size:12px; color:var(--muted)">+22%</td>
+          <td class="td-num">$10–25M</td>
+        </tr><tr>
+          <td class="td-strong">Series B</td>
+          <td class="td-num td-gold">$175M</td>
+          <td class="td-num">+38%</td>
+          <td style="font-size:12px; color:var(--muted)"></td>
+          <td class="td-num">$25–60M</td>
+        </tr><tr>
+          <td class="td-strong">Series C+</td>
+          <td class="td-num td-gold">$350M+</td>
+          <td class="td-num"></td>
+          <td style="font-size:12px; color:var(--muted)"></td>
+          <td class="td-num">$50–150M+</td>
+        </tr></tbody>
+          </table>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:13px; font-weight:600; color:var(--navy); margin-bottom:12px">
+          LATAM Valuation Discount vs US
+        </div>
+        <div class="table-wrapper">
+          <table class="data-table">
+            <thead><tr><th>Factor</th><th>Discount</th><th>Source</th><th>Notes</th></tr></thead>
+            <tbody><tr>
+          <td class="td-strong">Pre-Seed Median Valuation</td>
+          <td class="td-num" style="color:var(--red)">55–60%</td>
+          <td style="font-size:12px; color:var(--muted)">Equidam 2025</td>
+          <td style="font-size:12px; color:var(--muted)">US $5.97M vs LATAM $2.60M median</td>
+        </tr><tr>
+          <td class="td-strong">Overall VC Multiples</td>
+          <td class="td-num" style="color:var(--red)">30–40%</td>
+          <td style="font-size:12px; color:var(--muted)">Multiple sources</td>
+          <td style="font-size:12px; color:var(--muted)">Historical range across all stages</td>
+        </tr><tr>
+          <td class="td-strong">Series A Valuations</td>
+          <td class="td-num" style="color:var(--red)">35–45%</td>
+          <td style="font-size:12px; color:var(--muted)">Equidam 2025</td>
+          <td style="font-size:12px; color:var(--muted)">Europe at 34%, LATAM deeper</td>
+        </tr><tr>
+          <td class="td-strong">Series B Valuations</td>
+          <td class="td-num" style="color:var(--red)">40–50%</td>
+          <td style="font-size:12px; color:var(--muted)">LAVCA / Crunchbase</td>
+          <td style="font-size:12px; color:var(--muted)">Scaling validation stage</td>
+        </tr><tr>
+          <td class="td-strong">Exit / M&A Multiples</td>
+          <td class="td-num" style="color:var(--red)">25–35%</td>
+          <td style="font-size:12px; color:var(--muted)">Aventis Advisors</td>
+          <td style="font-size:12px; color:var(--muted)">Smaller discount at exit; strategic acquirers pay market rates</td>
+        </tr><tr>
+          <td class="td-strong">Public Equities vs EM Asia</td>
+          <td class="td-num" style="color:var(--red)">~50%</td>
+          <td style="font-size:12px; color:var(--muted)">Cambridge Associates, MSCI</td>
+          <td style="font-size:12px; color:var(--muted)">LATAM at near-record discount — upside potential</td>
+        </tr><tr>
+          <td class="td-strong">Currency Risk Premium</td>
+          <td class="td-num" style="color:var(--red)">+5–10% additional</td>
+          <td style="font-size:12px; color:var(--muted)">MSCI</td>
+          <td style="font-size:12px; color:var(--muted)">Real FX rates 11–15% below 20-yr median</td>
+        </tr></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">LATAM Valuations vs US — By Stage & Sector</div>
+      <div class="chart-sub">Estimated LATAM pre-money vs US reference (USD millions)</div>
+      <div class="chart-wrap h240"><canvas id="vc-val-chart"></canvas></div>
+    </div>
+  </div>
+
+  <!-- TIMING TAB -->
+  <div class="tab-panel" id="vc-timing">
+    <div class="kpi-grid kpi-grid-4" style="margin-bottom:24px">
+      <div class="kpi-card accent-blue">
+        <div class="kpi-label">Seed → Series A (US 2024)</div>
+        <div class="kpi-value">~26 mo</div>
+        <div class="kpi-sub">774 days median</div>
+        <span class="kpi-badge badge-down">+84% vs 2021</span>
+      </div>
+      <div class="kpi-card accent-blue">
+        <div class="kpi-label">Series A → B (US 2024)</div>
+        <div class="kpi-value">~24 mo</div>
+        <div class="kpi-sub">732 days median</div>
+        <span class="kpi-badge badge-down">+97% vs 2021</span>
+      </div>
+      <div class="kpi-card accent-teal">
+        <div class="kpi-label">Seed → A LATAM Est.</div>
+        <div class="kpi-value">30–36 mo</div>
+        <div class="kpi-sub">Median estimate</div>
+        <span class="kpi-badge badge-neu">Top Q: 20–24m</span>
+      </div>
+      <div class="kpi-card accent-teal">
+        <div class="kpi-label">Fintech Seed → A (US)</div>
+        <div class="kpi-value">~32 mo</div>
+        <div class="kpi-sub">971 days — longest sector</div>
+        <span class="kpi-badge badge-down">High regulation</span>
+      </div>
+    </div>
+    <div class="table-wrapper">
+      <table class="data-table">
+        <thead><tr>
+          <th>Stage Transition</th>
+          <th>US Median 2021</th><th>US Median 2024</th>
+          <th>Change</th><th>LATAM Median</th><th>LATAM Top Q</th>
+        </tr></thead>
+        <tbody><tr>
+          <td class="td-strong">Pre-Seed → Seed</td>
+          <td class="td-num td-gold">9–12</td>
+          <td class="td-num td-gold">12–18</td>
+          <td class="td-num" style="color:var(--red)">+40–50%</td>
+          <td class="td-num td-teal">18–24</td>
+          <td class="td-num td-teal">12–15</td>
+        </tr><tr>
+          <td class="td-strong">Seed → Series A</td>
+          <td class="td-num td-gold">~14</td>
+          <td class="td-num td-gold">~25.8 (774 days)</td>
+          <td class="td-num" style="color:var(--red)">+84%</td>
+          <td class="td-num td-teal">30–36</td>
+          <td class="td-num td-teal">20–24</td>
+        </tr><tr>
+          <td class="td-strong">Series A → Series B</td>
+          <td class="td-num td-gold">~12</td>
+          <td class="td-num td-gold">~24.4 (732 days)</td>
+          <td class="td-num" style="color:var(--red)">+97%</td>
+          <td class="td-num td-teal">30–40</td>
+          <td class="td-num td-teal">22–28</td>
+        </tr><tr>
+          <td class="td-strong">Series B → Series C</td>
+          <td class="td-num td-gold">~15</td>
+          <td class="td-num td-gold">~26–30</td>
+          <td class="td-num" style="color:var(--red)">+60–80%</td>
+          <td class="td-num td-teal">32–42</td>
+          <td class="td-num td-teal">24–30</td>
+        </tr><tr>
+          <td class="td-strong">Series C → Series D+</td>
+          <td class="td-num td-gold">~18</td>
+          <td class="td-num td-gold">~30–36</td>
+          <td class="td-num" style="color:var(--red)">+50–70%</td>
+          <td class="td-num td-teal">36–48</td>
+          <td class="td-num td-teal">28–36</td>
+        </tr></tbody>
+      </table>
+    </div>
+    <div class="chart-card" style="margin-top:24px">
+      <div class="chart-title">Time Between Rounds — Evolution (US)</div>
+      <div class="chart-sub">2021 peak vs 2024 current, months</div>
+      <div class="chart-wrap h240"><canvas id="vc-timing-chart"></canvas></div>
+    </div>
+  </div>
+
+  <!-- GRADUATION TAB -->
+  <div class="tab-panel" id="vc-graduation">
+    <div class="grid-2">
+      <div>
+        <div class="table-wrapper" style="margin-bottom:20px">
+          <table class="data-table">
+            <thead><tr>
+              <th>Stage Transition</th>
+              <th>US 2024</th><th>US 2021 Peak</th>
+              <th>LATAM Est.</th><th>LATAM Top Q</th>
+            </tr></thead>
+            <tbody><tr>
+          <td class="td-strong">Pre-Seed → Seed</td>
+          <td class="td-num td-gold">30–45%</td>
+          <td class="td-num" style="color:var(--dim)">50–65%</td>
+          <td class="td-num td-teal">20–35%</td>
+          <td class="td-num td-teal">35–45%</td>
+        </tr><tr>
+          <td class="td-strong">Seed → Series A</td>
+          <td class="td-num td-gold">2–5%</td>
+          <td class="td-num" style="color:var(--dim)">14–15%</td>
+          <td class="td-num td-teal">5–10%</td>
+          <td class="td-num td-teal">10–18%</td>
+        </tr><tr>
+          <td class="td-strong">Series A → Series B</td>
+          <td class="td-num td-gold">40–50% (of mature 2018-20 cohorts)</td>
+          <td class="td-num" style="color:var(--dim)">55–65%</td>
+          <td class="td-num td-teal">25–40%</td>
+          <td class="td-num td-teal">40–50%</td>
+        </tr><tr>
+          <td class="td-strong">Series B → Series C</td>
+          <td class="td-num td-gold">~40–50%</td>
+          <td class="td-num" style="color:var(--dim)">~55%</td>
+          <td class="td-num td-teal">20–35%</td>
+          <td class="td-num td-teal">35–45%</td>
+        </tr><tr>
+          <td class="td-strong">Series C → Exit / IPO</td>
+          <td class="td-num td-gold">~30–40%</td>
+          <td class="td-num" style="color:var(--dim)">~45%</td>
+          <td class="td-num td-teal">15–25%</td>
+          <td class="td-num td-teal">25–35%</td>
+        </tr></tbody>
+          </table>
+        </div>
+        <div class="card" style="padding:18px 20px">
+          <div style="font-size:13px; color:var(--text2); line-height:1.75">
+            <p style="margin-bottom:8px">
+              <strong>Series A Crunch:</strong> Only 2–5% of seed companies reach Series A in 2024
+              (vs 14–15% in 2021). The market is dramatically more selective.
+            </p>
+            <p>
+              <strong>LATAM fintech outperforms:</strong> 6–12% graduation rate Seed→A vs 3–7% US average,
+              driven by unbanked population TAM and financial inclusion momentum.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-title">Cohort Survival — 1,000 Pre-Seed Startups</div>
+        <div class="chart-sub">US vs LATAM survivors at each stage</div>
+        <div class="chart-wrap h300"><canvas id="vc-grad-chart"></canvas></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NOTABLE DEALS TAB -->
+  <div class="tab-panel" id="vc-notable">
+    <div style="margin-bottom:20px; font-size:13px; color:var(--muted)">
+      Reference points for LATAM valuations at scale — 2025 notable deals.
+    </div>
+    <div style="display:grid; grid-template-columns: repeat(3,1fr); gap:16px">
+      
+        <div class="deal-card">
+          <div>
+            <div class="deal-company">Plata</div>
+            <div class="deal-meta">Mexico · Series A · Mar 2025</div>
+          </div>
+          <div class="deal-amount">$160M</div>
+          <div class="deal-valuation">Val: $1.5B</div>
+          <div><span class="insight-tag tag-teal" style="font-size:10px">Fintech (Neobank)</span></div>
+        </div>
+        <div class="deal-card">
+          <div>
+            <div class="deal-company">Plata</div>
+            <div class="deal-meta">Mexico · Series B · Oct 2025</div>
+          </div>
+          <div class="deal-amount">$250M</div>
+          <div class="deal-valuation">Val: $3.1B</div>
+          <div><span class="insight-tag tag-teal" style="font-size:10px">Fintech (Neobank)</span></div>
+        </div>
+        <div class="deal-card">
+          <div>
+            <div class="deal-company">Uala</div>
+            <div class="deal-meta">Argentina · Series E · Mar 2025</div>
+          </div>
+          <div class="deal-amount">$366M</div>
+          <div class="deal-valuation">Val: $2.75B</div>
+          <div><span class="insight-tag tag-teal" style="font-size:10px">Fintech (Neobank)</span></div>
+        </div>
+        <div class="deal-card">
+          <div>
+            <div class="deal-company">Omie</div>
+            <div class="deal-meta">Brazil · Series C · Sep 2025</div>
+          </div>
+          <div class="deal-amount">$150M</div>
+          <div class="deal-valuation">Val: $700M</div>
+          <div><span class="insight-tag tag-teal" style="font-size:10px">Enterprise SaaS (ERP)</span></div>
+        </div>
+        <div class="deal-card">
+          <div>
+            <div class="deal-company">Kapital</div>
+            <div class="deal-meta">Mexico · Series B · Oct 2025</div>
+          </div>
+          <div class="deal-amount">$100M</div>
+          <div class="deal-valuation">Val: $1.3B</div>
+          <div><span class="insight-tag tag-teal" style="font-size:10px">Fintech (SMB Credit)</span></div>
+        </div>
+        <div class="deal-card">
+          <div>
+            <div class="deal-company">Buk</div>
+            <div class="deal-meta">Chile · Series B · Jan 2025</div>
+          </div>
+          <div class="deal-amount">$50M</div>
+          <div class="deal-valuation"></div>
+          <div><span class="insight-tag tag-teal" style="font-size:10px">Enterprise SaaS (HR)</span></div>
+        </div>
+    </div>
+  </div>
+</section>
+
+
+<section id="scorecard" class="section">
+  <div class="section-eyebrow">Deal Evaluation</div>
+  <h2 class="section-title">Startup <em>Scorecard</em></h2>
+  <p class="section-subtitle">
+    Evaluate any startup against LATAM benchmark data. Enter metrics below — the model
+    scores the deal from 0 to 100 across 5 weighted dimensions.
+  </p>
+
+  <div class="sc-layout">
+    <!-- INPUT PANEL -->
+    <div class="sc-inputs-card">
+      <div class="sc-inputs-title">Deal Parameters</div>
+
+      <div class="sc-section-label">Company Context</div>
+      <div class="sc-field">
+        <label class="sc-label">Sector</label>
+        <select class="sc-select" id="inp-sector" onchange="scRecalc()">
+          <option value="saas">SaaS / Enterprise</option>
+          <option value="fintech" selected>Fintech</option>
+          <option value="logtech">LogTech / Supply Chain</option>
+          <option value="consumer">Consumer / B2C</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+      <div class="sc-field">
+        <label class="sc-label">Stage</label>
+        <select class="sc-select" id="inp-stage" onchange="scRecalc()">
+          <option value="preseed">Pre-Seed</option>
+          <option value="seed" selected>Seed</option>
+          <option value="seriea">Series A</option>
+        </select>
+      </div>
+      <div class="sc-field">
+        <label class="sc-label">Country</label>
+        <select class="sc-select" id="inp-country" onchange="scRecalc()">
+          <option value="brazil">Brazil</option>
+          <option value="mexico" selected>Mexico</option>
+          <option value="colombia">Colombia</option>
+          <option value="argentina">Argentina</option>
+          <option value="chile">Chile</option>
+          <option value="peru">Peru</option>
+          <option value="other">Other LATAM</option>
+        </select>
+      </div>
+
+      <div class="sc-section-label">Growth Metrics</div>
+      <div class="sc-field">
+        <label class="sc-label">ARR (USD)</label>
+        <input class="sc-input" type="number" id="inp-arr" value="350000" onchange="scRecalc()">
+      </div>
+      <div class="sc-field">
+        <label class="sc-label">MoM Growth (%)</label>
+        <input class="sc-input" type="number" id="inp-mom" value="18" onchange="scRecalc()">
+      </div>
+
+      <div class="sc-section-label">Efficiency & Unit Economics</div>
+      <div class="sc-field">
+        <label class="sc-label">Burn Multiple (×)</label>
+        <input class="sc-input" type="number" id="inp-burn" value="1.8" step="0.1" onchange="scRecalc()">
+      </div>
+      <div class="sc-field">
+        <label class="sc-label">Gross Margin (%)</label>
+        <input class="sc-input" type="number" id="inp-margin" value="68" onchange="scRecalc()">
+      </div>
+      <div class="sc-field">
+        <label class="sc-label">Runway (months)</label>
+        <input class="sc-input" type="number" id="inp-runway" value="15" onchange="scRecalc()">
+      </div>
+
+      <div class="sc-section-label">Retention & Customers</div>
+      <div class="sc-field">
+        <label class="sc-label">NRR (%)</label>
+        <input class="sc-input" type="number" id="inp-nrr" value="108" onchange="scRecalc()">
+      </div>
+      <div class="sc-field">
+        <label class="sc-label">LTV:CAC Ratio</label>
+        <input class="sc-input" type="number" id="inp-ltvcac" value="3.2" step="0.1" onchange="scRecalc()">
+      </div>
+
+      <div class="sc-section-label">Market & Team</div>
+      <div class="sc-field">
+        <label class="sc-label">TAM (USD millions)</label>
+        <input class="sc-input" type="number" id="inp-tam" value="2500" onchange="scRecalc()">
+      </div>
+      <div class="sc-field">
+        <label class="sc-label">Team Score (1–10)</label>
+        <input class="sc-input" type="number" id="inp-team" value="7" min="1" max="10" onchange="scRecalc()">
+      </div>
+    </div>
+
+    <!-- RESULT PANEL -->
+    <div>
+      <div class="sc-result-panel">
+        <div class="score-ring-wrap">
+          <div class="score-ring" id="score-ring">
+            <span class="score-num" id="score-total">72</span>
+            <span class="score-max">/ 100</span>
+          </div>
+          <div class="score-info">
+            <div class="score-verdict-badge verdict-strong" id="score-verdict">Avanzar a DD</div>
+            <div class="score-label" id="score-label">Candidato Fuerte</div>
+            <div class="score-desc" id="score-desc">
+              El perfil supera la mediana LATAM en la mayoría de dimensiones.
+              Recomendar avanzar a due diligence.
+            </div>
+          </div>
+        </div>
+
+        <div class="tabs-bar">
+          <button class="tab-btn active" onclick="scTab('methodology',this)">Metodología</button>
+          <button class="tab-btn" onclick="scTab('growth',this)">Crecimiento</button>
+          <button class="tab-btn" onclick="scTab('efficiency',this)">Eficiencia</button>
+          <button class="tab-btn" onclick="scTab('retention',this)">Retención</button>
+          <button class="tab-btn" onclick="scTab('valuation',this)">Valuación</button>
+        </div>
+
+        <div class="tab-panel active" id="sc-tab-methodology">
+          <div style="font-size:13px; color:var(--text2); line-height:1.7">
+            <p style="margin-bottom:12px">
+              El scorecard evalúa <strong>5 dimensiones</strong> contra benchmarks LATAM
+              (mediana y top quartile) usando datos del mercado 2024–2025.
+            </p>
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px">
+              <div class="card" style="padding:14px">
+                <div style="font-size:12px; font-weight:600; color:var(--navy); margin-bottom:6px">📈 Crecimiento — 25 pts</div>
+                <div style="font-size:12px; color:var(--muted)">MoM growth rate + ARR para la etapa</div>
+              </div>
+              <div class="card" style="padding:14px">
+                <div style="font-size:12px; font-weight:600; color:var(--navy); margin-bottom:6px">⚙️ Eficiencia Capital — 20 pts</div>
+                <div style="font-size:12px; color:var(--muted)">Burn multiple + gross margin + runway</div>
+              </div>
+              <div class="card" style="padding:14px">
+                <div style="font-size:12px; font-weight:600; color:var(--navy); margin-bottom:6px">🔄 Retención — 20 pts</div>
+                <div style="font-size:12px; color:var(--muted)">NRR — principal driver de valuación SaaS</div>
+              </div>
+              <div class="card" style="padding:14px">
+                <div style="font-size:12px; font-weight:600; color:var(--navy); margin-bottom:6px">🎯 Unit Econ & Mercado — 25 pts</div>
+                <div style="font-size:12px; color:var(--muted)">LTV:CAC + TAM + calidad del equipo (1–10)</div>
+              </div>
+            </div>
+            <div style="margin-top:14px; padding:12px 16px; background:var(--surface2); border-radius:8px; font-size:12px">
+              <strong>Umbrales:</strong>
+              <span style="color:var(--green); margin:0 12px">≥70 → Avanzar a DD</span>
+              <span style="color:var(--amber); margin:0 12px">50–69 → Watchlist</span>
+              <span style="color:var(--red)">0–49 → Pasar</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-panel" id="sc-tab-growth">
+          <div class="dim-pill-row">
+            <div class="dim-pill-title">📈 Crecimiento</div>
+            <div class="dim-score-pill" id="growth-pill">— / 25 pts</div>
+          </div>
+          <div class="metrics-header">
+            <span>Métrica</span><span>LATAM Med</span><span>LATAM Top</span>
+            <span>Tu Startup</span><span>Status</span>
+          </div>
+          <div id="growth-metrics"></div>
+        </div>
+
+        <div class="tab-panel" id="sc-tab-efficiency">
+          <div class="dim-pill-row">
+            <div class="dim-pill-title">⚙️ Eficiencia de Capital</div>
+            <div class="dim-score-pill" id="eff-pill">— / 20 pts</div>
+          </div>
+          <div class="metrics-header">
+            <span>Métrica</span><span>LATAM Med</span><span>LATAM Top</span>
+            <span>Tu Startup</span><span>Status</span>
+          </div>
+          <div id="eff-metrics"></div>
+        </div>
+
+        <div class="tab-panel" id="sc-tab-retention">
+          <div class="dim-pill-row">
+            <div class="dim-pill-title">🔄 Retención</div>
+            <div class="dim-score-pill" id="ret-pill">— / 20 pts</div>
+          </div>
+          <div class="metrics-header">
+            <span>Métrica</span><span>LATAM Med</span><span>LATAM Top</span>
+            <span>Tu Startup</span><span>Status</span>
+          </div>
+          <div id="ret-metrics"></div>
+        </div>
+
+        <div class="tab-panel" id="sc-tab-valuation">
+          <div class="dim-pill-row">
+            <div class="dim-pill-title">🎯 Unit Econ & Mercado</div>
+            <div class="dim-score-pill" id="val-pill">— / 25 pts</div>
+          </div>
+          <div class="metrics-header">
+            <span>Métrica</span><span>LATAM Med</span><span>LATAM Top</span>
+            <span>Tu Startup</span><span>Status</span>
+          </div>
+          <div id="val-metrics"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section id="studio" class="section">
+  <div class="section-eyebrow">Venture Studio Model</div>
+  <h2 class="section-title">Studio <em>Metrics Reference</em></h2>
+  <p class="section-subtitle">
+    Operational, portfolio and fund metrics for AIDA's hybrid VC + Studio model.
+    Benchmarks segmented by studio maturity stage.
+  </p>
+
+  <div class="kpi-grid kpi-grid-4" style="margin-bottom:28px">
+    <div class="kpi-card accent-navy">
+      <div class="kpi-label">Startups Built / Year</div>
+      <div class="kpi-value">2–4</div>
+      <div class="kpi-sub">Early-stage benchmark</div>
+      <span class="kpi-badge badge-neu">Mature: 4–8</span>
+    </div>
+    <div class="kpi-card accent-teal">
+      <div class="kpi-label">Survival Rate (Year 3)</div>
+      <div class="kpi-value">30–50%</div>
+      <div class="kpi-sub">Higher than trad. VC</div>
+      <span class="kpi-badge badge-up">Studio support effect</span>
+    </div>
+    <div class="kpi-card accent-teal">
+      <div class="kpi-label">Series A Graduation</div>
+      <div class="kpi-value">20–35%</div>
+      <div class="kpi-sub">% reaching inst. round</div>
+      <span class="kpi-badge badge-up">vs 2–5% mkt avg</span>
+    </div>
+    <div class="kpi-card accent-gold">
+      <div class="kpi-label">Target Gross MOIC</div>
+      <div class="kpi-value">3–5×</div>
+      <div class="kpi-sub">Early studio</div>
+      <span class="kpi-badge badge-neu">Mature: 5–10×</span>
+    </div>
+  </div>
+
+  <!-- SECTION A -->
+  <div class="studio-section">
+    <div class="studio-section-header">
+      <div class="studio-section-icon">🏗️</div>
+      <div>
+        <div class="studio-section-title">A. Studio-Level Operational Metrics</div>
+        <div class="studio-section-sub">Capacity, cost and team benchmarks</div>
+      </div>
+    </div>
+    <div class="table-wrapper" style="border:none; border-radius:0; box-shadow:none">
+      <table class="data-table">
+        <thead><tr>
+          <th style="min-width:220px">Metric</th>
+          <th>Early Studio</th><th>Mature Studio</th>
+          <th>Industry Avg</th><th style="min-width:200px">Notes</th>
+        </tr></thead>
+        <tbody>
+            <tr>
+              <td class="td-strong">Startups Built Per Year</td>
+              <td class="td-num td-teal">2–4</td>
+              <td class="td-num td-gold">4–8</td>
+              <td class="td-num">3–5</td>
+              <td style="font-size:11px; color:var(--dim)">Depends on team size & focus verticals</td>
+            </tr>
+            <tr>
+              <td class="td-strong">Idea-to-MVP Cycle Time</td>
+              <td class="td-num td-teal">9–18 months</td>
+              <td class="td-num td-gold">6–12 months</td>
+              <td class="td-num">9–14 months</td>
+              <td style="font-size:11px; color:var(--dim)">Faster in mature studios with playbooks</td>
+            </tr>
+            <tr>
+              <td class="td-strong">Studio OPEX / Year ($M)</td>
+              <td class="td-num td-teal">$1M–$3M</td>
+              <td class="td-num td-gold">$3M–$8M</td>
+              <td class="td-num">$2M–$5M</td>
+              <td style="font-size:11px; color:var(--dim)">Includes shared services & team salaries</td>
+            </tr>
+            <tr>
+              <td class="td-strong">Cost per Company Built ($K)</td>
+              <td class="td-num td-teal">$200K–$600K</td>
+              <td class="td-num td-gold">$300K–$800K</td>
+              <td class="td-num">$350K–$500K</td>
+              <td style="font-size:11px; color:var(--dim)">Seed-stage funding + studio overhead allocation</td>
+            </tr>
+            <tr>
+              <td class="td-strong">Equity Retained per Startup</td>
+              <td class="td-num td-teal">40%–60%</td>
+              <td class="td-num td-gold">30%–50%</td>
+              <td class="td-num">40%–55%</td>
+              <td style="font-size:11px; color:var(--dim)">Diluted through external fundraising rounds</td>
+            </tr>
+            <tr>
+              <td class="td-strong">Studio Team Size (FTEs)</td>
+              <td class="td-num td-teal">5–15</td>
+              <td class="td-num td-gold">15–50</td>
+              <td class="td-num">10–30</td>
+              <td style="font-size:11px; color:var(--dim)">Incl. operators, designers, engineers, domain experts</td>
+            </tr>
+            <tr>
+              <td class="td-strong"># Active Startups in Portfolio</td>
+              <td class="td-num td-teal">3–6</td>
+              <td class="td-num td-gold">6–15</td>
+              <td class="td-num">5–10</td>
+              <td style="font-size:11px; color:var(--dim)">Actively operational; excludes exited/shuttered</td>
+            </tr>
+            <tr>
+              <td class="td-strong">Annual Studio Revenue ($M)</td>
+              <td class="td-num td-teal">$0–$1M</td>
+              <td class="td-num td-gold">$1M–$5M</td>
+              <td class="td-num">$0.5M–$3M</td>
+              <td style="font-size:11px; color:var(--dim)">Service fees, mgmt fees, carry from exits</td>
+            </tr></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- SECTION B -->
+  <div class="studio-section">
+    <div class="studio-section-header">
+      <div class="studio-section-icon">🚀</div>
+      <div>
+        <div class="studio-section-title">B. Portfolio Company Performance Metrics</div>
+        <div class="studio-section-sub">Startup-level KPIs benchmarked against studio-backed cohorts</div>
+      </div>
+    </div>
+    <div class="table-wrapper" style="border:none; border-radius:0; box-shadow:none">
+      <table class="data-table">
+        <thead><tr>
+          <th style="min-width:220px">Metric</th>
+          <th>Early Studio</th><th>Mature Studio</th>
+          <th>Industry Avg</th><th style="min-width:200px">Notes</th>
+        </tr></thead>
+        <tbody>
+            <tr>
+              <td class="td-strong">Survival Rate (Year 3)</td>
+              <td class="td-num td-teal">30%–50%</td>
+              <td class="td-num td-gold">40%–60%</td>
+              <td class="td-num">40%–55%</td>
+              <td style="font-size:11px; color:var(--dim)">Higher than traditional VC due to studio support</td>
+            </tr>
+            <tr>
+              <td class="td-strong">Series A Graduation Rate</td>
+              <td class="td-num td-teal">20%–35%</td>
+              <td class="td-num td-gold">30%–50%</td>
+              <td class="td-num">25%–40%</td>
+              <td style="font-size:11px; color:var(--dim)">% reaching institutional round</td>
+            </tr>
+            <tr>
+              <td class="td-strong">Revenue at Seed Stage ($K)</td>
+              <td class="td-num td-teal">$0–$100K</td>
+              <td class="td-num td-gold">$50K–$300K</td>
+              <td class="td-num">$50K–$200K</td>
+              <td style="font-size:11px; color:var(--dim)">ARR at time of seed close</td>
+            </tr>
+            <tr>
+              <td class="td-strong">Revenue at Series A ($M)</td>
+              <td class="td-num td-teal">$0.5M–$2M</td>
+              <td class="td-num td-gold">$1M–$5M</td>
+              <td class="td-num">$1M–$3M</td>
+              <td style="font-size:11px; color:var(--dim)">ARR benchmark for A-round readiness</td>
+            </tr>
+            <tr>
+              <td class="td-strong">MoM Growth Rate (early)</td>
+              <td class="td-num td-teal">5%–15%</td>
+              <td class="td-num td-gold">10%–20%</td>
+              <td class="td-num">8%–15%</td>
+              <td style="font-size:11px; color:var(--dim)">Monthly revenue/user growth in first 18 months</td>
+            </tr>
+            <tr>
+              <td class="td-strong">CAC (SaaS benchmark)</td>
+              <td class="td-num td-teal">$200–$1,000</td>
+              <td class="td-num td-gold">$100–$600</td>
+              <td class="td-num">$300–$700</td>
+              <td style="font-size:11px; color:var(--dim)">Customer acquisition cost; varies by vertical</td>
+            </tr>
+            <tr>
+              <td class="td-strong">LTV:CAC Ratio (target)</td>
+              <td class="td-num td-teal">2x–4x</td>
+              <td class="td-num td-gold">3x–6x</td>
+              <td class="td-num">3x–5x</td>
+              <td style="font-size:11px; color:var(--dim)">Minimum 3x for Series A readiness</td>
+            </tr>
+            <tr>
+              <td class="td-strong">Gross Margin (%)</td>
+              <td class="td-num td-teal">40%–60%</td>
+              <td class="td-num td-gold">55%–75%</td>
+              <td class="td-num">55%–70%</td>
+              <td style="font-size:11px; color:var(--dim)">Software/SaaS benchmarks; lower for marketplace</td>
+            </tr>
+            <tr>
+              <td class="td-strong">Net Revenue Retention (%)</td>
+              <td class="td-num td-teal">90%–110%</td>
+              <td class="td-num td-gold">105%–130%</td>
+              <td class="td-num">100%–120%</td>
+              <td style="font-size:11px; color:var(--dim)">Key SaaS health metric</td>
+            </tr>
+            <tr>
+              <td class="td-strong">Churn Rate (Monthly)</td>
+              <td class="td-num td-teal">3%–7%</td>
+              <td class="td-num td-gold">1%–4%</td>
+              <td class="td-num">2%–5%</td>
+              <td style="font-size:11px; color:var(--dim)">Lower = better retention</td>
+            </tr>
+            <tr>
+              <td class="td-strong">Payback Period (months)</td>
+              <td class="td-num td-teal">18–36</td>
+              <td class="td-num td-gold">12–24</td>
+              <td class="td-num">15–24</td>
+              <td style="font-size:11px; color:var(--dim)">CAC payback period in months</td>
+            </tr></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- SECTION C -->
+  <div class="studio-section">
+    <div class="studio-section-header">
+      <div class="studio-section-icon">💰</div>
+      <div>
+        <div class="studio-section-title">C. Fund &amp; Return Metrics</div>
+        <div class="studio-section-sub">LP-facing return targets and fund structure benchmarks</div>
+      </div>
+    </div>
+    <div class="table-wrapper" style="border:none; border-radius:0; box-shadow:none">
+      <table class="data-table">
+        <thead><tr>
+          <th style="min-width:220px">Metric</th>
+          <th>Early Studio</th><th>Mature Studio</th>
+          <th>Industry Avg</th><th style="min-width:200px">Notes</th>
+        </tr></thead>
+        <tbody>
+            <tr>
+              <td class="td-strong">Target Gross MOIC</td>
+              <td class="td-num td-teal">3x–5x</td>
+              <td class="td-num td-gold">5x–10x</td>
+              <td class="td-num">4x–7x</td>
+              <td style="font-size:11px; color:var(--dim)">Multiple on invested capital; pre-fees</td>
+            </tr>
+            <tr>
+              <td class="td-strong">Target Net MOIC (to LPs)</td>
+              <td class="td-num td-teal">2x–4x</td>
+              <td class="td-num td-gold">3x–7x</td>
+              <td class="td-num">3x–5x</td>
+              <td style="font-size:11px; color:var(--dim)">After mgmt fees & carry</td>
+            </tr>
+            <tr>
+              <td class="td-strong">Target Gross IRR</td>
+              <td class="td-num td-teal">20%–30%</td>
+              <td class="td-num td-gold">25%–40%</td>
+              <td class="td-num">25%–35%</td>
+              <td style="font-size:11px; color:var(--dim)">Internal rate of return, gross</td>
+            </tr>
+            <tr>
+              <td class="td-strong">Target Net IRR (to LPs)</td>
+              <td class="td-num td-teal">15%–25%</td>
+              <td class="td-num td-gold">20%–35%</td>
+              <td class="td-num">18%–28%</td>
+              <td style="font-size:11px; color:var(--dim)">Net of 2/20 fee structure</td>
+            </tr>
+            <tr>
+              <td class="td-strong">Fund Life (years)</td>
+              <td class="td-num td-teal">7–10</td>
+              <td class="td-num td-gold">8–12</td>
+              <td class="td-num">8–10</td>
+              <td style="font-size:11px; color:var(--dim)">Typical LP fund life commitment</td>
+            </tr>
+            <tr>
+              <td class="td-strong">Average Exit Valuation ($M)</td>
+              <td class="td-num td-teal">$30M–$100M</td>
+              <td class="td-num td-gold">$80M–$300M</td>
+              <td class="td-num">$50M–$200M</td>
+              <td style="font-size:11px; color:var(--dim)">Acquisition / IPO enterprise value</td>
+            </tr>
+            <tr>
+              <td class="td-strong">Expected # of Exits</td>
+              <td class="td-num td-teal">1–2 per cohort</td>
+              <td class="td-num td-gold">2–4 per cohort</td>
+              <td class="td-num">2–3 per cohort</td>
+              <td style="font-size:11px; color:var(--dim)">Out of 8–10 companies built</td>
+            </tr>
+            <tr>
+              <td class="td-strong">Power Law: Top-2 Return %</td>
+              <td class="td-num td-teal">60%–80%</td>
+              <td class="td-num td-gold">70%–90%</td>
+              <td class="td-num">70%–85%</td>
+              <td style="font-size:11px; color:var(--dim)">Share of total returns from top 2 exits</td>
+            </tr>
+            <tr>
+              <td class="td-strong">Management Fee (% AUM)</td>
+              <td class="td-num td-teal">2.0%–2.5%</td>
+              <td class="td-num td-gold">1.5%–2.0%</td>
+              <td class="td-num">2.0%</td>
+              <td style="font-size:11px; color:var(--dim)">Annual; on committed capital</td>
+            </tr>
+            <tr>
+              <td class="td-strong">Carried Interest (%)</td>
+              <td class="td-num td-teal">20%–25%</td>
+              <td class="td-num td-gold">20%–30%</td>
+              <td class="td-num">20%</td>
+              <td style="font-size:11px; color:var(--dim)">GP carry above hurdle rate</td>
+            </tr></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="grid-2" style="margin-top:24px">
+    <div class="chart-card">
+      <div class="chart-title">Return Profile — Early vs Mature Studio</div>
+      <div class="chart-sub">Gross MOIC, IRR and Net MOIC comparison</div>
+      <div class="chart-wrap h240"><canvas id="studio-returns-chart"></canvas></div>
+    </div>
+    <div class="card" style="padding:24px">
+      <div class="card-title" style="margin-bottom:16px">Power Law Dynamics</div>
+      <div style="font-size:13px; color:var(--text2); line-height:1.75">
+        <p style="margin-bottom:10px">
+          <strong>Top-2 Return Concentration:</strong> 60–80% of total returns from
+          just 2 companies per cohort (early studio). Mature studios: 70–90%.
+        </p>
+        <p style="margin-bottom:10px">
+          <strong>Expected Exits:</strong> 1–2 per cohort (early) vs 2–4 per cohort
+          (mature), out of 8–10 companies built.
+        </p>
+        <p style="margin-bottom:10px">
+          <strong>Average Exit Valuation:</strong> $30M–$100M (early stage) → 
+          $80M–$300M (mature). Target acquisition or strategic sale.
+        </p>
+        <p>
+          <strong>Fund Life:</strong> 7–10 years (early) / 8–12 years (mature).
+          Management fee: 2–2.5%. Carry: 20–25%.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section id="methodology" class="section">
+  <div class="section-eyebrow">Data Sources</div>
+  <h2 class="section-title"><em>Methodology</em> &amp; Sources</h2>
+  <p class="section-subtitle">
+    Static dashboard generated from internal Excel data sources. All data represents
+    market estimates and benchmarks for reference purposes.
+  </p>
+
+  <div style="display:grid; grid-template-columns: 1fr 1fr; gap:20px; margin-bottom:32px">
+    <div style="display:flex; gap:14px; align-items:flex-start;" class="source-card">
+      <div class="source-num">1</div>
+      <div>
+        <div class="source-name">Fintech Sectors</div>
+        <div class="source-desc">
+          Investment by country, LATAM and US subsector analysis, cross-market comparison.
+          Covers 9 LATAM countries and 14–15 subsectors with 2024 estimates.
+        </div>
+        <div style="margin-top:8px">
+          <span class="insight-tag tag-teal">9 countries</span>
+          <span class="insight-tag tag-teal">14 LATAM subsectors</span>
+          <span class="insight-tag tag-gold">15 US subsectors</span>
+        </div>
+      </div>
+    </div>
+    <div style="display:flex; gap:14px; align-items:flex-start;" class="source-card">
+      <div class="source-num">2</div>
+      <div>
+        <div class="source-name">VC Funds Metrics</div>
+        <div class="source-desc">
+          Early-stage fund benchmarks including IRR, TVPI, DPI, MOIC, deal sizes,
+          graduation rates and capital deployment metrics.
+        </div>
+        <div style="margin-top:8px">
+          <span class="insight-tag tag-navy">Pre-Seed / Seed / Series A</span>
+          <span class="insight-tag tag-navy">LATAM vs US</span>
+        </div>
+      </div>
+    </div>
+    <div style="display:flex; gap:14px; align-items:flex-start;" class="source-card">
+      <div class="source-num">3</div>
+      <div>
+        <div class="source-name">Startup Benchmarks — AIDA Ventures</div>
+        <div class="source-desc">
+          Revenue multiples by stage and sector, US and LATAM valuations, time between
+          funding rounds, graduation rates and notable LATAM deals.
+          Sources: Carta Q3 2025, Finro, Capstone Partners, LAVCA 2024–2025.
+        </div>
+        <div style="margin-top:8px">
+          <span class="insight-tag tag-teal">SaaS · Fintech · LogTech</span>
+          <span class="insight-tag tag-gold">US + LATAM</span>
+        </div>
+      </div>
+    </div>
+    <div style="display:flex; gap:14px; align-items:flex-start;" class="source-card">
+      <div class="source-num">4</div>
+      <div>
+        <div class="source-name">Startup Operational Metrics (US)</div>
+        <div class="source-desc">
+          Income & growth, capital efficiency, retention, unit economics, market
+          and valuation benchmarks for Pre-Seed, Seed and Series A.
+          Used as scoring baseline in the Deal Scorecard module.
+        </div>
+        <div style="margin-top:8px">
+          <span class="insight-tag tag-navy">8 metric categories</span>
+          <span class="insight-tag tag-navy">3 stages</span>
+        </div>
+      </div>
+    </div>
+    <div style="display:flex; gap:14px; align-items:flex-start;" class="source-card">
+      <div class="source-num">5</div>
+      <div>
+        <div class="source-name">Venture Studio Metrics Reference</div>
+        <div class="source-desc">
+          Studio-level operational benchmarks, portfolio company KPIs and fund &amp;
+          return metrics. Segmented by Early vs Mature studio stage.
+          Private studio dataset based on industry aggregates.
+        </div>
+        <div style="margin-top:8px">
+          <span class="insight-tag tag-teal">A / B / C metrics</span>
+          <span class="insight-tag tag-teal">Early vs Mature</span>
+        </div>
+      </div>
+    </div>
+    <div style="display:flex; gap:14px; align-items:flex-start;" class="source-card">
+      <div class="source-num">6</div>
+      <div>
+        <div class="source-name">External Data Sources Referenced</div>
+        <div class="source-desc">
+          Carta (2024–2025), LAVCA VC Report 2024, Crunchbase, PitchBook,
+          SaaS Capital Index, Finro FCA Mid-2025, Capstone Partners LogTech Jun 2025,
+          Equidam 2025, Aventis Advisors, Forum Ventures State of Seed 2024.
+        </div>
+        <div style="margin-top:8px">
+          <span class="insight-tag tag-gold">Q4 2024 – Q3 2025</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" style="padding:24px; background:var(--navy); border-color:var(--navy)">
+    <div style="display:flex; justify-content:space-between; align-items:center">
+      <div>
+        <div style="font-family:var(--font-display); font-size:20px; font-weight:600; color:white; margin-bottom:6px">
+          AIDA Ventures — Intelligence Platform
+        </div>
+        <div style="font-size:13px; color:rgba(255,255,255,0.55)">
+          Static dashboard generated from Excel sources. Prepared for GitHub Pages deployment.
+        </div>
+      </div>
+      <div style="text-align:right">
+        <div style="font-family:var(--font-mono); font-size:11px; color:rgba(255,255,255,0.4)">GENERATED</div>
+        <div style="font-family:var(--font-mono); font-size:13px; color:rgba(255,255,255,0.7)">May 25, 2026</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script>
+// ── DASHBOARD DATA ──────────────────────────────────────────────────────────
+const D = {"fintech": {"countries": [{"country": "Brazil", "investment": "$900M-1.1B", "share": "32-35%", "fintechs": "850-920", "deals": "110-135", "unicorns": "8-10", "growth": "+7.9%"}, {"country": "Mexico", "investment": "$750M-950M", "share": "26-30%", "fintechs": "730-800", "deals": "85-105", "unicorns": "5-7", "growth": "+2.8%"}, {"country": "Colombia", "investment": "$280M-380M", "share": "10-12%", "fintechs": "480-530", "deals": "40-55", "unicorns": "2-3", "growth": "+36.3%"}, {"country": "Argentina", "investment": "$250M-320M", "share": "9-11%", "fintechs": "370-410", "deals": "35-45", "unicorns": "2-3", "growth": "-5.2%"}, {"country": "Chile", "investment": "$180M-240M", "share": "6-8%", "fintechs": "360-400", "deals": "25-35", "unicorns": "1-2", "growth": "+12.4%"}, {"country": "Peru", "investment": "$85M-120M", "share": "3-4%", "fintechs": "150-180", "deals": "12-18", "unicorns": "0-1", "growth": "+8.7%"}, {"country": "Uruguay", "investment": "$45M-70M", "share": "2-3%", "fintechs": "60-80", "deals": "6-10", "unicorns": "0-1", "growth": "+15.3%"}, {"country": "Central America", "investment": "$90M-130M", "share": "3-4%", "fintechs": "180-220", "deals": "15-22", "unicorns": "0-1", "growth": "+18.6%"}, {"country": "Other LATAM", "investment": "$70M-100M", "share": "2-3%", "fintechs": "120-150", "deals": "10-15", "unicorns": "0", "growth": "Variable"}], "latam_subsectors": [{"subsector": "Payments & Digital Wallets", "investment": "$800M-1.0B", "pct": "28-32%", "startups": "750-850", "leaders": "Brazil, Mexico, Colombia"}, {"subsector": "Digital Banking & Neobanks", "investment": "$600M-750M", "pct": "20-24%", "startups": "400-450", "leaders": "Brazil, Argentina, Mexico"}, {"subsector": "Digital Lending & Credit", "investment": "$400M-550M", "pct": "13-17%", "startups": "550-650", "leaders": "Brazil, Mexico, Colombia"}, {"subsector": "Open Banking & BaaS", "investment": "$250M-350M", "pct": "8-11%", "startups": "200-250", "leaders": "Brazil, Mexico"}, {"subsector": "Insurtech", "investment": "$150M-200M", "pct": "5-6%", "startups": "180-220", "leaders": "Brazil, Chile, Mexico"}, {"subsector": "B2B Finance & Treasury", "investment": "$300M-400M", "pct": "10-12%", "startups": "280-340", "leaders": "Brazil, Mexico, Colombia"}, {"subsector": "Remittances & Cross-border", "investment": "$200M-280M", "pct": "7-9%", "startups": "150-200", "leaders": "Mexico, Central America"}, {"subsector": "Wealth Management", "investment": "$120M-180M", "pct": "4-5%", "startups": "120-160", "leaders": "Brazil, Chile"}, {"subsector": "RegTech & Compliance", "investment": "$80M-120M", "pct": "3-4%", "startups": "90-120", "leaders": "Brazil, Colombia"}, {"subsector": "Crypto & Stablecoins", "investment": "$180M-250M", "pct": "6-8%", "startups": "300-380", "leaders": "Argentina, Brazil"}, {"subsector": "PFM & Financial Inclusion", "investment": "$90M-130M", "pct": "3-4%", "startups": "220-280", "leaders": "Brazil, Mexico, Colombia"}, {"subsector": "Buy Now Pay Later (BNPL)", "investment": "$70M-100M", "pct": "2-3%", "startups": "80-110", "leaders": "Mexico, Brazil"}, {"subsector": "Alternative Credit Scoring", "investment": "$110M-150M", "pct": "4-5%", "startups": "160-200", "leaders": "Colombia, Mexico, Brazil"}, {"subsector": "Embedded Finance", "investment": "$150M-220M", "pct": "5-7%", "startups": "140-180", "leaders": "Brazil, Mexico"}], "usa_subsectors": [{"subsector": "Payments & Payment Infrastructure", "investment": "$31.0B", "pct": "3.24", "startups": "3,200-3,500", "trend": "↑ B2B payments, cross-border"}, {"subsector": "Digital Lending", "investment": "$4.9B", "pct": "0.51", "startups": "1,800-2,100", "trend": "↓ Tighter underwriting"}, {"subsector": "Digital Banking & Neobanks", "investment": "$4.2B", "pct": "0.44", "startups": "1,500-1,700", "trend": "→ Consolidation phase"}, {"subsector": "Insurtech", "investment": "$4.5B", "pct": "0.47", "startups": "1,500 (25 unicorns)", "trend": "→ Stable growth"}, {"subsector": "Wealth Management & Investment", "investment": "$3.8B", "pct": "0.4", "startups": "1,200-1,400", "trend": "↑ AI-driven wealth"}, {"subsector": "Digital Assets & Crypto", "investment": "$8.5B", "pct": "0.89", "startups": "2,500-2,800", "trend": "↑ Institutional adoption"}, {"subsector": "RegTech & Compliance", "investment": "$2.1B", "pct": "0.22", "startups": "800-1,000", "trend": "↑ AI compliance tools"}, {"subsector": "B2B Finance & Treasury", "investment": "$5.3B", "pct": "0.55", "startups": "1,100-1,300", "trend": "↑↑ Strong growth"}, {"subsector": "Capital Markets & Trading", "investment": "$2.8B", "pct": "0.29", "startups": "600-750", "trend": "→ Blockchain integration"}, {"subsector": "Personal Finance Management (PFM)", "investment": "$1.5B", "pct": "0.16", "startups": "900-1,100", "trend": "→ Steady"}, {"subsector": "Open Banking & Data Aggregation", "investment": "$2.3B", "pct": "0.24", "startups": "400-500", "trend": "↑ Embedded finance"}, {"subsector": "Buy Now Pay Later (BNPL)", "investment": "$1.9B", "pct": "0.2", "startups": "300-400", "trend": "↓ Regulatory pressure"}, {"subsector": "Banking-as-a-Service (BaaS)", "investment": "$3.2B", "pct": "0.33", "startups": "250-350", "trend": "↓ Regulatory scrutiny"}, {"subsector": "Financial Fraud & Security", "investment": "$2.6B", "pct": "0.27", "startups": "700-850", "trend": "↑ ML fraud detection"}, {"subsector": "AI-Powered Finance Solutions", "investment": "$4.7B", "pct": "0.49", "startups": "1,000-1,200", "trend": "↑↑ Explosive growth"}], "comparison": [{"metric": "Inversión Total 2024", "usa": "$50.7B", "latam": "$3.0-3.5B", "ratio": "14-17x"}, {"metric": "Número de Deals", "usa": "~2,085", "latam": "~370-450", "ratio": "5-6x"}, {"metric": "Deal Size Promedio", "usa": "$24.3M", "latam": "$7.5-9M", "ratio": "2.5-3x"}, {"metric": "Total Fintechs Activas", "usa": "~12,000+", "latam": "~3,620+", "ratio": "3-4x"}, {"metric": "Unicornios Fintech", "usa": "~165", "latam": "~15-20", "ratio": "8-11x"}, {"metric": "Mega-rounds ($100M+)", "usa": "~40", "latam": "~2-4", "ratio": "10-20x"}, {"metric": "Subsector #1", "usa": "Payments (32.4%)", "latam": "Payments (28-32%)", "ratio": "Same focus"}, {"metric": "Crecimiento YoY", "usa": "-30.3%", "latam": "+5-8%", "ratio": "Opposite trends"}, {"metric": "Share AI-Enabled Fintechs", "usa": "15%", "latam": "25-30%", "ratio": "LATAM higher"}, {"metric": "Gross Margin Promedio", "usa": "65-75%", "latam": "55-65%", "ratio": "USA higher"}]}, "vcfunds": {"early_stage": {"headers": ["", "Métrica", "Pre-Seed", "Seed", "Serie A"], "rows": [["", "IRR mediano (fondos maduros, vintage 2017–2020)", "~11–13%", "~11–13%", "~12–16%"], ["", "IRR objetivo (target para fondos early-stage)", "30–40%", "30–40%", "20–30%"], ["", "IRR top decil (90th percentile, fondos pequeños)", "~28%", "~28%", "~28%"], ["", "TVPI mediano (vintage 2017)", "~1.72–1.95x", "~1.72–1.95x", "~1.72–1.95x"], ["", "TVPI top decil (fondos <$10M, vintage 2018)", "4.03x", "4.03x", "—"], ["", "TVPI top quartil (referencia de \"excelente\")", "3.0x+", "3.0x+", "3.0x+"], ["", "DPI mediano (vintage 2017)", "~0.27x", "~0.27x", "~0.30x"], ["", "DPI top quartil (Q4 2023)", "—", "1.5x", "1.5x"], ["", "% fondos con DPI > 0 (vintage 2020, Q1 2025)", "~30%", "~30%", "~42%"], ["", "MOIC objetivo", "5–10x por deal", "3–5x por deal", "3x+ por fondo"], ["", "Valuación pre-money mediana", "~$5.7M", "~$12M", "~$25–45M"], ["", "Tamaño promedio de ronda", "$500K–$2M", "$3–4M", "$10–15M"], ["", "Tamaño típico del fondo", "$1M–$25M", "$10M–$75M", "$50M–$150M"], ["", "Tasa de graduación Seed → Serie A (2 años)", "—", "15.4% (2022) / 30.6% (2018)", "—"], ["", "Capital desplegado a 24 meses (vintage 2022)", "~43%", "~43%", "~43–60%"], ["", "Retorno índice VC EE. UU. (2024, neto de fees)", "—", "—", "6.2%"]]}, "benchmark": {"headers": ["", "Métrica", "Pre-Seed", "Seed", "Serie A"], "rows": [["", "IRR objetivo (target fondos early-stage)", "30–40%", "25–35%", "20–30%"], ["", "IRR mediano observado (maduros)", "~8–12%", "~10–15%", "~12–18%"], ["", "TVPI mediano estimado (fondos activos)", "~1.2–1.5x", "~1.3–1.6x", "~1.5–2.0x"], ["", "TVPI top cuartil (\"excelente\")", "2.5x+", "2.5–3.0x+", "3.0x+"], ["", "DPI mediano (fondos <8 años)", "~0.05–0.15x", "~0.10–0.20x", "~0.20–0.40x"], ["", "MOIC objetivo por deal", "10–20x", "5–10x", "3–5x"], ["", "Tamaño típico del fondo", "~$10M", "~$15M", "~$35M"], ["", "Ticket de inversión (cheque)", "$50K–$500K", "$100K–$500K", "$250K–$1.5M"], ["", "Valuación pre-money mediana", "~$2M–$5M", "~$5M–$10M", "~$12M–$25M"], ["", "Tamaño promedio de ronda", "$66M total mercado (152 deals) → ~$434K/deal", "~$1.73M/deal (427 deals, 2025)", "~$10.7M/deal (72 deals, 2025)"], ["", "Capital total desplegado en etapa (2024)", "$110M (↑ desde 2023)", "$408M (mínimo 5 años)", "$707M (leve recuperación)"], ["", "Capital total desplegado en etapa (2025)", "$66M (↓40% vs 2024)", "$427M (↑4.7% vs 2024)", "$773M (↑9.3% vs 2024)"], ["", "Número de deals (2025)", "152 deals (↓39% vs 2024)", "247 deals", "72 deals"], ["", "Tasa de graduación Seed → Serie A", "—", "~10–15% (estimado LATAM)", "—"], ["", "Tiempo entre rondas", "—", "~20 meses promedio entre rondas (2024)", "~20 meses"], ["", "% fondos en early-stage (Pre-Seed + Seed)", "74.4% de los fondos totales", "", ""], ["", "% de capital early-stage (52% del total)", "—", "—", "—"], ["", "Management fee típico", "2–2.5%", "2–2.5%", "2–2.5%"], ["", "Carried interest típico", "0.2", "0.2", "0.2"], ["", "Principales mercados", "Brasil (52.9%), México (26.7%), Argentina", "Brasil, México, Argentina, Colombia", "Brasil, México, Colombia, Chile"]]}, "latam_vs_us": {"headers": ["", "Métrica", "EE. UU. (Early-Stage)", "LATAM (Early-Stage)"], "rows": [["", "IRR mediano (fondos maduros)", "~11–13%", "~8–12%"], ["", "IRR top decil", "~28%", "~20–25% (est.)"], ["", "TVPI mediano (vintage ~5–7 años)", "~1.72–1.95x", "~1.2–1.6x"], ["", "DPI mediano", "~0.27x", "~0.05–0.20x"], ["", "Tamaño fondo Pre-Seed", "$1M–$25M", "~$10M"], ["", "Tamaño fondo Seed", "$10M–$75M", "~$15M"], ["", "Tamaño fondo Serie A", "$50M–$150M", "~$35M"], ["", "Ticket Pre-Seed", "$500K–$2M", "$50K–$500K"], ["", "Ticket Seed", "$3–4M", "$100K–$500K"], ["", "Ticket Serie A", "$10–15M", "$250K–$1.5M"], ["", "Tiempo entre rondas", "~12–15 meses", "~20 meses"], ["", "Tasa graduación Seed→Serie A", "~15–30% (según año)", "~10–15% (est.)"]]}}, "venture_studio": {"A": [{"metric": "Startups Built Per Year", "early": "2–4", "mature": "4–8", "industry": "3–5", "notes": "Depends on team size & focus verticals"}, {"metric": "Idea-to-MVP Cycle Time", "early": "9–18 months", "mature": "6–12 months", "industry": "9–14 months", "notes": "Faster in mature studios with playbooks"}, {"metric": "Studio OPEX / Year ($M)", "early": "$1M–$3M", "mature": "$3M–$8M", "industry": "$2M–$5M", "notes": "Includes shared services & team salaries"}, {"metric": "Cost per Company Built ($K)", "early": "$200K–$600K", "mature": "$300K–$800K", "industry": "$350K–$500K", "notes": "Seed-stage funding + studio overhead allocation"}, {"metric": "Equity Retained per Startup", "early": "40%–60%", "mature": "30%–50%", "industry": "40%–55%", "notes": "Diluted through external fundraising rounds"}, {"metric": "Studio Team Size (FTEs)", "early": "5–15", "mature": "15–50", "industry": "10–30", "notes": "Incl. operators, designers, engineers, domain experts"}, {"metric": "# Active Startups in Portfolio", "early": "3–6", "mature": "6–15", "industry": "5–10", "notes": "Actively operational; excludes exited/shuttered"}, {"metric": "Annual Studio Revenue ($M)", "early": "$0–$1M", "mature": "$1M–$5M", "industry": "$0.5M–$3M", "notes": "Service fees, mgmt fees, carry from exits"}], "B": [{"metric": "Survival Rate (Year 3)", "early": "30%–50%", "mature": "40%–60%", "industry": "40%–55%", "notes": "Higher than traditional VC due to studio support"}, {"metric": "Series A Graduation Rate", "early": "20%–35%", "mature": "30%–50%", "industry": "25%–40%", "notes": "% reaching institutional round"}, {"metric": "Revenue at Seed Stage ($K)", "early": "$0–$100K", "mature": "$50K–$300K", "industry": "$50K–$200K", "notes": "ARR at time of seed close"}, {"metric": "Revenue at Series A ($M)", "early": "$0.5M–$2M", "mature": "$1M–$5M", "industry": "$1M–$3M", "notes": "ARR benchmark for A-round readiness"}, {"metric": "MoM Growth Rate (early)", "early": "5%–15%", "mature": "10%–20%", "industry": "8%–15%", "notes": "Monthly revenue/user growth in first 18 months"}, {"metric": "CAC (SaaS benchmark)", "early": "$200–$1,000", "mature": "$100–$600", "industry": "$300–$700", "notes": "Customer acquisition cost; varies by vertical"}, {"metric": "LTV:CAC Ratio (target)", "early": "2x–4x", "mature": "3x–6x", "industry": "3x–5x", "notes": "Minimum 3x for Series A readiness"}, {"metric": "Gross Margin (%)", "early": "40%–60%", "mature": "55%–75%", "industry": "55%–70%", "notes": "Software/SaaS benchmarks; lower for marketplace"}, {"metric": "Net Revenue Retention (%)", "early": "90%–110%", "mature": "105%–130%", "industry": "100%–120%", "notes": "Key SaaS health metric"}, {"metric": "Churn Rate (Monthly)", "early": "3%–7%", "mature": "1%–4%", "industry": "2%–5%", "notes": "Lower = better retention"}, {"metric": "Payback Period (months)", "early": "18–36", "mature": "12–24", "industry": "15–24", "notes": "CAC payback period in months"}], "C": [{"metric": "Target Gross MOIC", "early": "3x–5x", "mature": "5x–10x", "industry": "4x–7x", "notes": "Multiple on invested capital; pre-fees"}, {"metric": "Target Net MOIC (to LPs)", "early": "2x–4x", "mature": "3x–7x", "industry": "3x–5x", "notes": "After mgmt fees & carry"}, {"metric": "Target Gross IRR", "early": "20%–30%", "mature": "25%–40%", "industry": "25%–35%", "notes": "Internal rate of return, gross"}, {"metric": "Target Net IRR (to LPs)", "early": "15%–25%", "mature": "20%–35%", "industry": "18%–28%", "notes": "Net of 2/20 fee structure"}, {"metric": "Fund Life (years)", "early": "7–10", "mature": "8–12", "industry": "8–10", "notes": "Typical LP fund life commitment"}, {"metric": "Average Exit Valuation ($M)", "early": "$30M–$100M", "mature": "$80M–$300M", "industry": "$50M–$200M", "notes": "Acquisition / IPO enterprise value"}, {"metric": "Expected # of Exits", "early": "1–2 per cohort", "mature": "2–4 per cohort", "industry": "2–3 per cohort", "notes": "Out of 8–10 companies built"}, {"metric": "Power Law: Top-2 Return %", "early": "60%–80%", "mature": "70%–90%", "industry": "70%–85%", "notes": "Share of total returns from top 2 exits"}, {"metric": "Management Fee (% AUM)", "early": "2.0%–2.5%", "mature": "1.5%–2.0%", "industry": "2.0%", "notes": "Annual; on committed capital"}, {"metric": "Carried Interest (%)", "early": "20%–25%", "mature": "20%–30%", "industry": "20%", "notes": "GP carry above hurdle rate"}]}, "benchmarks": {"rev_multiples": {"saas": [{"stage": "Pre-Seed", "type": "ARR", "global": "", "latam": "", "use_case": "Early pricing (team/vision)", "source": "Equidam, Flowjam"}, {"stage": "Seed", "type": "ARR", "global": "8–12x", "latam": "5–7x", "use_case": "Traction emerging", "source": "SaaS Capital"}, {"stage": "Series A", "type": "ARR", "global": "6–10x", "latam": "4–6x", "use_case": "Product-Market Fit", "source": "Carta, SaaSRise"}, {"stage": "Series B", "type": "ARR", "global": "5–8x", "latam": "3–5x", "use_case": "Scaling Validation", "source": "SaaS Capital Index"}, {"stage": "Late Growth", "type": "Revenue", "global": "5–7x", "latam": "3–5x", "use_case": "Exit Positioning", "source": "Aventis Advisors"}, {"stage": "Public Comps (Median)", "type": "ARR", "global": "6–8x", "latam": "", "use_case": "Benchmarking", "source": "SaaS Capital Index"}, {"stage": "Public Comps (Top 10)", "type": "ARR", "global": "12–20x", "latam": "", "use_case": "Benchmarking", "source": "SaaS Capital Index"}, {"stage": "M&A Exit (Median)", "type": "Revenue", "global": "3x (EV/Rev)", "latam": "2–3x", "use_case": "Acquisition", "source": "Aventis Advisors"}, {"stage": "• Revenue Growth > 100% YoY + Burn Multiple < 1.5x  →  Rare combo that justifies top-quartile pricing", "type": "", "global": "", "latam": "", "use_case": "", "source": ""}], "fintech": [{"stage": "Pre-Seed", "type": "EV/Revenue", "global": "", "latam": "", "use_case": "", "source": ""}, {"stage": "Seed", "type": "EV/Revenue", "global": "15–27x", "latam": "9–18x", "use_case": "Vision / Team based", "source": "Finro FCA"}, {"stage": "Series A", "type": "EV/Revenue", "global": "10–20x", "latam": "6–12x", "use_case": "Early traction", "source": "Finro FCA"}, {"stage": "Series B", "type": "EV/Revenue", "global": "8–15x (median 12.3x)", "latam": "5–9x", "use_case": "Growth Proof", "source": "Finro FCA"}, {"stage": "Series C", "type": "EV/Revenue", "global": "10–20x (median 18.7x)", "latam": "6–12x", "use_case": "Value generation", "source": "Finro FCA"}, {"stage": "M&A Exit (Median)", "type": "Revenue", "global": "3.7–7.4x (avg 4.7x)", "latam": "2.5–5x", "use_case": "Exit", "source": "First Page Sage"}, {"stage": "Public Comps (Top 10)", "type": "EV/Revenue", "global": "4–6x", "latam": "", "use_case": "Benchmarking", "source": "Bessemer Cloud Index"}], "logtech": [{"stage": "Pre-Seed", "type": "Revenue/ARR", "global": "", "latam": "", "use_case": "", "source": "Capstone Partners"}, {"stage": "Seed", "type": "Revenue", "global": "N/A (range $3-8M val)", "latam": "$2-4M val (LATAM)", "use_case": "Traction proof", "source": "Capstone Partners"}, {"stage": "Series A", "type": "Revenue", "global": "2–4x Revenue", "latam": "$1.5-3x Revenue", "use_case": "Cross-border/visibility focus", "source": "Capstone Partners"}, {"stage": "Series B", "type": "Revenue", "global": "3–6x Revenue", "latam": "2–4x Revenue", "use_case": "Profitability required", "source": "Capstone Partners"}, {"stage": "Late Growth / Exit", "type": "Revenue", "global": "2–5x Revenue", "latam": "1.5–3x Revenue", "use_case": "Exit Positioning", "source": "Capstone / PitchBook"}, {"stage": "PREMIUM FACTORS — Metrics that justify multiples above the median range:", "type": "", "global": "", "latam": "", "use_case": "", "source": ""}, {"stage": "• Rule of 40 (Revenue Growth % + EBITDA Margin %) > 40%  →  Commands 20-30% premium on multiples", "type": "", "global": "", "latam": "", "use_case": "", "source": ""}, {"stage": "• NRR (Net Revenue Retention) > 120%  →  Top-tier signal; compresses churn risk for investors", "type": "", "global": "", "latam": "", "use_case": "", "source": ""}]}, "us_valuations": {"saas": [{"stage": "Pre-Seed", "val": "$3–8M", "multiple": "", "notes": "", "round": "$0.25–2M"}, {"stage": "Seed", "val": "$19.8M", "multiple": "+35%", "notes": "+24%", "round": "$2–5M"}, {"stage": "Series A", "val": "$60M", "multiple": "+19%", "notes": "+22%", "round": "$10–25M"}, {"stage": "Series B", "val": "$175M", "multiple": "+38%", "notes": "", "round": "$25–60M"}, {"stage": "Series C+", "val": "$350M+", "multiple": "", "notes": "", "round": "$50–150M+"}], "fintech": [{"stage": "Pre-Seed", "val": "$4–6M", "multiple": "", "notes": "Team & regulatory thesis pricing", "round": "$0.5–3M"}, {"stage": "Seed", "val": "$7M", "multiple": "15x EV/Rev", "notes": "Potential > PMF", "round": "$2–5M"}, {"stage": "Series A", "val": "$32M", "multiple": "15x EV/Rev", "notes": "Early traction", "round": "$10–25M"}, {"stage": "Series B", "val": "$84M", "multiple": "12.3x EV/Rev", "notes": "Multiples dip at scale", "round": "$30–75M"}, {"stage": "Series C", "val": "$200M+", "multiple": "8–12x EV/Rev", "notes": "Value generation / pre-exit", "round": "$75–200M"}], "logtech": [{"stage": "Pre-Seed", "val": "N/A / Pre-revenue", "multiple": "", "notes": "MVP + pilot customer", "round": "$0.25–1.5M"}, {"stage": "Seed", "val": "$3–8M", "multiple": "$25M+ (AI-enabled)", "notes": "Cross-border / automation focus", "round": "$2–6M"}, {"stage": "Series A", "val": "$10–20M", "multiple": "$40–60M (AI-enabled)", "notes": "Profitability path required", "round": "$10–30M"}, {"stage": "Series B", "val": "$40–80M", "multiple": "", "notes": "Strong unit economics + expansion", "round": "$30–80M"}, {"stage": "Series C+", "val": "$100–200M", "multiple": "", "notes": "Exit positioning", "round": "$75–200M"}]}, "latam_discount": [{"factor": "Pre-Seed Median Valuation", "discount": "55–60%", "source": "Equidam 2025", "notes": "US $5.97M vs LATAM $2.60M median"}, {"factor": "Overall VC Multiples", "discount": "30–40%", "source": "Multiple sources", "notes": "Historical range across all stages"}, {"factor": "Series A Valuations", "discount": "35–45%", "source": "Equidam 2025", "notes": "Europe at 34%, LATAM deeper"}, {"factor": "Series B Valuations", "discount": "40–50%", "source": "LAVCA / Crunchbase", "notes": "Scaling validation stage"}, {"factor": "Exit / M&A Multiples", "discount": "25–35%", "source": "Aventis Advisors", "notes": "Smaller discount at exit; strategic acquirers pay market rates"}, {"factor": "Public Equities vs EM Asia", "discount": "~50%", "source": "Cambridge Associates, MSCI", "notes": "LATAM at near-record discount — upside potential"}, {"factor": "Currency Risk Premium", "discount": "+5–10% additional", "source": "MSCI", "notes": "Real FX rates 11–15% below 20-yr median"}], "latam_by_sector": [{"stage": "Pre-Seed", "saas": "$3–5M", "fintech": "$3–6M", "logtech": "$2–4M", "us_ref": "$3–8M", "discount": "25–60%"}, {"stage": "Seed", "saas": "$8–12M", "fintech": "$8–14M", "logtech": "$5–8M", "us_ref": "$19.8M", "discount": "40–60%"}, {"stage": "Series A", "saas": "$25–36M", "fintech": "$25–45M", "logtech": "$15–25M", "us_ref": "$60M", "discount": "40–58%"}, {"stage": "Series B", "saas": "$70–105M", "fintech": "$80–130M", "logtech": "$50–85M", "us_ref": "$175M", "discount": "40–60%"}, {"stage": "Series C+", "saas": "$150–250M", "fintech": "$180–350M", "logtech": "$100–180M", "us_ref": "$350M+", "discount": "30–55%"}], "latam_notable": [{"company": "Plata", "country": "Mexico", "stage": "Series A", "amount": "$160M", "valuation": "$1.5B", "date": "Mar 2025", "sector": "Fintech (Neobank)"}, {"company": "Plata", "country": "Mexico", "stage": "Series B", "amount": "$250M", "valuation": "$3.1B", "date": "Oct 2025", "sector": "Fintech (Neobank)"}, {"company": "Uala", "country": "Argentina", "stage": "Series E", "amount": "$366M", "valuation": "$2.75B", "date": "Mar 2025", "sector": "Fintech (Neobank)"}, {"company": "Omie", "country": "Brazil", "stage": "Series C", "amount": "$150M", "valuation": "$700M", "date": "Sep 2025", "sector": "Enterprise SaaS (ERP)"}, {"company": "Kapital", "country": "Mexico", "stage": "Series B", "amount": "$100M", "valuation": "$1.3B", "date": "Oct 2025", "sector": "Fintech (SMB Credit)"}, {"company": "Buk", "country": "Chile", "stage": "Series B", "amount": "$50M", "valuation": "", "date": "Jan 2025", "sector": "Enterprise SaaS (HR)"}, {"company": "Paytrack", "country": "Brazil", "stage": "Series B", "amount": "$40M", "valuation": "", "date": "Jan 2025", "sector": "Enterprise SaaS (Expense)"}, {"company": "Mendel", "country": "Mexico", "stage": "Series B", "amount": "$35M", "valuation": "", "date": "Mar 2025", "sector": "Fintech (Corporate Expense)"}, {"company": "Niko Energy", "country": "Mexico", "stage": "Seed", "amount": "$8M", "valuation": "", "date": "Q1 2025", "sector": "LogTech (Solar)"}, {"company": "Neofin", "country": "Brazil", "stage": "Seed", "amount": "$6M", "valuation": "", "date": "Q1 2025", "sector": "Fintech (B2B Payments)"}], "graduation": {"geography": [{"transition": "Pre-Seed → Seed", "us_2024": "30–45%", "us_2021": "50–65%", "latam": "20–35%", "latam_top": "35–45%"}, {"transition": "Seed → Series A", "us_2024": "2–5%", "us_2021": "14–15%", "latam": "5–10%", "latam_top": "10–18%"}, {"transition": "Series A → Series B", "us_2024": "40–50% (of mature 2018-20 cohorts)", "us_2021": "55–65%", "latam": "25–40%", "latam_top": "40–50%"}, {"transition": "Series B → Series C", "us_2024": "~40–50%", "us_2021": "~55%", "latam": "20–35%", "latam_top": "35–45%"}, {"transition": "Series C → Exit / IPO", "us_2024": "~30–40%", "us_2021": "~45%", "latam": "15–25%", "latam_top": "25–35%"}], "sector": [{"sector": "Fintech", "us_rate": "3–7%", "latam_rate": "6–12%", "key": "Higher LATAM rate driven by financial inclusion TAM (unbanked populations)"}, {"sector": "Enterprise SaaS", "us_rate": "4–8%", "latam_rate": "5–10%", "key": "Faster in SaaS globally (15% below median); enterprise sales cycles slow LATAM"}, {"sector": "LogTech / Supply Chain", "us_rate": "3–6%", "latam_rate": "4–8%", "key": "Capital-intensive; hardware component → fewer VC-backable; AI-overlay changes equation"}, {"sector": "Consumer / B2C", "us_rate": "2–4%", "latam_rate": "3–6%", "key": "Churn risk + DAU/MAU requirements; harder PMF proof in LATAM fragmented market"}, {"sector": "Deep Tech / Hardware", "us_rate": "2–4%", "latam_rate": "2–4%", "key": "Long R&D cycles; fewer LATAM investors with patience for hardware timelines"}], "cohort": [{"stage": "Pre-Seed", "us": "1,000", "latam": "1,000", "pct_us": "100%"}, {"stage": "Seed", "us": "350–450", "latam": "200–350", "pct_us": "35–45%"}, {"stage": "Series A", "us": "7–22", "latam": "10–35", "pct_us": "0.7–2.2%"}, {"stage": "Series B", "us": "3–11", "latam": "3–14", "pct_us": "0.3–1.1%"}, {"stage": "Series C+", "us": "1–5", "latam": "1–5", "pct_us": "0.1–0.5%"}, {"stage": "Exit / IPO", "us": "<3", "latam": "<2", "pct_us": "<0.3%"}, {"stage": "Sources: Carta (11,384 US seed startups analyzed, 2024) · LAVCA VC Report 2024 · Crunchbase Pre-seed & Seed Trends 2024 · Forum Ventures State of Seed 2024 · Cuantico VP LatAm VC Report 2026 (Preliminary) · Capstone Partners LogTech Industry Update Jun 2025", "us": "", "latam": "", "pct_us": ""}]}, "time_between_rounds": [{"transition": "Pre-Seed → Seed", "us_2021": "9–12", "us_2024": "12–18", "change": "+40–50%", "latam_median": "18–24", "latam_top": "12–15"}, {"transition": "Seed → Series A", "us_2021": "~14", "us_2024": "~25.8 (774 days)", "change": "+84%", "latam_median": "30–36", "latam_top": "20–24"}, {"transition": "Series A → Series B", "us_2021": "~12", "us_2024": "~24.4 (732 days)", "change": "+97%", "latam_median": "30–40", "latam_top": "22–28"}, {"transition": "Series B → Series C", "us_2021": "~15", "us_2024": "~26–30", "change": "+60–80%", "latam_median": "32–42", "latam_top": "24–30"}, {"transition": "Series C → Series D+", "us_2021": "~18", "us_2024": "~30–36", "change": "+50–70%", "latam_median": "36–48", "latam_top": "28–36"}]}, "metricas": {"income_growth": [{"metric": "ARR (Annual Recurring Revenue)", "preseed": "$0 – $100K", "seed": "$100K – $1M (mediana ~$500K)", "series_a": "$1.5M – $3M+ (nuevo estándar: $3M en 2025)"}, {"metric": "MRR (Monthly Recurring Revenue)", "preseed": "$0 – $8K", "seed": "$8K – $83K", "series_a": "$125K – $250K+"}, {"metric": "Crecimiento MoM (mes a mes)", "preseed": "N/A (fase de aprendizaje)", "seed": "15–20% MoM", "series_a": "12–15% MoM"}, {"metric": "Crecimiento YoY (año a año) en ARR", "preseed": "N/A o >144% early", "seed": ">100% YoY (\"triple, triple, double\")", "series_a": "80–150% YoY (ideal: 3x ARR en 12 meses)"}, {"metric": "Tiempo para alcanzar $1M ARR", "preseed": "", "seed": "~15 meses (SaaS tradicional); ~11.5 meses (AI)", "series_a": "Ya superado"}, {"metric": "Tiempo para alcanzar $10M ARR", "preseed": "", "seed": "", "series_a": "~5 años (SaaS trad.); ~2 años (AI)"}, {"metric": "Rule of 40 (crecimiento % + margen %)", "preseed": "No aplica (stage too early)", "seed": "No aplica aún", "series_a": "≥40% (solo 11-30% lo alcanzan)"}, {"metric": "ARR por empleado", "preseed": "No aplica", "seed": "No aplica", "series_a": "$100K–$173K"}], "capital_efficiency": [{"metric": "Burn Rate mensual (net)", "preseed": "$10K – $50K/mes", "seed": "~$50K – $200K/mes", "series_a": "$200K – $500K/mes"}, {"metric": "Runway objetivo", "preseed": "12–18 meses", "seed": "18–24 meses", "series_a": "24–30 meses (post-ronda)"}, {"metric": "Burn Multiple (burn neto / nuevo ARR)", "preseed": "N/A (sin ARR)", "seed": "~1.9x (mediana)", "series_a": "<1.5x (ideal); ~3.4x (early-stage promedio)"}, {"metric": "Eficiencia de capital (BEI)", "preseed": "", "seed": "En construcción", "series_a": "ARR generado > capital desplegado"}, {"metric": "Capital total levantado en ronda", "preseed": "$250K – $2M", "seed": "$1.5M – $5M (mediana ~$3.1M)", "series_a": "$5M – $20M (mediana ~$11M)"}, {"metric": "Dilución típica por ronda", "preseed": "10–20%", "seed": "15–25% (típico: 20%)", "series_a": "15–20%"}, {"metric": "Tiempo entre rondas (Seed → Serie A)", "preseed": "—", "seed": "~774 días / 2.1 años en Q4 2024 (vs 420 días en 2021)", "series_a": "—"}], "retention": [{"metric": "Churn Mensual (tasa de cancelación)", "preseed": "N/A o aceptable alto", "seed": "5–10% mensual (bajo $1M ARR)", "series_a": "<2–5% mensual (<3% ideal)"}, {"metric": "Churn Anual", "preseed": "", "seed": "~40–70% (etapa temprana)", "series_a": "<10% anual (mediana industria)"}, {"metric": "NRR (Net Revenue Retention)", "preseed": "N/A o primitivo", "seed": ">100% como objetivo; mediana: ~100%", "series_a": "110–120%+ (best-in-class: 120%+)"}, {"metric": "GRR (Gross Revenue Retention)", "preseed": "", "seed": "70–85% aceptable", "series_a": "85–95% bueno; 95–100% best-in-class"}, {"metric": "Retención de clientes", "preseed": "N/A (pocos clientes)", "seed": ">80% (señal de PMF)", "series_a": ">90% (requisito para Serie A)"}, {"metric": "NPS (Net Promoter Score)", "preseed": "N/A o anecdótico", "seed": ">30 como objetivo", "series_a": ">40–50 (PMF confirmado si >40% dicen \"very disappointed\" sin el producto)"}, {"metric": "DAU/MAU ratio (para apps consumer)", "preseed": "", "seed": ">20% como señal", "series_a": ">25–30%"}], "unit_economics": [{"metric": "CAC (Costo de Adquisición de Cliente)", "preseed": "N/A (orgánico)", "seed": "En proceso de medir; CAC promedio SaaS: ~$702", "series_a": "Medido y optimizado; varía por segmento"}, {"metric": "LTV (Lifetime Value)", "preseed": "Estimado/teórico", "seed": "En construcción", "series_a": "LTV claro y en crecimiento"}, {"metric": "LTV/CAC Ratio", "preseed": "N/A (objetivo: >3x)", "seed": "Inicio de medición", "series_a": "3:1 mínimo; 4:1 nuevo estándar; >5:1 best-in-class"}, {"metric": "CAC Payback Period", "preseed": "", "seed": "En construcción", "series_a": "<12 meses (ideal); mediana industria: ~20 meses en 2024"}, {"metric": "Magic Number (eficiencia GTM)", "preseed": "", "seed": "", "series_a": ">1.0x (ideal)"}, {"metric": "Gross Margin", "preseed": "N/A (producto en dev)", "seed": "50–70% (early)", "series_a": "60–80%+ (SaaS: 70–80%+; AI SaaS: 65–75% por costo compute)"}], "market_valuation": [{"metric": "Valuación pre-money mediana", "preseed": "$5.27M (EE. UU., 2025)", "seed": "~$12M (2023–2024); ~$15–20M (AI, 2025)", "series_a": "~$45M–$49.3M (Carta Q3 2025, mediana primaria)"}, {"metric": "Múltiplo ARR (para valuación)", "preseed": "N/A (no hay ARR)", "seed": "10–20x ARR (AI); 5–10x ARR (SaaS trad.)", "series_a": "3x–10x ARR (según industria y crecimiento)"}, {"metric": "TAM mínimo esperado", "preseed": ">$1B (visión)", "seed": ">$1B demostrable", "series_a": ">$1B con SAM definido"}, {"metric": "ARR para calificar a Serie A", "preseed": "—", "seed": "—", "series_a": "$1.5M–$3M+ (nuevo estándar 2025: $3M)"}, {"metric": "ARR para \"excepcionalmente fuerte\" Serie A", "preseed": "—", "seed": "—", "series_a": "$2M–$3M+"}, {"metric": "Valuación Seed (ARR >$250K)", "preseed": "—", "seed": "35% supera los $20M pre-money", "series_a": "—"}, {"metric": "Valuación Seed (pre-revenue)", "preseed": "22% <$5M; 40% entre $5–10M", "seed": "—", "series_a": "—"}], "operating": [{"metric": "Tamaño del equipo (headcount)", "preseed": "1–5 personas (founders + 1–2)", "seed": "5–15 personas", "series_a": "15–30 personas"}, {"metric": "ARR por empleado", "preseed": "", "seed": "En construcción", "series_a": "$80K–$173K (mediana: $129K; públicas: $283K)"}, {"metric": "MVP o producto lanzado", "preseed": "En desarrollo o MVP beta", "seed": "MVP lanzado + beta testers", "series_a": "Producto con tracción y clientes pagantes"}, {"metric": "Tasa de conversión Seed → Serie A", "preseed": "—", "seed": "~20% de startups Seed llegan a Serie A (2025)", "series_a": "—"}, {"metric": "Número de clientes pagantes", "preseed": "1–10 (design partners)", "seed": "10–100", "series_a": "50–500+"}, {"metric": "Duración del ciclo de ventas (B2B)", "preseed": "", "seed": "Semanas–meses", "series_a": "1–6 meses (SMB); 6–12 meses (enterprise)"}, {"metric": "ARR mínimo para \"seed estándar\" 2024", "preseed": "", "seed": "$300K–$500K ARR (nuevo estándar; era $200K en 2023)", "series_a": "—"}]}};
+
+// ── CHART DEFAULTS ──────────────────────────────────────────────────────────
+const NAVY = '#0B1F3A'; const NAVY2 = '#1A3A5F'; const ACCENT = '#1A6FB5';
+const TEAL = '#0D7377'; const GOLD = '#B8882A';
+const COLORS = [TEAL, NAVY, ACCENT, GOLD, '#7C3AED', '#059669', '#D97706', '#DC2626', '#0891B2', '#6D28D9'];
+
+Chart.defaults.font.family = "'Inter', system-ui, sans-serif";
+Chart.defaults.font.size = 12;
+Chart.defaults.color = '#5A7290';
+Chart.defaults.plugins.legend.labels.boxWidth = 12;
+Chart.defaults.plugins.legend.labels.padding = 16;
+
+function gridOpts() {
+  return { color: 'rgba(0,0,0,0.05)', drawBorder: false };
+}
+
+// Returns array: max value gets TEAL, all others get NAVY
+function barColors(data, base, highlight) {
+  base      = base      || NAVY2;
+  highlight = highlight || TEAL;
+  const max = Math.max(...data);
+  return data.map(v => v === max ? highlight : base);
+}
+function barBorders(data, base, highlight) {
+  base      = base      || NAVY;
+  highlight = highlight || TEAL;
+  const max = Math.max(...data);
+  return data.map(v => v === max ? highlight : base);
+}
+
+// ── GLOBAL NAV ──────────────────────────────────────────────────────────────
+function showSection(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.nav-link').forEach(l => {
+    if (l.getAttribute('onclick') && l.getAttribute('onclick').includes("'" + id + "'")) {
+      l.classList.add('active');
+    }
+  });
+  window.scrollTo(0, 0);
+  if (id === 'overview')   initOverviewCharts();
+  if (id === 'market')     initMktCharts('overview');
+  if (id === 'vc')         initVcCharts('summary');
+  if (id === 'studio')     initStudioCharts();
+}
+
+// ── MARKET TAB SWITCH ────────────────────────────────────────────────────────
+function mktTab(id, btn) {
+  document.querySelectorAll('#market .tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('#market-tabs .tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('mkt-' + id).classList.add('active');
+  btn.classList.add('active');
+  initMktCharts(id);
+}
+
+// ── VC TAB SWITCH ────────────────────────────────────────────────────────────
+function vcTab(id, btn) {
+  document.querySelectorAll('#vc .tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('#vc-tabs .tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('vc-' + id).classList.add('active');
+  btn.classList.add('active');
+  initVcCharts(id);
+}
+
+// ── SCORECARD TAB ────────────────────────────────────────────────────────────
+function scTab(id, btn) {
+  document.querySelectorAll('#scorecard .tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('#scorecard .tabs-bar .tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('sc-tab-' + id).classList.add('active');
+  btn.classList.add('active');
+}
+
+// ── CHART REGISTRY (prevent duplicate init) ──────────────────────────────────
+const _charts = {};
+function getOrCreate(id, factory) {
+  if (_charts[id]) { _charts[id].destroy(); delete _charts[id]; }
+  const canvas = document.getElementById(id);
+  if (!canvas) return;
+  _charts[id] = factory(canvas.getContext('2d'));
+}
+
+// ── OVERVIEW CHARTS ──────────────────────────────────────────────────────────
+function initOverviewCharts() {
+  const countries = D.fintech.countries.slice(0,6);
+  const labels = countries.map(c => c.country);
+  const vals = [1000, 850, 330, 285, 210, 100];
+
+  getOrCreate('ov-country-chart', ctx => new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels,
+      datasets: [{ label: 'Investment ($M est.)', data: vals,
+        backgroundColor: barColors(vals),
+        borderColor: barBorders(vals), borderWidth: 1.5, borderRadius: 4 }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: {
+        x: { grid: gridOpts() },
+        y: { grid: gridOpts(), ticks: { callback: v => '$' + v + 'M' } }
+      }
+    }
+  }));
+
+  const stages = ['Pre-Seed (1000)', 'Seed', 'Series A', 'Series B', 'Series C+', 'Exit'];
+  const usVals  = [1000, 400, 15, 6, 3, 1];
+  const laVals  = [1000, 275, 22, 8, 3, 1];
+
+  getOrCreate('ov-funnel-chart', ctx => new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: stages,
+      datasets: [
+        { label: 'US Survivors', data: usVals, backgroundColor: GOLD + 'BB', borderColor: GOLD, borderWidth: 1.5, borderRadius: 4 },
+        { label: 'LATAM Survivors', data: laVals, backgroundColor: TEAL + 'BB', borderColor: TEAL, borderWidth: 1.5, borderRadius: 4 }
+      ]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { position: 'bottom' } },
+      scales: {
+        x: { grid: gridOpts() },
+        y: { grid: gridOpts(), title: { display: true, text: 'Survivors of 1,000' } }
+      }
+    }
+  }));
+}
+
+// ── MARKET CHARTS ────────────────────────────────────────────────────────────
+function initMktCharts(tab) {
+  if (tab === 'overview') {
+    getOrCreate('mkt-country-bar', ctx => new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: ['Brazil','Mexico','Colombia','Argentina','Chile','Peru'],
+        datasets: [{ label: 'Investment ($M est.)',
+          data: [1000, 850, 330, 285, 210, 100],
+          backgroundColor: barColors([1000,850,330,285,210,100]),
+          borderColor: barBorders([1000,850,330,285,210,100]), borderWidth: 1.5, borderRadius: 5 }]
+      },
+      options: { responsive: true, maintainAspectRatio: false,
+        plugins: { legend: { display: false } },
+        scales: { x: { grid: gridOpts() }, y: { grid: gridOpts(), ticks: { callback: v => '$' + v + 'M' } } }
+      }
+    }));
+
+    const subLabels = D.fintech.latam_subsectors.slice(0,8).map(s => s.subsector.substring(0,20));
+    const subVals = [900, 675, 475, 300, 175, 350, 240, 150];
+    getOrCreate('mkt-sub-donut', ctx => new Chart(ctx, {
+      type: 'doughnut',
+      data: { labels: subLabels, datasets: [{ data: subVals,
+        backgroundColor: COLORS.map(c => c + 'CC'), borderWidth: 1 }] },
+      options: { responsive: true, maintainAspectRatio: false,
+        plugins: { legend: { position: 'right', labels: { font: { size: 10 } } } }
+      }
+    }));
+  }
+  if (tab === 'countries') {
+    getOrCreate('mkt-share-donut', ctx => new Chart(ctx, {
+      type: 'doughnut',
+      data: {
+        labels: ['Brazil','Mexico','Colombia','Argentina','Chile','Peru','Uruguay','C. America','Other'],
+        datasets: [{ data: [33, 28, 11, 10, 7, 3.5, 2.5, 3, 2],
+          backgroundColor: COLORS.map(c => c + 'CC'), borderWidth: 1 }]
+      },
+      options: { responsive: true, maintainAspectRatio: false,
+        plugins: { legend: { position: 'right', labels: { font: { size: 11 } } } }
+      }
+    }));
+  }
+  if (tab === 'latam-sub') {
+    const ls = D.fintech.latam_subsectors.slice(0,10);
+    getOrCreate('mkt-latam-sub-bar', ctx => new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: ls.map(s => s.subsector.substring(0,22)),
+        datasets: [{ label: 'Investment ($M est.)',
+          data: [900,675,475,300,175,350,240,150,100,185],
+          backgroundColor: barColors([900,675,475,300,175,350,240,150,100,185]),
+          borderColor: barBorders([900,675,475,300,175,350,240,150,100,185]), borderWidth: 1.5, borderRadius: 4 }]
+      },
+      options: { indexAxis: 'y', responsive: true, maintainAspectRatio: false,
+        plugins: { legend: { display: false } },
+        scales: { x: { grid: gridOpts(), ticks: { callback: v => '$' + v + 'M' } }, y: { grid: gridOpts() } }
+      }
+    }));
+  }
+  if (tab === 'usa') {
+    const us = D.fintech.usa_subsectors.slice(0,10);
+    const usVals = [31.0, 8.5, 5.3, 4.9, 4.7, 4.5, 4.2, 3.8, 3.2, 2.8];
+    getOrCreate('mkt-usa-bar', ctx => new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: us.map(s => s.subsector.substring(0,24)),
+        datasets: [{ label: 'Investment ($B)',
+          data: usVals,
+          backgroundColor: barColors(usVals),
+          borderColor: barBorders(usVals), borderWidth: 1.5, borderRadius: 4 }]
+      },
+      options: { indexAxis: 'y', responsive: true, maintainAspectRatio: false,
+        plugins: { legend: { display: false } },
+        scales: { x: { grid: gridOpts(), ticks: { callback: v => '$' + v + 'B' } }, y: { grid: gridOpts() } }
+      }
+    }));
+  }
+  if (tab === 'compare') {
+    getOrCreate('mkt-compare-radar', ctx => new Chart(ctx, {
+      type: 'radar',
+      data: {
+        labels: ['Investment Volume', 'Deal Count', 'Deal Size', 'Unicorns', 'AI Adoption', 'YoY Growth'],
+        datasets: [
+          { label: 'USA', data: [100, 83, 100, 100, 50, 20], fill: true,
+            backgroundColor: GOLD + '22', borderColor: GOLD, pointBackgroundColor: GOLD },
+          { label: 'LATAM', data: [7, 17, 37, 12, 85, 85], fill: true,
+            backgroundColor: TEAL + '22', borderColor: TEAL, pointBackgroundColor: TEAL }
+        ]
+      },
+      options: { responsive: true, maintainAspectRatio: false,
+        plugins: { legend: { position: 'bottom' } },
+        scales: { r: { grid: { color: 'rgba(0,0,0,0.06)' }, ticks: { display: false }, max: 100 } }
+      }
+    }));
+  }
+  if (tab === 'opps') {
+    getOrCreate('mkt-opp-bubble', ctx => new Chart(ctx, {
+      type: 'bubble',
+      data: {
+        datasets: [
+          { label: 'Payments', data: [{ x: 900, y: 32, r: 20 }], backgroundColor: TEAL + 'CC', borderColor: TEAL },
+          { label: 'Open Banking', data: [{ x: 300, y: 45, r: 14 }], backgroundColor: ACCENT + 'CC', borderColor: ACCENT },
+          { label: 'B2B Finance', data: [{ x: 350, y: 38, r: 15 }], backgroundColor: NAVY2 + 'CC', borderColor: NAVY2 },
+          { label: 'Insurtech', data: [{ x: 175, y: 28, r: 10 }], backgroundColor: '#7C3AED' + 'CC', borderColor: '#7C3AED' },
+          { label: 'Crypto/Stable', data: [{ x: 215, y: 52, r: 12 }], backgroundColor: GOLD + 'CC', borderColor: GOLD },
+          { label: 'Alt Credit Score', data: [{ x: 130, y: 55, r: 11 }], backgroundColor: '#059669' + 'CC', borderColor: '#059669' },
+        ]
+      },
+      options: { responsive: true, maintainAspectRatio: false,
+        plugins: { legend: { position: 'bottom', labels: { font: { size: 11 } } } },
+        scales: {
+          x: { grid: gridOpts(), title: { display: true, text: 'Investment Size ($M)' } },
+          y: { grid: gridOpts(), title: { display: true, text: 'Growth Potential (Index)' } }
+        }
+      }
+    }));
+  }
+}
+
+// ── VC CHARTS ────────────────────────────────────────────────────────────────
+function initVcCharts(tab) {
+  if (tab === 'summary') {
+    getOrCreate('vc-irr-chart', ctx => new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: ['Pre-Seed', 'Seed', 'Series A'],
+        datasets: [
+          { label: 'IRR Target (%)', data: [35, 32.5, 25], backgroundColor: NAVY + 'CC', borderColor: NAVY, borderWidth: 1.5, borderRadius: 4 },
+          { label: 'IRR Median Observed (%)', data: [10, 12.5, 15], backgroundColor: ACCENT + 'CC', borderColor: ACCENT, borderWidth: 1.5, borderRadius: 4 }
+        ]
+      },
+      options: { responsive: true, maintainAspectRatio: false,
+        plugins: { legend: { position: 'bottom' } },
+        scales: {
+          x: { grid: gridOpts() },
+          y: { grid: gridOpts(), ticks: { callback: v => v + '%' } }
+        }
+      }
+    }));
+  }
+  if (tab === 'latam-us') {
+    getOrCreate('vc-compare-chart', ctx => new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: ['IRR Median', 'IRR Top Decile', 'Grad Rate Seed→A'],
+        datasets: [
+          { label: 'US', data: [12, 28, 22.5], backgroundColor: GOLD + 'BB', borderColor: GOLD, borderWidth: 1.5, borderRadius: 4 },
+          { label: 'LATAM', data: [10, 22.5, 12.5], backgroundColor: TEAL + 'BB', borderColor: TEAL, borderWidth: 1.5, borderRadius: 4 }
+        ]
+      },
+      options: { responsive: true, maintainAspectRatio: false,
+        plugins: { legend: { position: 'bottom' } },
+        scales: { x: { grid: gridOpts() }, y: { grid: gridOpts() } }
+      }
+    }));
+  }
+  if (tab === 'valuations') {
+    getOrCreate('vc-val-chart', ctx => new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: ['Seed', 'Series A', 'Series B'],
+        datasets: [
+          { label: 'US SaaS ($M)', data: [19.8, 60, 175], backgroundColor: GOLD + 'BB', borderColor: GOLD, borderWidth: 1.5, borderRadius: 4 },
+          { label: 'LATAM SaaS ($M)', data: [10, 30, 87.5], backgroundColor: TEAL + 'BB', borderColor: TEAL, borderWidth: 1.5, borderRadius: 4 },
+          { label: 'LATAM Fintech ($M)', data: [11, 35, 105], backgroundColor: ACCENT + 'BB', borderColor: ACCENT, borderWidth: 1.5, borderRadius: 4 }
+        ]
+      },
+      options: { responsive: true, maintainAspectRatio: false,
+        plugins: { legend: { position: 'bottom' } },
+        scales: {
+          x: { grid: gridOpts() },
+          y: { grid: gridOpts(), ticks: { callback: v => '$' + v + 'M' } }
+        }
+      }
+    }));
+  }
+  if (tab === 'timing') {
+    const timingData2024 = [15, 25.8, 24.4, 28];
+    const timingData2021 = [9, 14, 10, 15];
+    getOrCreate('vc-timing-chart', ctx => new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: ['Pre-Seed→Seed', 'Seed→Series A', 'A→Series B', 'B→Series C'],
+        datasets: [
+          { label: '2021 (months)', data: timingData2021, backgroundColor: barColors(timingData2021, '#94A3B8', TEAL), borderColor: barBorders(timingData2021, '#64748B', TEAL), borderWidth: 1.5, borderRadius: 4 },
+          { label: '2024 (months)', data: timingData2024, backgroundColor: barColors(timingData2024), borderColor: barBorders(timingData2024), borderWidth: 1.5, borderRadius: 4 }
+        ]
+      },
+      options: { responsive: true, maintainAspectRatio: false,
+        plugins: { legend: { position: 'bottom' } },
+        scales: {
+          x: { grid: gridOpts() },
+          y: { grid: gridOpts(), title: { display: true, text: 'Months' } }
+        }
+      }
+    }));
+  }
+  if (tab === 'graduation') {
+    getOrCreate('vc-grad-chart', ctx => new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: ['Pre-Seed', 'Seed', 'Series A', 'Series B', 'Series C+', 'Exit'],
+        datasets: [
+          { label: 'US Survivors', data: [1000, 400, 15, 6, 3, 1], backgroundColor: GOLD + 'BB', borderColor: GOLD, borderWidth: 1.5, borderRadius: 4 },
+          { label: 'LATAM Survivors', data: [1000, 275, 22, 8, 3, 1], backgroundColor: TEAL + 'BB', borderColor: TEAL, borderWidth: 1.5, borderRadius: 4 }
+        ]
+      },
+      options: { responsive: true, maintainAspectRatio: false,
+        plugins: { legend: { position: 'bottom' } },
+        scales: {
+          x: { grid: gridOpts() },
+          y: { grid: gridOpts(), title: { display: true, text: 'Survivors of 1,000' } }
+        }
+      }
+    }));
+  }
+}
+
+// ── STUDIO CHARTS ─────────────────────────────────────────────────────────────
+function initStudioCharts() {
+  getOrCreate('studio-returns-chart', ctx => new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['Target Gross MOIC', 'Target Net MOIC', 'Gross IRR (%)', 'Net IRR (%)'],
+      datasets: [
+        { label: 'Early Studio', data: [4, 3, 25, 20], backgroundColor: TEAL + 'BB', borderColor: TEAL, borderWidth: 1.5, borderRadius: 4 },
+        { label: 'Mature Studio', data: [7.5, 5, 32.5, 27.5], backgroundColor: NAVY + 'BB', borderColor: NAVY, borderWidth: 1.5, borderRadius: 4 }
+      ]
+    },
+    options: { responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { position: 'bottom' } },
+      scales: { x: { grid: gridOpts() }, y: { grid: gridOpts() } }
+    }
+  }));
+}
+
+// ── SCORECARD LOGIC (preserved) ───────────────────────────────────────────────
+function scScore(val, latamMed, latamTop, max) {
+  const [lmLo, lmHi] = latamMed;
+  const [ltLo, ltHi] = latamTop;
+  const lmMid = (lmLo + lmHi) / 2;
+  const ltMid = (ltLo + ltHi) / 2;
+  if (val >= ltMid) return max;
+  if (val >= lmMid) return Math.round(max * 0.7 + (val - lmMid) / (ltMid - lmMid) * max * 0.3);
+  if (val >= lmLo)  return Math.round(max * 0.4 + (val - lmLo) / (lmMid - lmLo) * max * 0.3);
+  return Math.max(0, Math.round(max * 0.4 * (val / lmLo)));
+}
+
+function scScoreBurn(val, max) {
+  if (val <= 1.5) return max;
+  if (val <= 2.0) return Math.round(max * 0.75);
+  if (val <= 2.5) return Math.round(max * 0.5);
+  if (val <= 3.5) return Math.round(max * 0.25);
+  return 0;
+}
+
+function scStatusClass(pct) {
+  if (pct >= 0.75) return 'status-green';
+  if (pct >= 0.45) return 'status-yellow';
+  return 'status-red';
+}
+function scStatusLabel(pct) {
+  if (pct >= 0.75) return '✓ Fuerte';
+  if (pct >= 0.45) return '~ Aceptable';
+  return '✗ Bajo';
+}
+
+function scRenderMetrics(id, rows) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.innerHTML = rows.map(r => `
+    <div class="metric-row">
+      <div><div class="metric-name">${r.name}</div><div class="metric-sub">${r.sub||''}</div></div>
+      <div class="metric-val" style="color:var(--muted)">${r.latamMed}</div>
+      <div class="metric-val" style="color:var(--teal)">${r.latamTop}</div>
+      <div class="metric-val" style="color:var(--navy); font-weight:600">${r.yours}</div>
+      <div style="text-align:center"><span class="status ${r.cls}">${r.lbl}</span></div>
+    </div>
+  `).join('');
+}
+
+function scRecalc() {
+  const arr    = parseFloat(document.getElementById('inp-arr').value) || 0;
+  const mom    = parseFloat(document.getElementById('inp-mom').value) || 0;
+  const nrr    = parseFloat(document.getElementById('inp-nrr').value) || 0;
+  const burn   = parseFloat(document.getElementById('inp-burn').value) || 0;
+  const ltvcac = parseFloat(document.getElementById('inp-ltvcac').value) || 0;
+  const margin = parseFloat(document.getElementById('inp-margin').value) || 0;
+  const team   = parseFloat(document.getElementById('inp-team').value) || 0;
+  const tam    = parseFloat(document.getElementById('inp-tam').value) || 0;
+  const runway = parseFloat(document.getElementById('inp-runway').value) || 0;
+  const stage  = document.getElementById('inp-stage').value;
+
+  const arrBench = { preseed: [0, 100000], seed: [100000, 1000000], seriea: [1500000, 3000000] };
+  const arrLM = arrBench[stage];
+
+  const sGrowth   = scScore(mom, [8, 15], [20, 30], 15) + scScore(arr, arrLM, [arrLM[1], arrLM[1]*2], 10);
+  const sRetention = scScore(nrr, [90, 110], [110, 130], 20);
+  const sBurn     = scScoreBurn(burn, 10) + scScore(margin, [55, 65], [65, 75], 6) + scScore(runway, [12, 15], [15, 24], 4);
+  const sUnitEcon = scScore(ltvcac, [2.5, 3.5], [3.0, 4.5], 15);
+  const sTeam     = Math.round((team / 10) * 10);
+  const sMkt      = scScore(tam, [1000, 2000], [2000, 5000], 10);
+  const total     = Math.min(100, sGrowth + sRetention + sBurn + sUnitEcon + sTeam + sMkt);
+
+  document.getElementById('score-total').textContent = total;
+  const ring    = document.getElementById('score-ring');
+  const verdict = document.getElementById('score-verdict');
+  const label   = document.getElementById('score-label');
+  const desc    = document.getElementById('score-desc');
+  const num     = document.getElementById('score-total');
+
+  if (total >= 70) {
+    label.textContent = 'Candidato Fuerte';
+    desc.textContent  = 'El perfil supera la mediana LATAM en la mayoría de dimensiones. Recomendar avanzar a due diligence.';
+    verdict.textContent = 'Avanzar a DD';
+    verdict.className = 'score-verdict-badge verdict-strong';
+    ring.style.borderColor = 'var(--green)'; num.style.color = 'var(--green)';
+  } else if (total >= 50) {
+    label.textContent = 'Watchlist — Potencial Condicional';
+    desc.textContent  = 'Algunas dimensiones clave están por debajo del benchmark. Requiere más tracción.';
+    verdict.textContent = 'Watchlist';
+    verdict.className = 'score-verdict-badge verdict-watch';
+    ring.style.borderColor = 'var(--amber)'; num.style.color = 'var(--amber)';
+  } else {
+    label.textContent = 'No califica en este ciclo';
+    desc.textContent  = 'El perfil actual está por debajo de los umbrales mínimos. Re-evaluar en 6–12 meses.';
+    verdict.textContent = 'Pasar';
+    verdict.className = 'score-verdict-badge verdict-pass';
+    ring.style.borderColor = 'var(--red)'; num.style.color = 'var(--red)';
+  }
+
+  document.getElementById('growth-pill').textContent = sGrowth + ' / 25 pts';
+  document.getElementById('eff-pill').textContent    = sBurn + ' / 20 pts';
+  document.getElementById('ret-pill').textContent    = sRetention + ' / 20 pts';
+  document.getElementById('val-pill').textContent    = (sUnitEcon + sTeam + sMkt) + ' / 35 pts';
+
+  const arrFmt = arr >= 1e6 ? '$'+(arr/1e6).toFixed(1)+'M' : arr >= 1000 ? '$'+(arr/1000).toFixed(0)+'K' : '$'+arr;
+  const arrLMFmt = arrLM[0] >= 1e6 ? '$'+(arrLM[0]/1e6).toFixed(1)+'–'+(arrLM[1]/1e6).toFixed(1)+'M'
+                                    : '$'+(arrLM[0]/1000).toFixed(0)+'–'+(arrLM[1]/1000).toFixed(0)+'K';
+  const momPct = mom >= 20 ? 1 : mom >= 8 ? 0.65 : 0.25;
+  const arrPct = arr >= arrLM[1] ? 1 : arr >= arrLM[0] ? 0.65 : 0.3;
+
+  scRenderMetrics('growth-metrics', [
+    { name:'MoM Growth Rate', sub:'Crecimiento mensual MRR', latamMed:'8–15%', latamTop:'20–30%', yours:mom+'%', cls:scStatusClass(momPct), lbl:scStatusLabel(momPct) },
+    { name:'ARR actual', sub:'Benchmark para etapa '+stage, latamMed:arrLMFmt, latamTop:'>'+arrLMFmt.split('–')[1], yours:arrFmt, cls:scStatusClass(arrPct), lbl:scStatusLabel(arrPct) },
+    { name:'ARR YoY est.', sub:'Si MoM se mantiene', latamMed:'55–75%', latamTop:'100–150%', yours:'~'+Math.round((Math.pow(1+mom/100,12)-1)*100)+'%', cls:scStatusClass(mom>=15?0.8:mom>=8?0.55:0.25), lbl:scStatusLabel(mom>=15?0.8:mom>=8?0.55:0.25) }
+  ]);
+  const burnPct = burn<=1.5?1:burn<=2?0.75:burn<=2.5?0.5:0.2;
+  const mrgPct  = margin>=65?1:margin>=55?0.65:0.3;
+  const rnwPct  = runway>=18?1:runway>=12?0.65:0.25;
+  scRenderMetrics('eff-metrics', [
+    { name:'Burn Multiple', sub:'Menor es mejor', latamMed:'2.0–2.5×', latamTop:'<1.5×', yours:burn.toFixed(1)+'×', cls:scStatusClass(burnPct), lbl:scStatusLabel(burnPct) },
+    { name:'Gross Margin', sub:'Margen bruto', latamMed:'55–65%', latamTop:'65–75%', yours:margin+'%', cls:scStatusClass(mrgPct), lbl:scStatusLabel(mrgPct) },
+    { name:'Runway', sub:'Meses disponibles', latamMed:'12–15m', latamTop:'15–18m', yours:runway+'m', cls:scStatusClass(rnwPct), lbl:scStatusLabel(rnwPct) }
+  ]);
+  const nrrPct = nrr>=120?1:nrr>=100?0.75:nrr>=90?0.5:0.25;
+  const ltvPct = ltvcac>=4?1:ltvcac>=3?0.75:ltvcac>=2.5?0.5:0.2;
+  scRenderMetrics('ret-metrics', [
+    { name:'NRR', sub:'Net Revenue Retention', latamMed:'90–110%', latamTop:'>120%', yours:nrr+'%', cls:scStatusClass(nrrPct), lbl:scStatusLabel(nrrPct) },
+    { name:'Logo Retention est.', sub:'Derivada de NRR', latamMed:'60–75%', latamTop:'>80%', yours:nrr>=110?'>85%':nrr>=100?'75–85%':'<75%', cls:scStatusClass(nrr>=110?0.9:nrr>=100?0.65:0.35), lbl:scStatusLabel(nrr>=110?0.9:nrr>=100?0.65:0.35) }
+  ]);
+  scRenderMetrics('val-metrics', [
+    { name:'LTV:CAC', sub:'Mínimo 3:1', latamMed:'2.5–3.5:1', latamTop:'3–4.5:1', yours:ltvcac.toFixed(1)+':1', cls:scStatusClass(ltvPct), lbl:scStatusLabel(ltvPct) },
+    { name:'TAM', sub:'Mercado total (USD)', latamMed:'>$1B', latamTop:'>$2B', yours:'$'+(tam>=1000?(tam/1000).toFixed(1)+'B':tam+'M'), cls:scStatusClass(tam>=2000?1:tam>=1000?0.7:0.3), lbl:scStatusLabel(tam>=2000?1:tam>=1000?0.7:0.3) },
+    { name:'Equipo', sub:'Score 1–10 subjetivo', latamMed:'5–7', latamTop:'8–10', yours:team+'/10', cls:scStatusClass(team>=8?1:team>=6?0.65:0.3), lbl:scStatusLabel(team>=8?1:team>=6?0.65:0.3) }
+  ]);
+}
+
+// ── INIT ─────────────────────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+  initOverviewCharts();
+  scRecalc();
+});
+</script>
+
+</body>
+</html>
